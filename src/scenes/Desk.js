@@ -15,11 +15,11 @@ class Desk extends Phaser.Scene {
     }
     
     create() {
-        let bg = this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(1.1);
+        let bg = this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(1.1).setPipeline('Light2D');
         bg.scaleX = 1.39;
 
-        let lamp = this.physics.add.sprite(400, 135, 'lamp').setOrigin(0, 0).setScale(0.13);
-        let journal = this.physics.add.sprite(125, 350, 'journal').setOrigin(0, 0).setScale(0.7);
+        let lamp = this.physics.add.sprite(400, 135, 'lamp').setOrigin(0, 0).setScale(0.13).setPipeline('Light2D');
+        let journal = this.physics.add.sprite(125, 350, 'journal').setOrigin(0, 0).setScale(0.7).setPipeline('Light2D');
         journal.visible = true;
 
         journal.setInteractive({
@@ -53,13 +53,16 @@ class Desk extends Phaser.Scene {
 
         // lamp interactive stuff
         lamp.setInteractive({
-            draggable: false,
+            draggable: true,
             useHandCursor: true
         });
         this.input.on('drag', function (pointer, lamp, dragX, dragY) {
             lamp.x = dragX;
             lamp.y = dragY;
         });
+        let light = this.lights.addLight(485, 200, 5000, '0xFFFCBB').setIntensity(1.7);
+        this.lights.enable();   // allows for dynamic lighting in the scene
+        this.lights.setAmbientColor('0xA3A3A3');    // sets the scene's overall light (0x000000) == black/darkness
 
     }
 
