@@ -5,10 +5,12 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: false
+            debug: true
         }
     },
     scene: [Desk],
 }
 
 let game = new Phaser.Game(config);
+
+let journalOpen = false;

@@ -11,6 +11,7 @@ class Desk extends Phaser.Scene {
         // Journal
         this.load.image("journal", './assets/journalCover.png');
         this.load.image("journalOpen", './assets/journal1-2.png');
+        this.load.image("close", './assets/closeButton.png');
     }
     
     create() {
@@ -19,7 +20,8 @@ class Desk extends Phaser.Scene {
 
         let lamp = this.physics.add.sprite(400, 135, 'lamp').setOrigin(0, 0).setScale(0.13);
         let journal = this.physics.add.sprite(125, 350, 'journal').setOrigin(0, 0).setScale(0.7);
-        
+        journal.visible = true;
+
         journal.setInteractive({
             draggable: true,
             useHandCursor: true
@@ -33,16 +35,6 @@ class Desk extends Phaser.Scene {
             journal.x = dragX;
             journal.y = dragY;
         });
-
-        lamp.setInteractive({
-            draggable: false,
-            useHandCursor: true
-        });
-        this.input.on('drag', function (pointer, lamp, dragX, dragY) {
-            lamp.x = dragX;
-            lamp.y = dragY;
-        });
-
         // double click logic https://phaser.discourse.group/t/double-tap/3051
         // modified with the TheyAreListening code example from class
         let lastTime = 0;
@@ -52,14 +44,53 @@ class Desk extends Phaser.Scene {
             if(clickDelay < 350) {
                 console.log(`Pointer double clicked on '${gameObject.texture.key}'`);
                 if(gameObject.texture.key == 'journal') {
-                    console.log('open journal');
+                    this.openJournal();
+                    // journal.alpha = 0;
+                    journalOpen = true;
                 }
             }
         });
 
-        // **from TheyAreListening code example**
-        // this.input.on('gameobjectdown', (pointer, gameObject, event) => {
-        //     console.log(`Pointer clicked on '${gameObject.texture.key}'`);
-        // });
+        // lamp interactive stuff
+        lamp.setInteractive({
+            draggable: false,
+            useHandCursor: true
+        });
+        this.input.on('drag', function (pointer, lamp, dragX, dragY) {
+            lamp.x = dragX;
+            lamp.y = dragY;
+        });
+
+    }
+
+    update() {
+
+    }
+
+    openJournal() {
+        console.log('open journal');
+        let journal2 = this.physics.add.sprite(0, 0, 'journalOpen').setOrigin(0);
+        let jw = (journal2.width) - 15;
+        let jh = (-journal2.height/2) + 142;
+        let closeButton = this.physics.add.sprite(jw, jh, 'close').setScale(0.8);
+        closeButton.setInteractive({
+            useHandCursor: true
+        });
+
+        let journalContainer = this.add.container(100, 10, [journal2, closeButton]);
+        journalContainer.setDepth(5);
+        journalContainer.setScale(2.3);
+        journalContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, journal2.width, journal2.height), Phaser.Geom.Rectangle.Contains);
+        this.input.setDraggable(journalContainer);
+
+        journalContainer.on('drag', function(pointer, dragX, dragY) {
+            this.x = dragX;
+            this.y = dragY;
+        })
+
+        closeButton.on('pointerup', () => {
+            journalContainer.destroy();
+            journalOpen = false;
+        })
     }
 }
