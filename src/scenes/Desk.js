@@ -79,11 +79,14 @@ class Desk extends Phaser.Scene {
         this.lights.setAmbientColor('0xA3A3A3');    // sets the scene's overall light (0x000000) == black/darkness
     
         // just saying what you can do
-        this.add.text(500, 400, "double click journal and lamp, drag journal");
+        this.add.text(500, 400, "double click journal and lamp, drag journal\nSpace to go back to menu");
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }
 
     update() {
-
+        if(Phaser.Input.Keyboard.JustDown(keySPACE)) {
+            this.scene.start('menuscene');
+        }
     }
 
     openJournal() {
