@@ -35,6 +35,17 @@ class Desk extends Phaser.Scene {
             journal.x = dragX;
             journal.y = dragY;
         });
+
+        // lamp interactive stuff
+        lamp.setInteractive({
+            draggable: false,
+            useHandCursor: true
+        });
+        this.input.on('drag', function (pointer, lamp, dragX, dragY) {
+            lamp.x = dragX;
+            lamp.y = dragY;
+        });
+        
         // double click logic https://phaser.discourse.group/t/double-tap/3051
         // modified with the TheyAreListening code example from class
         let lastTime = 0;
@@ -48,22 +59,24 @@ class Desk extends Phaser.Scene {
                     // journal.alpha = 0;
                     journalOpen = true;
                 }
+                if(gameObject.texture.key == 'lamp') {
+                    if(lightOn) {
+                        lightOn = false;
+                        light.setIntensity(0);
+                        console.log('light off');
+                    }
+                    else {
+                        lightOn = true;
+                        light.setIntensity(1.7);
+                        console.log('light on');
+                    }
+                }
             }
         });
 
-        // lamp interactive stuff
-        lamp.setInteractive({
-            draggable: true,
-            useHandCursor: true
-        });
-        this.input.on('drag', function (pointer, lamp, dragX, dragY) {
-            lamp.x = dragX;
-            lamp.y = dragY;
-        });
         let light = this.lights.addLight(485, 200, 5000, '0xFFFCBB').setIntensity(1.7);
         this.lights.enable();   // allows for dynamic lighting in the scene
         this.lights.setAmbientColor('0xA3A3A3');    // sets the scene's overall light (0x000000) == black/darkness
-
     }
 
     update() {
@@ -96,4 +109,17 @@ class Desk extends Phaser.Scene {
             journalOpen = false;
         })
     }
+
+    // checkLight(light) {
+    //     if(lightOn) {
+    //         lightOn = false;
+    //         //light.setIntensity(0);
+    //         console.log('light off');
+    //     }
+    //     else {
+    //         lightOn = true;
+    //         //light.setIntensity(1.7);
+    //         console.log('light on');
+    //     }
+    // }
 }

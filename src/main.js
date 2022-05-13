@@ -14,3 +14,4 @@ let config = {
 let game = new Phaser.Game(config);
 
 let journalOpen = false;
+let lightOn = true;
