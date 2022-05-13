@@ -1,6 +1,6 @@
 class Desk extends Phaser.Scene {
     constructor() {
-        super("desk");
+        super("deskscene");
     }
 
     preload() {
@@ -77,6 +77,9 @@ class Desk extends Phaser.Scene {
         let light = this.lights.addLight(485, 200, 5000, '0xFFFCBB').setIntensity(1.7);
         this.lights.enable();   // allows for dynamic lighting in the scene
         this.lights.setAmbientColor('0xA3A3A3');    // sets the scene's overall light (0x000000) == black/darkness
+    
+        // just saying what you can do
+        this.add.text(500, 400, "double click journal and lamp, drag journal");
     }
 
     update() {
@@ -109,17 +112,4 @@ class Desk extends Phaser.Scene {
             journalOpen = false;
         })
     }
-
-    // checkLight(light) {
-    //     if(lightOn) {
-    //         lightOn = false;
-    //         //light.setIntensity(0);
-    //         console.log('light off');
-    //     }
-    //     else {
-    //         lightOn = true;
-    //         //light.setIntensity(1.7);
-    //         console.log('light on');
-    //     }
-    // }
 }

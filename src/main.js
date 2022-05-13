@@ -8,10 +8,12 @@ let config = {
             debug: false
         }
     },
-    scene: [Desk],
+    scene: [Menu, Desk],
 }
 
 let game = new Phaser.Game(config);
 
 let journalOpen = false;
 let lightOn = true;
+
+let keySPACE;
