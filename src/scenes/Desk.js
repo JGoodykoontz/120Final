@@ -12,6 +12,8 @@ class Desk extends Phaser.Scene {
         this.load.image("journal", './assets/journalCover.png');
         this.load.image("journalOpen", './assets/journal1-2.png');
         this.load.image("close", './assets/closeButton.png');
+
+        this.load.audio("openTemp", './assets/open.wav');
     }
     
     create() {
@@ -29,7 +31,7 @@ class Desk extends Phaser.Scene {
         //this.input.setDraggable(journal);
         // https://phaser.discourse.group/t/drag-vs-click-detection/4955/2
         // the pointer has to move 16 pixels before it's considered as a drag
-        this.input.dragDistanceThreshold = 16;
+        // this.input.dragDistanceThreshold = 16; (not sure if needed)
         // need pointer for mouse coordinates to drag
         this.input.on('drag', function (pointer, journal, dragX, dragY) {
             journal.x = dragX;
@@ -58,6 +60,7 @@ class Desk extends Phaser.Scene {
                     this.openJournal();
                     // journal.alpha = 0;
                     journalOpen = true;
+                    this.sound.play("openTemp");
                 }
                 if(gameObject.texture.key == 'lamp') {
                     if(lightOn) {
@@ -91,15 +94,16 @@ class Desk extends Phaser.Scene {
 
     openJournal() {
         console.log('open journal');
-        let journal2 = this.physics.add.sprite(0, 0, 'journalOpen').setOrigin(0);
+        let journal2 = this.add.sprite(0, 0, 'journalOpen').setOrigin(0);
         let jw = (journal2.width) - 15;
         let jh = (-journal2.height/2) + 142;
         let closeButton = this.physics.add.sprite(jw, jh, 'close').setScale(0.8);
         closeButton.setInteractive({
             useHandCursor: true
         });
+        let page1 = this.add.text(100, 100, 'page 1 stuff here').setScale(0.5);
 
-        let journalContainer = this.add.container(100, 10, [journal2, closeButton]);
+        let journalContainer = this.add.container(100, 10, [journal2, closeButton, page1]);
         journalContainer.setDepth(5);
         journalContainer.setScale(2.3);
         journalContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, journal2.width, journal2.height), Phaser.Geom.Rectangle.Contains);
