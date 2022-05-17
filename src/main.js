@@ -15,6 +15,7 @@ let game = new Phaser.Game(config);
 
 let journalOpen = false;
 let lightOn = true;
+let whichPuzzle = 1;
 
 let keySPACE;
 

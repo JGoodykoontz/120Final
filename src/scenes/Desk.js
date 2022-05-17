@@ -14,9 +14,12 @@ class Desk extends Phaser.Scene {
         this.load.image("close", './assets/closeButton.png');
 
         this.load.audio("openTemp", './assets/open.wav');
+
+        this.load.json("journalData", './assets/journal.json');
     }
     
     create() {
+        let data = this.cache.json.get('journalData');
         let bg = this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(1.1).setPipeline('Light2D');
         bg.scaleX = 1.39;
 
@@ -82,7 +85,7 @@ class Desk extends Phaser.Scene {
         this.lights.setAmbientColor('0xA3A3A3');    // sets the scene's overall light (0x000000) == black/darkness
     
         // just saying what you can do
-        this.add.text(500, 400, "double click journal and lamp, drag journal\nSpace to go back to menu");
+        this.add.text(500, 400, "double click journal and lamp, drag journal\nSpace to go back to menu\n" + data.Puzzle.One.Page12.Left);
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }
 
@@ -93,6 +96,8 @@ class Desk extends Phaser.Scene {
     }
 
     openJournal() {
+        let data2 = this.cache.json.get('journalData');
+        
         console.log('open journal');
         let journal2 = this.add.sprite(0, 0, 'journalOpen').setOrigin(0);
         let jw = (journal2.width) - 15;
@@ -101,13 +106,15 @@ class Desk extends Phaser.Scene {
         closeButton.setInteractive({
             useHandCursor: true
         });
-        let page1 = this.add.text(20, 30, 'page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here '+
-        'page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here '+
-        'page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here ', journalConfig).setScale(0.5);
+        // let page1 = this.add.text(20, 30, 'page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here '+
+        // 'page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here '+
+        // 'page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here ', journalConfig).setScale(0.5);
+        // let page2 = this.add.text(205, 30, 'page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here ' +
+        // 'page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here ' +
+        // 'page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here ', journalConfig).setScale(0.5);
 
-        let page2 = this.add.text(205, 30, 'page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here ' +
-        'page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here ' +
-        'page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here ', journalConfig).setScale(0.5);
+        let page1 = this.add.text(20, 30, data2.Puzzle.One.Page12.Left, journalConfig).setScale(0.5);
+        let page2 = this.add.text(205, 30, data2.Puzzle.One.Page12.Right, journalConfig).setScale(0.5);
 
         let journalContainer = this.add.container(100, 10, [journal2, closeButton, page1, page2]);
         journalContainer.setDepth(5);

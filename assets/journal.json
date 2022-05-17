@@ -1,0 +1,70 @@
+{
+    "Puzzle": {
+        "One": {
+            "Page12": {
+                "Left": "PAGE 1 HERE",
+                "Right": "PAGE 2 HERE",
+                "Turn": [ 
+                    {
+                        "Text": "Next",
+                        "Target": "Page34"
+                    }
+                ]
+            },
+            "Page34": {
+                "Left": "PAGE 3 HERE",
+                "Right": "PAGE 4 HERE",
+                "Turn": [ 
+                    {
+                        "Text": "Prev",
+                        "Target": "Page12"
+                    }
+                ]
+            }
+        },
+        "Two": {
+            "Page12": {
+                "Left": "PAGE 1 HERE puzzle 2",
+                "Right": "PAGE 2 HERE puzzle 2",
+                "Turn": [ 
+                    {
+                        "Text": "Next",
+                        "Target": "Page34"
+                    }
+                ]
+            },
+            "Page34": {
+                "Left": "PAGE 3 HERE puzzle 2",
+                "Right": "PAGE 4 HERE puzzle 2",
+                "Turn": [ 
+                    {
+                        "Text": "Prev",
+                        "Target": "Page12"
+                    }
+                ]
+            }
+        },
+        "Three": {
+            "Page12": {
+                "Left": "PAGE 1 HERE 333333",
+                "Right": "PAGE 2 HERE 333333",
+                "Turn": [ 
+                    {
+                        "Text": "Next",
+                        "Target": "Page34"
+                    }
+                ]
+            },
+            "Page34": {
+                "Left": "PAGE 3 HERE 333333",
+                "Right": "PAGE 4 HERE 333333",
+                "Turn": [ 
+                    {
+                        "Text": "Prev",
+                        "Target": "Page12"
+                    }
+                ]
+            }
+        }
+    }
+}
