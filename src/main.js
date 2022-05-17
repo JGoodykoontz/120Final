@@ -17,3 +17,14 @@ let journalOpen = false;
 let lightOn = true;
 
 let keySPACE;
+
+let journalConfig = {
+    fontFamily: 'Bahnschrift Light',
+    //fontFamily: 'Century Gothic',
+    fontSize: '16px',
+    color: '#000000',
+    align: 'left',
+    wordWrap: {
+        width: 300
+    }
+}

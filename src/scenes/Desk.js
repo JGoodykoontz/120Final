@@ -101,9 +101,15 @@ class Desk extends Phaser.Scene {
         closeButton.setInteractive({
             useHandCursor: true
         });
-        let page1 = this.add.text(100, 100, 'page 1 stuff here').setScale(0.5);
+        let page1 = this.add.text(20, 30, 'page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here '+
+        'page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here '+
+        'page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here ', journalConfig).setScale(0.5);
 
-        let journalContainer = this.add.container(100, 10, [journal2, closeButton, page1]);
+        let page2 = this.add.text(205, 30, 'page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here ' +
+        'page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here ' +
+        'page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here ', journalConfig).setScale(0.5);
+
+        let journalContainer = this.add.container(100, 10, [journal2, closeButton, page1, page2]);
         journalContainer.setDepth(5);
         journalContainer.setScale(2.3);
         journalContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, journal2.width, journal2.height), Phaser.Geom.Rectangle.Contains);
