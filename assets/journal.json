@@ -1,6 +1,7 @@
 {
     "Puzzle": {
         "One": {
+            "Title": "Puzzle One",
             "Page12": {
                 "Left": "PAGE 1 HERE",
                 "Right": "PAGE 2 HERE",
@@ -23,6 +24,7 @@
             }
         },
         "Two": {
+            "Title": "Puzzle Two",
             "Page12": {
                 "Left": "PAGE 1 HERE puzzle 2",
                 "Right": "PAGE 2 HERE puzzle 2",
@@ -45,6 +47,7 @@
             }
         },
         "Three": {
+            "Title": "Puzzle Three",
             "Page12": {
                 "Left": "PAGE 1 HERE 333333",
                 "Right": "PAGE 2 HERE 333333",

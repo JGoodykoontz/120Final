@@ -96,40 +96,69 @@ class Desk extends Phaser.Scene {
     }
 
     openJournal() {
-        let data2 = this.cache.json.get('journalData');
-        
-        console.log('open journal');
-        let journal2 = this.add.sprite(0, 0, 'journalOpen').setOrigin(0);
-        let jw = (journal2.width) - 15;
-        let jh = (-journal2.height/2) + 142;
-        let closeButton = this.physics.add.sprite(jw, jh, 'close').setScale(0.8);
-        closeButton.setInteractive({
-            useHandCursor: true
-        });
-        // let page1 = this.add.text(20, 30, 'page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here '+
-        // 'page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here '+
-        // 'page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here page 1 stuff here ', journalConfig).setScale(0.5);
-        // let page2 = this.add.text(205, 30, 'page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here ' +
-        // 'page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here ' +
-        // 'page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here page 2 stuff here ', journalConfig).setScale(0.5);
+        if(whichPuzzle == 1) {
+            let data2 = this.cache.json.get('journalData');
+            
+            console.log('open journal');
+            let journal2 = this.add.sprite(0, 0, 'journalOpen').setOrigin(0);
+            let jw = (journal2.width) - 15;
+            let jh = (-journal2.height/2) + 142;
+            let closeButton = this.physics.add.sprite(jw, jh, 'close').setScale(0.8);
+            closeButton.setInteractive({
+                useHandCursor: true
+            });
 
-        let page1 = this.add.text(20, 30, data2.Puzzle.One.Page12.Left, journalConfig).setScale(0.5);
-        let page2 = this.add.text(205, 30, data2.Puzzle.One.Page12.Right, journalConfig).setScale(0.5);
+            let puzzleName = this.add.text(20, 10, data2.Puzzle.One.Title, journalConfig).setScale(0.6);
+            let page1 = this.add.text(20, 30, data2.Puzzle.One.Page12.Left, journalConfig).setScale(0.5);
+            let page2 = this.add.text(205, 30, data2.Puzzle.One.Page12.Right, journalConfig).setScale(0.5);
 
-        let journalContainer = this.add.container(100, 10, [journal2, closeButton, page1, page2]);
-        journalContainer.setDepth(5);
-        journalContainer.setScale(2.3);
-        journalContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, journal2.width, journal2.height), Phaser.Geom.Rectangle.Contains);
-        this.input.setDraggable(journalContainer);
+            let journalContainer = this.add.container(100, 10, [journal2, closeButton, puzzleName, page1, page2]);
+            journalContainer.setDepth(5);
+            journalContainer.setScale(2.3);
+            journalContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, journal2.width, journal2.height), Phaser.Geom.Rectangle.Contains);
+            this.input.setDraggable(journalContainer);
 
-        journalContainer.on('drag', function(pointer, dragX, dragY) {
-            this.x = dragX;
-            this.y = dragY;
-        })
+            journalContainer.on('drag', function(pointer, dragX, dragY) {
+                this.x = dragX;
+                this.y = dragY;
+            })
 
-        closeButton.on('pointerup', () => {
-            journalContainer.destroy();
-            journalOpen = false;
-        })
+            closeButton.on('pointerup', () => {
+                journalContainer.destroy();
+                journalOpen = false;
+            })
+        }
+        else if(whichPuzzle == 2) {
+            let data2 = this.cache.json.get('journalData');
+            
+            console.log('open journal');
+            let journal2 = this.add.sprite(0, 0, 'journalOpen').setOrigin(0);
+            let jw = (journal2.width) - 15;
+            let jh = (-journal2.height/2) + 142;
+            let closeButton = this.physics.add.sprite(jw, jh, 'close').setScale(0.8);
+            closeButton.setInteractive({
+                useHandCursor: true
+            });
+
+            let puzzleName = this.add.text(20, 10, data2.Puzzle.Two.Title, journalConfig).setScale(0.6);
+            let page1 = this.add.text(20, 30, data2.Puzzle.Two.Page12.Left, journalConfig).setScale(0.5);
+            let page2 = this.add.text(205, 30, data2.Puzzle.Two.Page12.Right, journalConfig).setScale(0.5);
+
+            let journalContainer = this.add.container(100, 10, [journal2, closeButton, puzzleName, page1, page2]);
+            journalContainer.setDepth(5);
+            journalContainer.setScale(2.3);
+            journalContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, journal2.width, journal2.height), Phaser.Geom.Rectangle.Contains);
+            this.input.setDraggable(journalContainer);
+
+            journalContainer.on('drag', function(pointer, dragX, dragY) {
+                this.x = dragX;
+                this.y = dragY;
+            })
+
+            closeButton.on('pointerup', () => {
+                journalContainer.destroy();
+                journalOpen = false;
+            })
+        }
     }
 }
