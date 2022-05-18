@@ -19,7 +19,7 @@ class Desk extends Phaser.Scene {
     }
     
     create() {
-        let data = this.cache.json.get('journalData');
+        // let data = this.cache.json.get('journalData');
         let bg = this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(1.1).setPipeline('Light2D');
         bg.scaleX = 1.39;
 
@@ -50,7 +50,79 @@ class Desk extends Phaser.Scene {
             lamp.x = dragX;
             lamp.y = dragY;
         });
+
         
+        let data = this.cache.json.get('journalData');
+        if(whichPage == 0) {
+            content1 = data.Puzzle.One.Page12.Left;
+            content2 = data.Puzzle.One.Page12.Right;
+            whichPage = 1;
+        }
+        console.log('open journal');
+        let journal2 = this.add.sprite(0, 0, 'journalOpen').setOrigin(0);
+        let jw = (journal2.width) - 15;
+        let jh = (-journal2.height/2) + 142;
+        let closeButton = this.physics.add.sprite(jw, jh, 'close').setScale(0.8);
+        closeButton.setInteractive({
+            useHandCursor: true
+        });
+        let turnButton = this.add.sprite(10, 10, 'close').setScale(0.8);
+        turnButton.setInteractive({
+            useHandCursor: true
+        });
+
+        let puzzleName = this.add.text(20, 10, data.Puzzle.One.Title, journalConfig).setScale(0.6);
+        let page1 = this.add.text(20, 30, content1, journalConfig).setScale(0.5);
+        let page2 = this.add.text(205, 30, content2, journalConfig).setScale(0.5);
+        let jcContents = [journal2, closeButton, turnButton, puzzleName, page1, page2];
+
+        let journalContainer = this.add.container(100, 10, jcContents);
+        journalContainer.setDepth(5);
+        journalContainer.setScale(2.3);
+        journalContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, journal2.width, journal2.height), Phaser.Geom.Rectangle.Contains);
+        this.input.setDraggable(journalContainer);
+
+        journalContainer.on('drag', function(pointer, dragX, dragY) {
+            this.x = dragX;
+            this.y = dragY;
+        })
+
+        closeButton.on('pointerup', () => {
+            // journalContainer.destroy();
+            journalContainer.setVisible(false);
+            journalOpen = false;
+        })
+        turnButton.on('pointerup', () => {
+            if(whichPage == 1) {
+                // journalContainer.remove(jcContents);
+                // journalContainer.destroy();
+                page1.setText(data.Puzzle.One.Page34.Left);
+                page2.setText(data.Puzzle.One.Page34.Right);
+                // this.openJournal();
+                // page1 = this.add.text(20, 30, data.Puzzle.One.Page34.Left, journalConfig).setScale(0.5);
+                // page2 = this.add.text(205, 30, data.Puzzle.One.Page34.Right, journalConfig).setScale(0.5);
+                // jcContents = [journal2, closeButton, turnButton, puzzleName, page1, page2];
+                // journalContainer.add(jcContents);
+                whichPage = 2
+            }
+            else if(whichPage == 2) {
+                // journalContainer.remove(jcContents);
+                // journalContainer.destroy();
+                // content1 = data.Puzzle.One.Page12.Left;
+                // content2 = data.Puzzle.One.Page12.Right;
+                page1.setText(data.Puzzle.One.Page12.Left);
+                page2.setText(data.Puzzle.One.Page12.Right);
+                // this.openJournal();
+                // page1 = this.add.text(20, 30, data.Puzzle.One.Page12.Left, journalConfig).setScale(0.5);
+                // page2 = this.add.text(205, 30, data.Puzzle.One.Page12.Right, journalConfig).setScale(0.5);
+                // jcContents = [journal2, closeButton, turnButton, puzzleName, page1, page2];
+                // journalContainer.add(jcContents);
+                whichPage = 1;
+            }
+        })
+        journalContainer.setVisible(false);
+
+
         // double click logic https://phaser.discourse.group/t/double-tap/3051
         // modified with the TheyAreListening code example from class
         let lastTime = 0;
@@ -60,8 +132,9 @@ class Desk extends Phaser.Scene {
             if(clickDelay < 350) {
                 console.log(`Pointer double clicked on '${gameObject.texture.key}'`);
                 if(gameObject.texture.key == 'journal') {
-                    this.openJournal();
+                    // this.openJournal();
                     // journal.alpha = 0;
+                    journalContainer.setVisible(true);
                     journalOpen = true;
                     this.sound.play("openTemp");
                 }
@@ -85,7 +158,7 @@ class Desk extends Phaser.Scene {
         this.lights.setAmbientColor('0xA3A3A3');    // sets the scene's overall light (0x000000) == black/darkness
     
         // just saying what you can do
-        this.add.text(500, 400, "double click journal and lamp, drag journal\nSpace to go back to menu\n" + data.Puzzle.One.Page12.Left);
+        this.add.text(500, 400, "double click journal and lamp, drag journal\nSpace to go back to menu\n");
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }
 
@@ -96,69 +169,73 @@ class Desk extends Phaser.Scene {
     }
 
     openJournal() {
-        if(whichPuzzle == 1) {
-            let data2 = this.cache.json.get('journalData');
-            
-            console.log('open journal');
-            let journal2 = this.add.sprite(0, 0, 'journalOpen').setOrigin(0);
-            let jw = (journal2.width) - 15;
-            let jh = (-journal2.height/2) + 142;
-            let closeButton = this.physics.add.sprite(jw, jh, 'close').setScale(0.8);
-            closeButton.setInteractive({
-                useHandCursor: true
-            });
+    //     let data = this.cache.json.get('journalData');
+    //     if(whichPage == 0) {
+    //         content1 = data.Puzzle.One.Page12.Left;
+    //         content2 = data.Puzzle.One.Page12.Right;
+    //         whichPage = 1;
+    //     }
+    //     console.log('open journal');
+    //     let journal2 = this.add.sprite(0, 0, 'journalOpen').setOrigin(0);
+    //     let jw = (journal2.width) - 15;
+    //     let jh = (-journal2.height/2) + 142;
+    //     let closeButton = this.physics.add.sprite(jw, jh, 'close').setScale(0.8);
+    //     closeButton.setInteractive({
+    //         useHandCursor: true
+    //     });
+    //     let turnButton = this.add.sprite(10, 10, 'close').setScale(0.8);
+    //     turnButton.setInteractive({
+    //         useHandCursor: true
+    //     });
 
-            let puzzleName = this.add.text(20, 10, data2.Puzzle.One.Title, journalConfig).setScale(0.6);
-            let page1 = this.add.text(20, 30, data2.Puzzle.One.Page12.Left, journalConfig).setScale(0.5);
-            let page2 = this.add.text(205, 30, data2.Puzzle.One.Page12.Right, journalConfig).setScale(0.5);
+    //     let puzzleName = this.add.text(20, 10, data.Puzzle.One.Title, journalConfig).setScale(0.6);
+    //     let page1 = this.add.text(20, 30, content1, journalConfig).setScale(0.5);
+    //     let page2 = this.add.text(205, 30, content2, journalConfig).setScale(0.5);
+    //     let jcContents = [journal2, closeButton, turnButton, puzzleName, page1, page2];
 
-            let journalContainer = this.add.container(100, 10, [journal2, closeButton, puzzleName, page1, page2]);
-            journalContainer.setDepth(5);
-            journalContainer.setScale(2.3);
-            journalContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, journal2.width, journal2.height), Phaser.Geom.Rectangle.Contains);
-            this.input.setDraggable(journalContainer);
+    //     let journalContainer = this.add.container(100, 10, jcContents);
+    //     journalContainer.setDepth(5);
+    //     journalContainer.setScale(2.3);
+    //     journalContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, journal2.width, journal2.height), Phaser.Geom.Rectangle.Contains);
+    //     this.input.setDraggable(journalContainer);
 
-            journalContainer.on('drag', function(pointer, dragX, dragY) {
-                this.x = dragX;
-                this.y = dragY;
-            })
+    //     journalContainer.on('drag', function(pointer, dragX, dragY) {
+    //         this.x = dragX;
+    //         this.y = dragY;
+    //     })
 
-            closeButton.on('pointerup', () => {
-                journalContainer.destroy();
-                journalOpen = false;
-            })
-        }
-        else if(whichPuzzle == 2) {
-            let data2 = this.cache.json.get('journalData');
-            
-            console.log('open journal');
-            let journal2 = this.add.sprite(0, 0, 'journalOpen').setOrigin(0);
-            let jw = (journal2.width) - 15;
-            let jh = (-journal2.height/2) + 142;
-            let closeButton = this.physics.add.sprite(jw, jh, 'close').setScale(0.8);
-            closeButton.setInteractive({
-                useHandCursor: true
-            });
-
-            let puzzleName = this.add.text(20, 10, data2.Puzzle.Two.Title, journalConfig).setScale(0.6);
-            let page1 = this.add.text(20, 30, data2.Puzzle.Two.Page12.Left, journalConfig).setScale(0.5);
-            let page2 = this.add.text(205, 30, data2.Puzzle.Two.Page12.Right, journalConfig).setScale(0.5);
-
-            let journalContainer = this.add.container(100, 10, [journal2, closeButton, puzzleName, page1, page2]);
-            journalContainer.setDepth(5);
-            journalContainer.setScale(2.3);
-            journalContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, journal2.width, journal2.height), Phaser.Geom.Rectangle.Contains);
-            this.input.setDraggable(journalContainer);
-
-            journalContainer.on('drag', function(pointer, dragX, dragY) {
-                this.x = dragX;
-                this.y = dragY;
-            })
-
-            closeButton.on('pointerup', () => {
-                journalContainer.destroy();
-                journalOpen = false;
-            })
-        }
+    //     closeButton.on('pointerup', () => {
+    //         // journalContainer.destroy();
+    //         journalContainer.setVisible(false);
+    //         journalOpen = false;
+    //     })
+    //     turnButton.on('pointerup', () => {
+    //         if(whichPage == 1) {
+    //             // journalContainer.remove(jcContents);
+    //             // journalContainer.destroy();
+    //             page1.setText(data.Puzzle.One.Page34.Left);
+    //             page2.setText(data.Puzzle.One.Page34.Right);
+    //             // this.openJournal();
+    //             // page1 = this.add.text(20, 30, data.Puzzle.One.Page34.Left, journalConfig).setScale(0.5);
+    //             // page2 = this.add.text(205, 30, data.Puzzle.One.Page34.Right, journalConfig).setScale(0.5);
+    //             // jcContents = [journal2, closeButton, turnButton, puzzleName, page1, page2];
+    //             // journalContainer.add(jcContents);
+    //             whichPage = 2
+    //         }
+    //         else if(whichPage == 2) {
+    //             // journalContainer.remove(jcContents);
+    //             // journalContainer.destroy();
+    //             // content1 = data.Puzzle.One.Page12.Left;
+    //             // content2 = data.Puzzle.One.Page12.Right;
+    //             page1.setText(data.Puzzle.One.Page12.Left);
+    //             page2.setText(data.Puzzle.One.Page12.Right);
+    //             // this.openJournal();
+    //             // page1 = this.add.text(20, 30, data.Puzzle.One.Page12.Left, journalConfig).setScale(0.5);
+    //             // page2 = this.add.text(205, 30, data.Puzzle.One.Page12.Right, journalConfig).setScale(0.5);
+    //             // jcContents = [journal2, closeButton, turnButton, puzzleName, page1, page2];
+    //             // journalContainer.add(jcContents);
+    //             whichPage = 1;
+    //         }
+    //     })
     }
 }
