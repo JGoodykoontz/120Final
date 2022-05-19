@@ -136,11 +136,11 @@ class Desk extends Phaser.Scene {
     
         // just saying what you can do
         this.add.text(500, 400, "double click journal and lamp, drag journal\nSpace to go back to menu\n");
-        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
     }
 
     update() {
-        if(Phaser.Input.Keyboard.JustDown(keySPACE)) {
+        if(Phaser.Input.Keyboard.JustDown(keyESC)) {
             this.scene.start('menuscene');
         }
     }

@@ -49,25 +49,20 @@ class Menu extends Phaser.Scene {
         this.lights.setAmbientColor('0x661313');    // sets the scene's overall light (0x000000) == black/darkness
 
         let playButton = this.add.image(500, 300, 'playButton').setScale(1.5);
+
         playButton.setInteractive({
-            useHandCursor: true
+            useHandCursor: true 
         })
-        playButton.on('pointerup', () => {
-            playButton.setTint(0xff00ff);
-            this.cameras.main.fadeOut(1000, 0, 0, 0);
-        })
-        playButton.on('pointerover', () => playButton.setTint(0x5797D2) )
-        playButton.on('pointerout', () => playButton.clearTint() )
+            .on('pointerover', () => playButton.setTint(0x5797D2) )
+            .on('pointerout', () => playButton.setTint(0xffffff) )
+            .on('pointerdown', () => playButton.setTint(0xff00ff) )
+            .on('pointerup', () => {
+                playButton.setTint(0xffffff);
+                this.cameras.main.fadeOut(1000, 0, 0, 0);
+            })
+
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
             this.scene.start('deskscene');
         })
-
-        // keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-    }
-
-    update() {
-        // if(Phaser.Input.Keyboard.JustDown(keySPACE)) {
-        //     this.scene.start('deskscene');
-        // }
     }
 }
