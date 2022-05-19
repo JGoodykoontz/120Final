@@ -2,25 +2,9 @@ class Desk extends Phaser.Scene {
     constructor() {
         super("deskscene");
     }
-
-    preload() {
-        this.load.image("desk_Bg", './assets/desk.png');
-        this.load.image("background", './assets/Background.png');
-        this.load.image("lamp", './assets/oilLamp.png');
-
-        // Journal
-        this.load.image("journal", './assets/journalCover.png');
-        this.load.image("journalOpen", './assets/journal1-2.png');
-        this.load.image("close", './assets/closeButton.png');
-        this.load.image('right', './assets/pageRight.png');
-        this.load.image('left', './assets/pageLeft.png');
-
-        this.load.audio("openTemp", './assets/open.wav');
-
-        this.load.json("journalData", './assets/journal.json');
-    }
     
     create() {
+        this.cameras.main.fadeIn(1000, 0, 0, 0);
         let data = this.cache.json.get('journalData');
         let bg = this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(1.1).setPipeline('Light2D');
         bg.scaleX = 1.39;
