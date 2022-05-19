@@ -14,7 +14,8 @@ let config = {
 let game = new Phaser.Game(config);
 
 let lightOn = true;
-let whichPage = 0;
+let initial = true;
+let whichPuzzle;
 let content1;
 let content2;
 

@@ -54,10 +54,11 @@ class Desk extends Phaser.Scene {
         });
 
         // Makes the Open Journal container and sets it invisible
-        if(whichPage == 0) {
-            content1 = data.Puzzle.One.Page12.Left;
-            content2 = data.Puzzle.One.Page12.Right;
-            whichPage = 1;
+        if(initial) {
+            whichPuzzle = data.Puzzle.One;      // use to set which puzzle text to read
+            content1 = whichPuzzle.Page12.Left;
+            content2 = whichPuzzle.Page12.Right;
+            initial = false;
         }
         let journal2 = this.add.sprite(0, 0, 'journalOpen').setOrigin(0);
         let jw = (journal2.width) - 15;
@@ -75,7 +76,7 @@ class Desk extends Phaser.Scene {
             useHandCursor: true
         });
 
-        let puzzleName = this.add.text(20, 10, data.Puzzle.One.Title, journalConfig).setScale(0.6);
+        let puzzleName = this.add.text(20, 10, whichPuzzle.Title, journalConfig).setScale(0.6);
         let page1 = this.add.text(20, 30, content1, journalConfig).setScale(0.5);
         let page2 = this.add.text(205, 30, content2, journalConfig).setScale(0.5);
         let jcContents = [journal2, closeButton, turnRight, turnLeft, puzzleName, page1, page2];
@@ -93,22 +94,22 @@ class Desk extends Phaser.Scene {
         })
 
         closeButton.on('pointerup', () => {
-            console.log('close journal');
+            // console.log('close journal');
             journalContainer.setVisible(false);
             journal.setVisible(true);
         })
 
         // Allows to turn pages with temp button
         turnRight.on('pointerup', () => {
-            page1.setText(data.Puzzle.One.Page34.Left);
-            page2.setText(data.Puzzle.One.Page34.Right);
+            page1.setText(whichPuzzle.Page34.Left);
+            page2.setText(whichPuzzle.Page34.Right);
             turnRight.setVisible(false);
             turnLeft.setVisible(true);
             //whichPage = 2
         })
         turnLeft.on('pointerup', () => {
-            page1.setText(data.Puzzle.One.Page12.Left);
-            page2.setText(data.Puzzle.One.Page12.Right);
+            page1.setText(whichPuzzle.Page12.Left);
+            page2.setText(whichPuzzle.Page12.Right);
             turnLeft.setVisible(false);
             turnRight.setVisible(true);
             //whichPage = 1;
@@ -125,7 +126,7 @@ class Desk extends Phaser.Scene {
             if(clickDelay < 350) {
                 console.log(`Pointer double clicked on '${gameObject.texture.key}'`);
                 if(gameObject.texture.key == 'journal') {
-                    console.log('open journal');
+                    // console.log('open journal');
                     journalContainer.setVisible(true);
                     journal.setVisible(false);
                     this.sound.play("openTemp");
