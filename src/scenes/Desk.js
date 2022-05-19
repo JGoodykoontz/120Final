@@ -12,6 +12,8 @@ class Desk extends Phaser.Scene {
         this.load.image("journal", './assets/journalCover.png');
         this.load.image("journalOpen", './assets/journal1-2.png');
         this.load.image("close", './assets/closeButton.png');
+        this.load.image('right', './assets/pageRight.png');
+        this.load.image('left', './assets/pageLeft.png');
 
         this.load.audio("openTemp", './assets/open.wav');
 
@@ -57,7 +59,6 @@ class Desk extends Phaser.Scene {
             content2 = data.Puzzle.One.Page12.Right;
             whichPage = 1;
         }
-        console.log('open journal');
         let journal2 = this.add.sprite(0, 0, 'journalOpen').setOrigin(0);
         let jw = (journal2.width) - 15;
         let jh = (-journal2.height/2) + 142;
@@ -65,21 +66,26 @@ class Desk extends Phaser.Scene {
         closeButton.setInteractive({
             useHandCursor: true
         });
-        let turnButton = this.add.sprite(10, 10, 'close').setScale(0.8);
-        turnButton.setInteractive({
+        let turnRight = this.add.sprite(jw, journal2.height - 10, 'right').setScale(0.8);
+        turnRight.setInteractive({
+            useHandCursor: true
+        });
+        let turnLeft = this.add.sprite(10, journal2.height - 10, 'left').setScale(0.8);
+        turnLeft.setInteractive({
             useHandCursor: true
         });
 
         let puzzleName = this.add.text(20, 10, data.Puzzle.One.Title, journalConfig).setScale(0.6);
         let page1 = this.add.text(20, 30, content1, journalConfig).setScale(0.5);
         let page2 = this.add.text(205, 30, content2, journalConfig).setScale(0.5);
-        let jcContents = [journal2, closeButton, turnButton, puzzleName, page1, page2];
+        let jcContents = [journal2, closeButton, turnRight, turnLeft, puzzleName, page1, page2];
 
         let journalContainer = this.add.container(100, 10, jcContents);
         journalContainer.setDepth(5);
         journalContainer.setScale(2.3);
         journalContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, journal2.width, journal2.height), Phaser.Geom.Rectangle.Contains);
         this.input.setDraggable(journalContainer);
+        turnLeft.setVisible(false);
 
         journalContainer.on('drag', function(pointer, dragX, dragY) {
             this.x = dragX;
@@ -87,23 +93,25 @@ class Desk extends Phaser.Scene {
         })
 
         closeButton.on('pointerup', () => {
+            console.log('close journal');
             journalContainer.setVisible(false);
             journal.setVisible(true);
-            journalOpen = false;
         })
 
         // Allows to turn pages with temp button
-        turnButton.on('pointerup', () => {
-            if(whichPage == 1) {
-                page1.setText(data.Puzzle.One.Page34.Left);
-                page2.setText(data.Puzzle.One.Page34.Right);
-                whichPage = 2
-            }
-            else if(whichPage == 2) {
-                page1.setText(data.Puzzle.One.Page12.Left);
-                page2.setText(data.Puzzle.One.Page12.Right);
-                whichPage = 1;
-            }
+        turnRight.on('pointerup', () => {
+            page1.setText(data.Puzzle.One.Page34.Left);
+            page2.setText(data.Puzzle.One.Page34.Right);
+            turnRight.setVisible(false);
+            turnLeft.setVisible(true);
+            //whichPage = 2
+        })
+        turnLeft.on('pointerup', () => {
+            page1.setText(data.Puzzle.One.Page12.Left);
+            page2.setText(data.Puzzle.One.Page12.Right);
+            turnLeft.setVisible(false);
+            turnRight.setVisible(true);
+            //whichPage = 1;
         })
         journalContainer.setVisible(false);
 
@@ -117,9 +125,9 @@ class Desk extends Phaser.Scene {
             if(clickDelay < 350) {
                 console.log(`Pointer double clicked on '${gameObject.texture.key}'`);
                 if(gameObject.texture.key == 'journal') {
+                    console.log('open journal');
                     journalContainer.setVisible(true);
                     journal.setVisible(false);
-                    journalOpen = true;
                     this.sound.play("openTemp");
                 }
                 if(gameObject.texture.key == 'lamp') {
