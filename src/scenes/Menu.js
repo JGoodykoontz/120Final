@@ -4,10 +4,10 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
-        let bg = this.add.image(0, 0, 'background').setOrigin(0).setDepth(-1).setScale(1.1).setPipeline('Light2D');
-        bg.scaleX = 1.39;
-        let clouds = this.add.tileSprite(605, 0, 360, 240, 'clouds').setOrigin(0).setDepth(-2);
-        clouds.scaleX = 1.1;
+        let bg = this.add.image(0, 0, 'background').setOrigin(0).setDepth(-1).setPipeline('Light2D');
+        // bg.scaleX = 1.39;
+        this.clouds = this.add.tileSprite(605, 0, 360, 240, 'clouds').setOrigin(0, 0).setDepth(-2);
+        this.clouds.scaleX = 1.1;
 
         // let lamp = this.add.sprite(400, 135, 'lamp').setOrigin(0, 0).setScale(0.13).setPipeline('Light2D');
         // let journal = this.add.sprite(350, 350, 'journal').setOrigin(0, 0).setScale(0.7).setPipeline('Light2D');
