@@ -14,8 +14,9 @@ class Desk extends Phaser.Scene {
         let data = this.cache.json.get('journalData');
 
         // add the background elements
-        let bg = this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(1.1).setPipeline('Light2D');   // setPipeline allows dynamic lighting
-        bg.scaleX = 1.39;
+        let bg = this.add.image(0, 0, 'background').setOrigin(0, 0).setPipeline('Light2D');   // setPipeline allows dynamic lighting
+        this.clouds = this.add.tileSprite(605, 0, 360, 240, 'clouds').setOrigin(0, 0).setDepth(-2);
+        this.clouds.scaleX = 1.1;
 
         // add scene elements
         let lamp = this.physics.add.sprite(400, 135, 'lamp').setOrigin(0, 0).setScale(0.13).setDepth(-2).setPipeline('Light2D');
@@ -23,6 +24,16 @@ class Desk extends Phaser.Scene {
         let startnoteDesk = this.add.image(900, 330, 'helpNote').setVisible(false);
         journal.visible = true;
 
+        // enables dynamic lighting within the scene and on setPipeline("Light2D") objects
+        let light = this.lights.addLight(485, 200, 5000, '0xFFFCBB').setIntensity(1.7); // makes a light
+        this.lights.enable();                       // allows for dynamic lighting in the scene
+        this.lights.setAmbientColor('0xA3A3A3');    // sets the scene's overall light (0x000000) == black/darkness
+
+
+        // *******************************
+        // Initialize Interactive Elements
+        // *******************************
+        
         // helpNote interactive settings
         startnoteDesk.setInteractive({
             draggable: true,
@@ -186,14 +197,10 @@ class Desk extends Phaser.Scene {
                 }
             }
         });
-
-        // enables dynamic lighting within the scene and on setPipeline("Light2D") objects
-        let light = this.lights.addLight(485, 200, 5000, '0xFFFCBB').setIntensity(1.7); // makes a light
-        this.lights.enable();                       // allows for dynamic lighting in the scene
-        this.lights.setAmbientColor('0xA3A3A3');    // sets the scene's overall light (0x000000) == black/darkness
     }
 
     update() {
+        this.clouds.tilePositionX -= 1;
         if(Phaser.Input.Keyboard.JustDown(keyESC)) {
             this.scene.start('menuscene');
         }
