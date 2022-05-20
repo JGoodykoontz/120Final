@@ -4,10 +4,12 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
-        let bg = this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(1.1).setPipeline('Light2D');
+        let bg = this.add.image(0, 0, 'background').setOrigin(0).setDepth(-1).setScale(1.1).setPipeline('Light2D');
         bg.scaleX = 1.39;
+        let clouds = this.add.tileSprite(605, 0, 360, 240, 'clouds').setOrigin(0).setDepth(-2);
+        clouds.scaleX = 1.1;
 
-        let lamp = this.add.sprite(400, 135, 'lamp').setOrigin(0, 0).setScale(0.13).setPipeline('Light2D');
+        // let lamp = this.add.sprite(400, 135, 'lamp').setOrigin(0, 0).setScale(0.13).setPipeline('Light2D');
         // let journal = this.add.sprite(350, 350, 'journal').setOrigin(0, 0).setScale(0.7).setPipeline('Light2D');
 
         let light = this.lights.addLight(485, 200, 50000, '0xFFFCBB').setIntensity(2);
@@ -64,5 +66,8 @@ class Menu extends Phaser.Scene {
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
             this.scene.start('deskscene');
         })
+    }
+    update() {
+        this.clouds.tilePositionX -= 1;
     }
 }

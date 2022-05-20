@@ -18,7 +18,7 @@ class Desk extends Phaser.Scene {
         bg.scaleX = 1.39;
 
         // add scene elements
-        let lamp = this.physics.add.sprite(400, 135, 'lamp').setOrigin(0, 0).setScale(0.13).setPipeline('Light2D');
+        let lamp = this.physics.add.sprite(400, 135, 'lamp').setOrigin(0, 0).setScale(0.13).setDepth(-2).setPipeline('Light2D');
         let journal = this.add.sprite(125, 350, 'journal').setOrigin(0, 0).setScale(0.7).setPipeline('Light2D');
         let startnoteDesk = this.add.image(900, 330, 'helpNote').setVisible(false);
         journal.visible = true;
@@ -42,7 +42,7 @@ class Desk extends Phaser.Scene {
 
         // Lamp interactive settings
         lamp.setInteractive({
-            draggable: true,
+            draggable: false,
             useHandCursor: true
         });
         this.input.on('drag', function (pointer, lamp, dragX, dragY) {
@@ -117,7 +117,7 @@ class Desk extends Phaser.Scene {
         // make container
         let journalContainer = this.add.container(100, 10, jcContents);
         journalContainer.setDepth(5);   // sets to top of scene
-        journalContainer.setScale(2.3);
+        journalContainer.setScale(1.5);
         journalContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, journal2.width, journal2.height), Phaser.Geom.Rectangle.Contains);
         this.input.setDraggable(journalContainer);
         turnLeft.setVisible(false);     // defaults to first page so can't turn left
