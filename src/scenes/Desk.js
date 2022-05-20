@@ -4,32 +4,31 @@ class Desk extends Phaser.Scene {
     }
     
     create() {
+        // fades in the scene from black
         this.cameras.main.fadeIn(1000, 0, 0, 0);
+
         let data = this.cache.json.get('journalData');
-        let bg = this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(1.1).setPipeline('Light2D');
+        let bg = this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(1.1).setPipeline('Light2D');   // setPipeline allows dynamic lighting
         bg.scaleX = 1.39;
 
         let lamp = this.physics.add.sprite(400, 135, 'lamp').setOrigin(0, 0).setScale(0.13).setPipeline('Light2D');
         let journal = this.add.sprite(125, 350, 'journal').setOrigin(0, 0).setScale(0.7).setPipeline('Light2D');
         journal.visible = true;
 
+        // Journal interactive settings
         journal.setInteractive({
             draggable: true,
             useHandCursor: true
         });
-        //this.input.setDraggable(journal);
-        // https://phaser.discourse.group/t/drag-vs-click-detection/4955/2
-        // the pointer has to move 16 pixels before it's considered as a drag
-        // this.input.dragDistanceThreshold = 16; (not sure if needed)
-        // need pointer for mouse coordinates to drag
+        // enables dragging
         this.input.on('drag', function (pointer, journal, dragX, dragY) {
             journal.x = dragX;
             journal.y = dragY;
         });
 
-        // lamp interactive stuff
+        // Lamp interactive settings
         lamp.setInteractive({
-            draggable: false,
+            draggable: true,
             useHandCursor: true
         });
         this.input.on('drag', function (pointer, lamp, dragX, dragY) {
@@ -37,20 +36,30 @@ class Desk extends Phaser.Scene {
             lamp.y = dragY;
         });
 
-        // Makes the Open Journal container and sets it invisible
+        // Makes the openJournal container and sets it invisible
+        // initial runs on first load
         if(initial) {
-            whichPuzzle = data.Puzzle.One;      // use to set which puzzle text to read
+            // use to set which puzzle and text to read from journal.json
+            whichPuzzle = data.Puzzle.One;      
             content1 = whichPuzzle.Page12.Left;
             content2 = whichPuzzle.Page12.Right;
             initial = false;
         }
+
+        // loads in the opened journal
         let journal2 = this.add.sprite(0, 0, 'journalOpen').setOrigin(0);
-        let jw = (journal2.width) - 15;
-        let jh = (-journal2.height/2) + 142;
+
+        // finds the top right corner for the button position
+        let jw = (journal2.width) - 15;         // journal width
+        let jh = (-journal2.height/2) + 142;    // journal height
+
+        // makes the close button and interactivity
         let closeButton = this.physics.add.sprite(jw, jh, 'close').setScale(0.8);
         closeButton.setInteractive({
             useHandCursor: true
         });
+        
+        // makes the page turning buttons
         let turnRight = this.add.sprite(jw, journal2.height - 10, 'right').setScale(0.8);
         turnRight.setInteractive({
             useHandCursor: true
@@ -60,49 +69,56 @@ class Desk extends Phaser.Scene {
             useHandCursor: true
         });
 
+        // Fill in journal contents from journal.json
         let puzzleName = this.add.text(20, 10, whichPuzzle.Title, journalConfig).setScale(0.6);
         let page1 = this.add.text(20, 30, content1, journalConfig).setScale(0.5);
         let page2 = this.add.text(205, 30, content2, journalConfig).setScale(0.5);
+
+        // make an array of components to be used in the container
         let jcContents = [journal2, closeButton, turnRight, turnLeft, puzzleName, page1, page2];
 
+        // make container
         let journalContainer = this.add.container(100, 10, jcContents);
-        journalContainer.setDepth(5);
+        journalContainer.setDepth(5);   // sets to top of scene
         journalContainer.setScale(2.3);
         journalContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, journal2.width, journal2.height), Phaser.Geom.Rectangle.Contains);
         this.input.setDraggable(journalContainer);
-        turnLeft.setVisible(false);
+        turnLeft.setVisible(false);     // defaults to first page so can't turn left
 
+        // allows the opened journal to be dragged
         journalContainer.on('drag', function(pointer, dragX, dragY) {
             this.x = dragX;
             this.y = dragY;
         })
 
+        // closes the open journal by making invisible
+        // this saves the current position and page when next opened
         closeButton.on('pointerup', () => {
             // console.log('close journal');
             journalContainer.setVisible(false);
             journal.setVisible(true);
         })
 
-        // Allows to turn pages with temp button
+        // Allows to turn pages
         turnRight.on('pointerup', () => {
             page1.setText(whichPuzzle.Page34.Left);
             page2.setText(whichPuzzle.Page34.Right);
             turnRight.setVisible(false);
             turnLeft.setVisible(true);
-            //whichPage = 2
         })
         turnLeft.on('pointerup', () => {
             page1.setText(whichPuzzle.Page12.Left);
             page2.setText(whichPuzzle.Page12.Right);
             turnLeft.setVisible(false);
             turnRight.setVisible(true);
-            //whichPage = 1;
         })
-        journalContainer.setVisible(false);
-
+        journalContainer.setVisible(false); // initially invisible on scene start
 
         // double click logic https://phaser.discourse.group/t/double-tap/3051
         // modified with the TheyAreListening code example from class
+        // ****
+        // USING DOUBLE CLICK TO INTERACT BECAUSE SINGLE CLICK CLASHES WITH THE DRAGGING FUNCTIONALITY
+        // ****
         let lastTime = 0;
         this.input.on("gameobjectdown", (pointer, gameObject)=>{
             let clickDelay = this.time.now - lastTime;
@@ -130,12 +146,13 @@ class Desk extends Phaser.Scene {
             }
         });
 
-        let light = this.lights.addLight(485, 200, 5000, '0xFFFCBB').setIntensity(1.7);
-        this.lights.enable();   // allows for dynamic lighting in the scene
+        // enables dynamic lighting within the scene and on setPipeline("Light2D") objects
+        let light = this.lights.addLight(485, 200, 5000, '0xFFFCBB').setIntensity(1.7); // makes a light
+        this.lights.enable();                       // allows for dynamic lighting in the scene
         this.lights.setAmbientColor('0xA3A3A3');    // sets the scene's overall light (0x000000) == black/darkness
     
         // just saying what you can do
-        this.add.text(500, 400, "double click journal and lamp, drag journal\nSpace to go back to menu\n");
+        this.add.text(500, 400, "double click journal and lamp, drag journal\nESC to go back to menu\n");
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
     }
 
