@@ -23,8 +23,19 @@ let keySPACE;
 let keyESC;
 
 let journalConfig = {
-    fontFamily: 'Bahnschrift Light',
-    //fontFamily: 'Century Gothic',
+    // fontFamily: 'Bahnschrift Light',
+    // fontFamily: 'Century Gothic',
+    fontFamily: 'Brush Script MT',
+    fontSize: '30px',
+    color: '#000000',
+    align: 'left',
+    wordWrap: {
+        width: 500
+    }
+}
+
+let menuConfig = {
+    fontFamily: 'Century Gothic',
     fontSize: '16px',
     color: '#000000',
     align: 'left',

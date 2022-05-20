@@ -19,9 +19,9 @@ class Desk extends Phaser.Scene {
         this.clouds.scaleX = 1.1;
 
         // add scene elements
-        let lamp = this.physics.add.sprite(400, 135, 'lamp').setOrigin(0, 0).setScale(0.13).setDepth(-2).setPipeline('Light2D');
+        let lamp = this.physics.add.sprite(460, 135, 'lamp').setOrigin(0, 0).setScale(0.12).setDepth(-2).setPipeline('Light2D');
         let journal = this.add.sprite(125, 350, 'journal').setOrigin(0, 0).setScale(0.7).setPipeline('Light2D');
-        let startnoteDesk = this.add.image(900, 330, 'helpNote').setVisible(false);
+        let startnoteDesk = this.add.image(50, 325, 'helpNote').setVisible(false);
         journal.visible = true;
 
         // enables dynamic lighting within the scene and on setPipeline("Light2D") objects
@@ -33,7 +33,7 @@ class Desk extends Phaser.Scene {
         // *******************************
         // Initialize Interactive Elements
         // *******************************
-        
+
         // helpNote interactive settings
         startnoteDesk.setInteractive({
             draggable: true,
@@ -61,11 +61,14 @@ class Desk extends Phaser.Scene {
             lamp.y = dragY;
         });
 
+
+        // *****************************************
         // make HOW TO PLAY pop-up note at beginning
+        // *****************************************
         let startnote = this.add.rectangle(0, 0, 350, 150, 0xd6ccc1).setOrigin(0);
         let startnoteText = this.add.text(175, 75, "HOW TO PLAY\n\n" +
             "DRAG and DOUBLE CLICK on objects to interact with them\n" +
-            "Press ESC to open the menu", journalConfig).setOrigin(0.5);
+            "Press ESC to open the menu", menuConfig).setOrigin(0.5);
         let startnoteClose = this.add.sprite(startnote.width - 25, 10, 'close').setOrigin(0);
         startnoteClose.setInteractive({ useHandCursor: true });
 
@@ -86,7 +89,7 @@ class Desk extends Phaser.Scene {
             startnoteDesk.setVisible(true);
         })
 
-        // Makes the openJournal container and sets it invisible
+
         // initial runs on first load
         if(initial) {
             // use to set which puzzle and text to read from journal.json
@@ -100,27 +103,28 @@ class Desk extends Phaser.Scene {
             initial = false;    // end initial setup
         }
 
+        // Makes the openJournal container and sets it invisible
         // loads in the opened journal
         let journal2 = this.add.sprite(0, 0, 'journalOpen').setOrigin(0);
 
         // finds the top right corner for the button position
         let jw = (journal2.width) - 15;         // journal width
-        let jh = (-journal2.height/2) + 142;    // journal height
+        let jh = 15;                            // journal height
 
         // makes the close button and interactivity
         let closeButton = this.physics.add.sprite(jw, jh, 'close').setScale(0.8);
         closeButton.setInteractive( { useHandCursor: true } );
         
         // makes the page turning buttons
-        let turnRight = this.add.sprite(jw, journal2.height - 10, 'right').setScale(0.8);
+        let turnRight = this.add.sprite(jw, journal2.height - 10, 'right').setScale(1.2);
         turnRight.setInteractive( { useHandCursor: true } );
-        let turnLeft = this.add.sprite(10, journal2.height - 10, 'left').setScale(0.8);
+        let turnLeft = this.add.sprite(15, journal2.height - 10, 'left').setScale(1.2);
         turnLeft.setInteractive( { useHandCursor: true } );
 
         // Fill in journal contents from journal.json
-        let puzzleName = this.add.text(20, 10, whichPuzzle.Title, journalConfig).setScale(0.6);
-        let page1 = this.add.text(20, 30, content1, journalConfig).setScale(0.5);
-        let page2 = this.add.text(205, 30, content2, journalConfig).setScale(0.5);
+        let puzzleName = this.add.text(20, 10, whichPuzzle.Title, journalConfig).setScale(0.7);
+        let page1 = this.add.text(20, 35, content1, journalConfig).setScale(0.5);
+        let page2 = this.add.text(295, 35, content2, journalConfig).setScale(0.5);
 
         // make an array of components to be used in the container
         let jcContents = [journal2, closeButton, turnRight, turnLeft, puzzleName, page1, page2];
