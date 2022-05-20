@@ -4,16 +4,17 @@ class Preload extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("desk_Bg", './assets/desk.png');
+        // this.load.image("desk_Bg", './assets/desk.png');
         this.load.image("background", './assets/Background.png');
+        this.load.image("clouds", './assets/clouds.png');
         this.load.image("lamp", './assets/oilLamp.png');
         this.load.image("playButton", './assets/playButton.png');
         this.load.image("menuButton", './assets/menuButton.png');
         this.load.image("helpNote", './assets/helpNote.png');
 
         // Journal
-        this.load.image("journal", './assets/journalCover.png');
-        this.load.image("journalOpen", './assets/journal1-2.png');
+        this.load.image("journal", './assets/book-closed.png');
+        this.load.image("journalOpen", './assets/book-open.png');
         this.load.image("close", './assets/closeButton.png');
         this.load.image('right', './assets/pageRight.png');
         this.load.image('left', './assets/pageLeft.png');
