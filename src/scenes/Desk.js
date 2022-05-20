@@ -7,13 +7,27 @@ class Desk extends Phaser.Scene {
         // fades in the scene from black
         this.cameras.main.fadeIn(1000, 0, 0, 0);
 
+        // initialize keybind
+        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+
+        // load journal.json cached data
         let data = this.cache.json.get('journalData');
+
+        // add the background elements
         let bg = this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(1.1).setPipeline('Light2D');   // setPipeline allows dynamic lighting
         bg.scaleX = 1.39;
 
+        // add scene elements
         let lamp = this.physics.add.sprite(400, 135, 'lamp').setOrigin(0, 0).setScale(0.13).setPipeline('Light2D');
         let journal = this.add.sprite(125, 350, 'journal').setOrigin(0, 0).setScale(0.7).setPipeline('Light2D');
+        let startnoteDesk = this.add.image(900, 330, 'helpNote').setVisible(false);
         journal.visible = true;
+
+        // helpNote interactive settings
+        startnoteDesk.setInteractive({
+            draggable: true,
+            useHandCursor: true
+        });
 
         // Journal interactive settings
         journal.setInteractive({
@@ -36,6 +50,31 @@ class Desk extends Phaser.Scene {
             lamp.y = dragY;
         });
 
+        // make HOW TO PLAY pop-up note at beginning
+        let startnote = this.add.rectangle(0, 0, 350, 150, 0xd6ccc1).setOrigin(0);
+        let startnoteText = this.add.text(175, 75, "HOW TO PLAY\n\n" +
+            "DRAG and DOUBLE CLICK on objects to interact with them\n" +
+            "Press ESC to open the menu", journalConfig).setOrigin(0.5);
+        let startnoteClose = this.add.sprite(startnote.width - 25, 10, 'close').setOrigin(0);
+        startnoteClose.setInteractive({ useHandCursor: true });
+
+        // make note into container
+        let startnoteContainer = this.add.container(325, 175, [startnote, startnoteText, startnoteClose]);
+        startnoteContainer.setDepth(5);
+        startnoteContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, startnote.width, startnote.height), Phaser.Geom.Rectangle.Contains);
+        this.input.setDraggable(startnoteContainer);
+        // allow the start note to be dragged
+        startnoteContainer.on('drag', function(pointer, dragX, dragY) {
+            this.x = dragX;
+            this.y = dragY;
+        })
+
+        // allow note to close
+        startnoteClose.on('pointerup', () => {
+            startnoteContainer.setVisible(false);
+            startnoteDesk.setVisible(true);
+        })
+
         // Makes the openJournal container and sets it invisible
         // initial runs on first load
         if(initial) {
@@ -43,7 +82,11 @@ class Desk extends Phaser.Scene {
             whichPuzzle = data.Puzzle.One;      
             content1 = whichPuzzle.Page12.Left;
             content2 = whichPuzzle.Page12.Right;
-            initial = false;
+
+            // on start show help note
+            startnoteContainer.setVisible(true);
+
+            initial = false;    // end initial setup
         }
 
         // loads in the opened journal
@@ -55,19 +98,13 @@ class Desk extends Phaser.Scene {
 
         // makes the close button and interactivity
         let closeButton = this.physics.add.sprite(jw, jh, 'close').setScale(0.8);
-        closeButton.setInteractive({
-            useHandCursor: true
-        });
+        closeButton.setInteractive( { useHandCursor: true } );
         
         // makes the page turning buttons
         let turnRight = this.add.sprite(jw, journal2.height - 10, 'right').setScale(0.8);
-        turnRight.setInteractive({
-            useHandCursor: true
-        });
+        turnRight.setInteractive( { useHandCursor: true } );
         let turnLeft = this.add.sprite(10, journal2.height - 10, 'left').setScale(0.8);
-        turnLeft.setInteractive({
-            useHandCursor: true
-        });
+        turnLeft.setInteractive( { useHandCursor: true } );
 
         // Fill in journal contents from journal.json
         let puzzleName = this.add.text(20, 10, whichPuzzle.Title, journalConfig).setScale(0.6);
@@ -143,6 +180,10 @@ class Desk extends Phaser.Scene {
                         console.log('light on');
                     }
                 }
+                if(gameObject.texture.key == 'helpNote') {
+                    startnoteContainer.setVisible(true);
+                    startnoteDesk.setVisible(false);
+                }
             }
         });
 
@@ -150,10 +191,6 @@ class Desk extends Phaser.Scene {
         let light = this.lights.addLight(485, 200, 5000, '0xFFFCBB').setIntensity(1.7); // makes a light
         this.lights.enable();                       // allows for dynamic lighting in the scene
         this.lights.setAmbientColor('0xA3A3A3');    // sets the scene's overall light (0x000000) == black/darkness
-    
-        // just saying what you can do
-        this.add.text(500, 400, "double click journal and lamp, drag journal\nESC to go back to menu\n");
-        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
     }
 
     update() {
