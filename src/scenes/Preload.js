@@ -4,24 +4,30 @@ class Preload extends Phaser.Scene {
     }
 
     preload() {
-        // this.load.image("desk_Bg", './assets/desk.png');
-        this.load.image("background", './assets/Background.png');
-        this.load.image("clouds", './assets/clouds.png');
-        this.load.image("lamp", './assets/oilLamp.png');
-        this.load.image("playButton", './assets/playButton.png');
-        this.load.image("menuButton", './assets/menuButton.png');
-        this.load.image("helpNote", './assets/helpNote.png');
+        this.load.path = './assets/';
 
-        // Journal
-        this.load.image("journal", './assets/book-closed.png');
-        this.load.image("journalOpen", './assets/book-open.png');
-        this.load.image("close", './assets/closeButton.png');
-        this.load.image('right', './assets/pageRight.png');
-        this.load.image('left', './assets/pageLeft.png');
+        // Json Data
+        this.load.json("journalData", 'journal.json');
 
-        this.load.audio("openTemp", './assets/open.wav');
+        // Background/Cutscene
+        this.load.image("background", 'Background.png');
+        this.load.image("clouds", 'clouds.png');
+        
+        // Interactive
+        this.load.image("lamp", 'oilLamp.png');
+        this.load.image("helpNote", 'helpNote.png');
+        this.load.image("journal", 'book-closed.png');
+        this.load.image("journalOpen", 'book-open.png');
 
-        this.load.json("journalData", './assets/journal.json');
+        // Buttons
+        this.load.image("playButton", 'playButton.png');
+        this.load.image("menuButton", 'menuButton.png');
+        this.load.image("close", 'closeButton.png');
+        this.load.image('right', 'pageRight.png');
+        this.load.image('left', 'pageLeft.png');
+        
+        // Sounds
+        this.load.audio("openTemp", 'Sounds/open.wav');
     }
     update() {
         this.scene.start('menuscene');
