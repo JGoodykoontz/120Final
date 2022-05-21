@@ -77,6 +77,7 @@ class Desk extends Phaser.Scene {
         startnoteContainer.setDepth(5);
         startnoteContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, startnote.width, startnote.height), Phaser.Geom.Rectangle.Contains);
         this.input.setDraggable(startnoteContainer);
+        startnoteContainer.setVisible(false);
         // allow the start note to be dragged
         startnoteContainer.on('drag', function(pointer, dragX, dragY) {
             this.x = dragX;
@@ -89,7 +90,6 @@ class Desk extends Phaser.Scene {
             startnoteDesk.setVisible(true);
         })
 
-
         // initial runs on first load
         if(initial) {
             // use to set which puzzle and text to read from journal.json
@@ -101,6 +101,9 @@ class Desk extends Phaser.Scene {
             startnoteContainer.setVisible(true);
 
             initial = false;    // end initial setup
+        }
+        else {
+            startnoteDesk.setVisible(true);
         }
 
         // Makes the openJournal container and sets it invisible
@@ -204,7 +207,7 @@ class Desk extends Phaser.Scene {
     }
 
     update() {
-        this.clouds.tilePositionX -= 1;
+        this.clouds.tilePositionX -= 0.3;
         if(Phaser.Input.Keyboard.JustDown(keyESC)) {
             this.scene.start('menuscene');
         }
