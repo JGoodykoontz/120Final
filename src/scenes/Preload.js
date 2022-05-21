@@ -9,9 +9,14 @@ class Preload extends Phaser.Scene {
         // Json Data
         this.load.json("journalData", 'journal.json');
 
-        // Background/Cutscene
+        // Background
         this.load.image("background", 'Background.png');
         this.load.image("clouds", 'clouds.png');
+
+        // Cutscene
+        this.load.image("CS1Part1", 'Artboard-1.png');
+        this.load.image("CS1Part2", 'Artboard-2.png');
+        this.load.image("CS1Part3", 'Artboard-3.png');
         
         // Interactive
         this.load.image("lamp", 'oilLamp.png');
@@ -25,7 +30,7 @@ class Preload extends Phaser.Scene {
         this.load.image("close", 'closeButton.png');
         this.load.image('right', 'pageRight.png');
         this.load.image('left', 'pageLeft.png');
-        
+
         // Sounds
         this.load.audio("openTemp", 'Sounds/open.wav');
     }

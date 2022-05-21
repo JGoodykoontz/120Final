@@ -8,7 +8,7 @@ let config = {
             debug: false
         }
     },
-    scene: [Preload, Menu, Desk],
+    scene: [Preload, Menu, CutsceneOne, Desk],
 }
 
 let game = new Phaser.Game(config);
@@ -18,6 +18,9 @@ let initial = true;
 let whichPuzzle;
 let content1;
 let content2;
+
+let counter = 1;
+let complete = false;
 
 let keySPACE;
 let keyESC;
@@ -37,6 +40,17 @@ let journalConfig = {
 let menuConfig = {
     fontFamily: 'Century Gothic',
     fontSize: '16px',
+    color: '#000000',
+    align: 'left',
+    wordWrap: {
+        width: 300
+    }
+}
+
+let cutsceneConfig = {
+    fontFamily: 'Century Gothic',
+    fontSize: '30px',
+    bold: true,
     color: '#000000',
     align: 'left',
     wordWrap: {
