@@ -28,8 +28,9 @@ let keyESC;
 let journalConfig = {
     // fontFamily: 'Bahnschrift Light',
     // fontFamily: 'Century Gothic',
-    fontFamily: 'Brush Script MT',
-    fontSize: '30px',
+    fontFamily: 'Blackadder ITC',
+    // fontFamily: 'Brush Script MT',
+    fontSize: '36px',
     color: '#000000',
     align: 'left',
     wordWrap: {
@@ -38,7 +39,8 @@ let journalConfig = {
 }
 
 let menuConfig = {
-    fontFamily: 'Century Gothic',
+    // fontFamily: 'Century Gothic',
+    fontFamily: 'Blackadder ITC',
     fontSize: '16px',
     color: '#000000',
     align: 'left',
