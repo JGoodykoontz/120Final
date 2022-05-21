@@ -39,8 +39,8 @@ let journalConfig = {
 }
 
 let menuConfig = {
-    // fontFamily: 'Century Gothic',
-    fontFamily: 'Blackadder ITC',
+    fontFamily: 'Century Gothic',
+    // fontFamily: 'Blackadder ITC',
     fontSize: '16px',
     color: '#000000',
     align: 'left',

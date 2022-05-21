@@ -12,7 +12,7 @@ class Menu extends Phaser.Scene {
         // let lamp = this.add.sprite(400, 135, 'lamp').setOrigin(0, 0).setScale(0.13).setPipeline('Light2D');
         // let journal = this.add.sprite(350, 350, 'journal').setOrigin(0, 0).setScale(0.7).setPipeline('Light2D');
 
-        let light = this.lights.addLight(485, 200, 50000, '0xFFFCBB').setIntensity(2);
+        let light = this.lights.addLight(500, 200, 50000, '0xFFFCBB').setIntensity(2);
         let light2 = this.lights.addLight(185, 100, 5000, '0xFFFCBB').setIntensity(1);
         let light3 = this.lights.addLight(885, 500, 5000, '0xFFFCBB').setIntensity(1);
         let light4 = this.lights.addLight(100, 500, 500, '0xFFCBB').setIntensity(0.5);

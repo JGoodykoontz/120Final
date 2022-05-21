@@ -20,12 +20,13 @@ class Desk extends Phaser.Scene {
 
         // add scene elements
         let lamp = this.physics.add.sprite(460, 135, 'lamp').setOrigin(0, 0).setScale(0.12).setDepth(-2).setPipeline('Light2D');
-        let journal = this.add.sprite(125, 350, 'journal').setOrigin(0, 0).setScale(0.7).setPipeline('Light2D');
+        let journal = this.add.sprite(125, 350, 'journal').setOrigin(0, 0).setPipeline('Light2D');
         let startnoteDesk = this.add.image(50, 325, 'helpNote').setVisible(false);
         journal.visible = true;
+        let notepad = this.add.sprite(500, 360, 'notepad').setOrigin(0, 0).setPipeline('Light2D');
 
         // enables dynamic lighting within the scene and on setPipeline("Light2D") objects
-        let light = this.lights.addLight(485, 200, 5000, '0xFFFCBB').setIntensity(1.7); // makes a light
+        let light = this.lights.addLight(500, 200, 5000, '0xFFFCBB').setIntensity(1.7); // makes a light
         this.lights.enable();                       // allows for dynamic lighting in the scene
         this.lights.setAmbientColor('0xA3A3A3');    // sets the scene's overall light (0x000000) == black/darkness
 
@@ -49,6 +50,17 @@ class Desk extends Phaser.Scene {
         this.input.on('drag', function (pointer, journal, dragX, dragY) {
             journal.x = dragX;
             journal.y = dragY;
+        });
+
+        // Notepad interactive settings
+        notepad.setInteractive({
+            draggable: true,
+            useHandCursor: true
+        });
+        // enables dragging
+        this.input.on('drag', function (pointer, notepad, dragX, dragY) {
+            notepad.x = dragX;
+            notepad.y = dragY;
         });
 
         // Lamp interactive settings
@@ -183,6 +195,8 @@ class Desk extends Phaser.Scene {
             turnRight.setVisible(true);
         })
         journalContainer.setVisible(false); // initially invisible on scene start
+
+
 
         // double click logic https://phaser.discourse.group/t/double-tap/3051
         // modified with the TheyAreListening code example from class

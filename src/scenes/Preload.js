@@ -23,6 +23,8 @@ class Preload extends Phaser.Scene {
         this.load.image("helpNote", 'helpNote.png');
         this.load.image("journal", 'book-closed.png');
         this.load.image("journalOpen", 'book-open.png');
+        this.load.image("notepad", 'notepad-closed.png');
+        this.load.image("notepadOpen", 'notepad-open.png');
 
         // Buttons
         this.load.image("playButton", 'playButton.png');
