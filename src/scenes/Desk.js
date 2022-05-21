@@ -129,8 +129,23 @@ class Desk extends Phaser.Scene {
         let page1 = this.add.text(20, 35, content1, journalConfig).setScale(0.5);
         let page2 = this.add.text(295, 35, content2, journalConfig).setScale(0.5);
 
+        let test1 = this.add.image(410, 260, 'close').setScale(1.5);
+        test1.setInteractive({
+            useHandCursor: true,
+            draggable: true
+        })
+        let testfinal = this.add.image(420, 300, 'close').setScale(2);
+        testfinal.setInteractive( { dropZone: true });
+        test1.on('drop', (pointer, target) => {
+            console.log(`Dropped '${test1.texture.key}' on '${target.texture.key}'`);
+            if(target.texture.key === 'close') {
+                test1.destroy();
+                testfinal.setTexture('right');
+            }
+        })
+
         // make an array of components to be used in the container
-        let jcContents = [journal2, closeButton, turnRight, turnLeft, puzzleName, page1, page2];
+        let jcContents = [journal2, closeButton, turnRight, turnLeft, puzzleName, page1, page2, test1, testfinal];
 
         // make container
         let journalContainer = this.add.container(100, 10, jcContents);
