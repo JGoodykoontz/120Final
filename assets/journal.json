@@ -1,10 +1,11 @@
 {
     "Puzzle": {
         "One": {
-            "Title": "Puzzle One",
             "Page12": {
-                "Left": "I find myself troubled by my dreams of late. They began rather ordinarily, and while I remembered being unsettled by them upon my waking, they came to me weeks apart and with time, whatever fears I had faded. For months it went on like that. However, about two weeks ago, the dreams changed. Not only had they become more frequent, coming to me on a nearly nightly basis, but they began to get longer and more vivid. At times I feel dread falling asleep for I know the nightmares that await will be horrible indeed. That is why I am writing this journal. I hope that by transcribing the contents of these dreams, I may grow to understand them, and perhaps it is through understanding them I might find peace. I shall begin by writing what I recall of my dream last night.",
-                "Right": "PAGE 2 HERE and then i ramble on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on ",
+                "Title": "Oct 1, 19xx",
+                "Left": "I find myself troubled by a DREAM of late. It started a few weeks ago, but now its a nightly experience. I have started dreading the call of sleep for I know the DREAM is all that is waiting. In the DREAM I find myself lost in a damp darkness, the surrounding silence is broken by faint whispers and slithering.",
+                "Right": "I'm gripped with fear before suddenly awakening, but the DREAM seems to grow longer with each passing night...",
+                "Word": "DREAM",
                 "Turn": [ 
                     {
                         "Text": "Next",
@@ -13,8 +14,10 @@
                 ]
             },
             "Page34": {
-                "Left": "PAGE 3 HERE",
-                "Right": "PAGE 4 HERE",
+                "Title": "Oct 8, 19xx",
+                "Left": "The DREAM has evolved further. There is now a dimly lit temple that seems to be the source of the whispering. When I venture inside, I am greeted by a statue of some creature. It has the head and torso of a man, yet in place of limbs are tentacles. The whispers start to grow louder and I can hear them mention a KEY.",
+                "Right": "At the base of the statue is a large KEY.  When I reach for it, the statue animates and grips me, a terrifying visage appears on its torso, and screams. What does this KEY mean...",
+                "Word": "KEY",
                 "Turn": [ 
                     {
                         "Text": "Prev",
@@ -24,10 +27,11 @@
             }
         },
         "Two": {
-            "Title": "Puzzle Two",
             "Page12": {
+                "Title": "Puzzle Two",
                 "Left": "PAGE 1 HERE puzzle 2",
                 "Right": "PAGE 2 HERE puzzle 2",
+                "Word": "",
                 "Turn": [ 
                     {
                         "Text": "Next",
@@ -36,8 +40,10 @@
                 ]
             },
             "Page34": {
+                "Title": "Puzzle Two",
                 "Left": "PAGE 3 HERE puzzle 2",
                 "Right": "PAGE 4 HERE puzzle 2",
+                "Word": "",
                 "Turn": [ 
                     {
                         "Text": "Prev",
@@ -47,10 +53,11 @@
             }
         },
         "Three": {
-            "Title": "Puzzle Three",
             "Page12": {
+                "Title": "Puzzle Three",
                 "Left": "PAGE 1 HERE 333333",
                 "Right": "PAGE 2 HERE 333333",
+                "Word": "",
                 "Turn": [ 
                     {
                         "Text": "Next",
@@ -59,8 +66,10 @@
                 ]
             },
             "Page34": {
+                "Title": "Puzzle Three",
                 "Left": "PAGE 3 HERE 333333",
                 "Right": "PAGE 4 HERE 333333",
+                "Word": "",
                 "Turn": [ 
                     {
                         "Text": "Prev",

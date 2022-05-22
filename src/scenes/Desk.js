@@ -137,9 +137,9 @@ class Desk extends Phaser.Scene {
         turnLeft.setInteractive( { useHandCursor: true } );
 
         // Fill in journal contents from journal.json
-        let puzzleName = this.add.text(20, 10, whichPuzzle.Title, journalConfig).setScale(0.7);
-        let page1 = this.add.text(20, 35, content1, journalConfig).setScale(0.5);
-        let page2 = this.add.text(295, 35, content2, journalConfig).setScale(0.5);
+        let puzzleName = this.add.text(20, 10, whichPuzzle.Page12.Title, journalConfig).setScale(0.5);
+        let page1 = this.add.text(20, 40, content1, journalConfig).setScale(0.5);
+        let page2 = this.add.text(295, 40, content2, journalConfig).setScale(0.5);
 
         let test1 = this.add.image(410, 260, 'close').setScale(1.5);
         test1.setInteractive({
@@ -183,12 +183,14 @@ class Desk extends Phaser.Scene {
 
         // Allows to turn pages
         turnRight.on('pointerup', () => {
+            puzzleName.setText(whichPuzzle.Page34.Title);
             page1.setText(whichPuzzle.Page34.Left);
             page2.setText(whichPuzzle.Page34.Right);
             turnRight.setVisible(false);
             turnLeft.setVisible(true);
         })
         turnLeft.on('pointerup', () => {
+            puzzleName.setText(whichPuzzle.Page12.Title);
             page1.setText(whichPuzzle.Page12.Left);
             page2.setText(whichPuzzle.Page12.Right);
             turnLeft.setVisible(false);

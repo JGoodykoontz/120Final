@@ -30,8 +30,8 @@ let journalConfig = {
     // fontFamily: 'Century Gothic',
     fontFamily: 'Blackadder ITC',
     // fontFamily: 'Brush Script MT',
-    fontSize: '36px',
-    color: '#000000',
+    fontSize: '42px',
+    color: '#6D2817',
     align: 'left',
     wordWrap: {
         width: 500
