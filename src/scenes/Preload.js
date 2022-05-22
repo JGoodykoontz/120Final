@@ -33,6 +33,9 @@ class Preload extends Phaser.Scene {
         this.load.image('right', 'pageRight.png');
         this.load.image('left', 'pageLeft.png');
 
+        // Puzzle
+        this.load.image("dream", 'alienDREAM.png');
+
         // Sounds
         this.load.audio("openTemp", 'Sounds/open.wav');
     }

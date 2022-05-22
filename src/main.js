@@ -13,16 +13,20 @@ let config = {
 
 let game = new Phaser.Game(config);
 
+// desk variables
 let lightOn = true;
 let initial = true;
 let whichPuzzle;
 let content1;
 let content2;
+let topCounter = 0; // counter for moving stuff to top of scene
 
+// cutscene variables
 let counter = 1;
 let complete = false;
 
-let keySPACE;
+// allocating keys
+// let keySPACE;
 let keyESC;
 
 let journalConfig = {
@@ -30,7 +34,7 @@ let journalConfig = {
     // fontFamily: 'Century Gothic',
     fontFamily: 'Blackadder ITC',
     // fontFamily: 'Brush Script MT',
-    fontSize: '42px',
+    fontSize: '44px',
     color: '#6D2817',
     align: 'left',
     wordWrap: {
@@ -57,5 +61,15 @@ let cutsceneConfig = {
     align: 'left',
     wordWrap: {
         width: 300
+    }
+}
+
+let alienFontConfig = {
+    fontFamily: 'AlienScript',
+    fontSize: '20px',
+    color: '#6D2817',
+    align: 'left',
+    wordWrap: {
+        width: 500
     }
 }

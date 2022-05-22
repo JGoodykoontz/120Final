@@ -118,6 +118,31 @@ class Desk extends Phaser.Scene {
             startnoteDesk.setVisible(true);
         }
 
+        let notepad2 = this.add.sprite(0, 0, 'notepadOpen').setOrigin(0);
+        let noteCloseButton = this.add.image(notepad2.width - 15, 50, 'close');
+        noteCloseButton.setInteractive({ useHandCursor: true });
+        let notepadContainer = this.add.container(100, 10, [notepad2, noteCloseButton]);
+        notepadContainer.setDepth(5+topCounter);   // sets to top of scene
+        // notepadContainer.setScale(1.5);
+        notepadContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, notepad2.width, notepad2.height), Phaser.Geom.Rectangle.Contains);
+        this.input.setDraggable(notepadContainer);
+        notepadContainer.on('drag', function(pointer, dragX, dragY) {
+            this.x = dragX;
+            this.y = dragY;
+        })
+        noteCloseButton.on('pointerup', () => {
+            // console.log('close journal');
+            notepadContainer.setDepth(5);
+            notepadContainer.setVisible(false);
+            notepad.setVisible(true);
+        })
+        notepadContainer.on('pointerdown', () => {
+            notepadContainer.setDepth(5+topCounter);
+            topCounter++;
+        })
+        notepadContainer.setVisible(false);
+
+
         // Makes the openJournal container and sets it invisible
         // loads in the opened journal
         let journal2 = this.add.sprite(0, 0, 'journalOpen').setOrigin(0);
@@ -141,27 +166,21 @@ class Desk extends Phaser.Scene {
         let page1 = this.add.text(20, 40, content1, journalConfig).setScale(0.5);
         let page2 = this.add.text(295, 40, content2, journalConfig).setScale(0.5);
 
-        let test1 = this.add.image(410, 260, 'close').setScale(1.5);
-        test1.setInteractive({
-            useHandCursor: true,
-            draggable: true
-        })
-        let testfinal = this.add.image(420, 300, 'close').setScale(2);
-        testfinal.setInteractive( { dropZone: true });
-        test1.on('drop', (pointer, target) => {
-            console.log(`Dropped '${test1.texture.key}' on '${target.texture.key}'`);
-            if(target.texture.key === 'close') {
-                test1.destroy();
-                testfinal.setTexture('right');
-            }
-        })
+        
+        // Testing draggable inside container
+        //
+        let test1 = new Letter(this, 410, 260, 'right').setScale(1.5);
+        test1.letterDrop('close');
+        let testfinal = new Dropzone(this, 420, 300, 'close').setScale(2);
+        //
+        // end of testing of draggable inside container        
 
         // make an array of components to be used in the container
         let jcContents = [journal2, closeButton, turnRight, turnLeft, puzzleName, page1, page2, test1, testfinal];
 
         // make container
         let journalContainer = this.add.container(100, 10, jcContents);
-        journalContainer.setDepth(5);   // sets to top of scene
+        journalContainer.setDepth(5+topCounter);   // sets to top of scene
         journalContainer.setScale(1.5);
         journalContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, journal2.width, journal2.height), Phaser.Geom.Rectangle.Contains);
         this.input.setDraggable(journalContainer);
@@ -177,6 +196,7 @@ class Desk extends Phaser.Scene {
         // this saves the current position and page when next opened
         closeButton.on('pointerup', () => {
             // console.log('close journal');
+            journalContainer.setDepth(5);
             journalContainer.setVisible(false);
             journal.setVisible(true);
         })
@@ -186,6 +206,8 @@ class Desk extends Phaser.Scene {
             puzzleName.setText(whichPuzzle.Page34.Title);
             page1.setText(whichPuzzle.Page34.Left);
             page2.setText(whichPuzzle.Page34.Right);
+            test1.setVisible(false);
+            testfinal.setVisible(false);
             turnRight.setVisible(false);
             turnLeft.setVisible(true);
         })
@@ -193,8 +215,14 @@ class Desk extends Phaser.Scene {
             puzzleName.setText(whichPuzzle.Page12.Title);
             page1.setText(whichPuzzle.Page12.Left);
             page2.setText(whichPuzzle.Page12.Right);
+            test1.setVisible(true);
+            testfinal.setVisible(true);
             turnLeft.setVisible(false);
             turnRight.setVisible(true);
+        })
+        journalContainer.on('pointerdown', () => {
+            journalContainer.setDepth(5+topCounter);
+            topCounter++;
         })
         journalContainer.setVisible(false); // initially invisible on scene start
 
@@ -233,6 +261,10 @@ class Desk extends Phaser.Scene {
                     startnoteContainer.setVisible(true);
                     startnoteDesk.setVisible(false);
                 }
+                if(gameObject.texture.key == 'notepad') {
+                    notepadContainer.setVisible(true);
+                    notepad.setVisible(false);
+                }
             }
         });
     }
@@ -242,5 +274,9 @@ class Desk extends Phaser.Scene {
         if(Phaser.Input.Keyboard.JustDown(keyESC)) {
             this.scene.start('menuscene');
         }
+    }
+
+    moveTop(target) {
+
     }
 }

@@ -3,8 +3,10 @@
         "One": {
             "Page12": {
                 "Title": "Oct 1, 19xx",
-                "Left": "I find myself troubled by a DREAM of late. It started a few weeks ago, but now its a nightly experience. I have started dreading the call of sleep for I know the DREAM is all that is waiting. In the DREAM I find myself lost in a damp darkness, the surrounding silence is broken by faint whispers and slithering.",
-                "Right": "I'm gripped with fear before suddenly awakening, but the DREAM seems to grow longer with each passing night...",
+                "Left": "I find myself troubled by a fhtagn of late. It started a few weeks ago, but now its a nightly experience. I have started dreading the call of sleep for I know the fhtagn is all that is waiting. In the fhtagn I find myself lost in a damp darkness, the surrounding silence is broken by faint whispers and slithering.",
+                "Right": "I'm gripped with fear before suddenly awakening, but the fhtagn seems to grow longer with each passing night...",
+                "LeftSolved": "I find myself troubled by a dream  of late. It started a few weeks ago, but now its a nightly experience. I have started dreading the call of sleep for I know the dream  is all that is waiting. In the dream  I find myself lost in a damp darkness, the surrounding silence is broken by faint whispers and slithering.",
+                "RightSolved": "I'm gripped with fear before suddenly awakening, but the dream  seems to grow longer with each passing night...",
                 "Word": "DREAM",
                 "Turn": [ 
                     {
@@ -15,8 +17,8 @@
             },
             "Page34": {
                 "Title": "Oct 8, 19xx",
-                "Left": "The DREAM has evolved further. There is now a dimly lit temple that seems to be the source of the whispering. When I venture inside, I am greeted by a statue of some creature. It has the head and torso of a man, yet in place of limbs are tentacles. The whispers start to grow louder and I can hear them mention a KEY.",
-                "Right": "At the base of the statue is a large KEY.  When I reach for it, the statue animates and grips me, a terrifying visage appears on its torso, and screams. What does this KEY mean...",
+                "Left": "The nightmare has evolved further. There is now a dimly lit temple that seems to be the source of the whispering. When I venture inside, I am greeted by a statue of some creature. It has the head and torso of a man, yet in place of limbs are tentacles. The whispers start to grow louder and I can hear them mention a ch'nglui.",
+                "Right": "At the base of the statue is a large ch'nglui.  When I reach for it, the statue animates and grips me, a terrifying visage appears on its torso, and screams. What does this ch'nglui mean...",
                 "Word": "KEY",
                 "Turn": [ 
                     {
