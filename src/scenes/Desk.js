@@ -121,7 +121,7 @@ class Desk extends Phaser.Scene {
         let notepad2 = this.add.sprite(0, 0, 'notepadOpen').setOrigin(0);
         let noteCloseButton = this.add.image(notepad2.width - 15, 50, 'close');
         noteCloseButton.setInteractive({ useHandCursor: true });
-        let notepadContainer = this.add.container(100, 10, [notepad2, noteCloseButton]);
+        let notepadContainer = this.add.container(500, 30, [notepad2, noteCloseButton]);
         notepadContainer.setDepth(5+topCounter);   // sets to top of scene
         // notepadContainer.setScale(1.5);
         notepadContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, notepad2.width, notepad2.height), Phaser.Geom.Rectangle.Contains);
@@ -167,20 +167,31 @@ class Desk extends Phaser.Scene {
         let page2 = this.add.text(295, 40, content2, journalConfig).setScale(0.5);
 
         
-        // Testing draggable inside container
-        //
-        let test1 = new Letter(this, 410, 260, 'right').setScale(1.5);
-        test1.letterDrop('close');
-        let testfinal = new Dropzone(this, 420, 300, 'close').setScale(2);
-        //
-        // end of testing of draggable inside container        
+        // Puzzle parts
+        let p1 = new Dropzone(this, 340, 230, 'dropD').setScale(0.5);
+        let p2 = new Dropzone(this, 370, 230, 'dropR').setScale(0.5);
+        let p3 = new Dropzone(this, 400, 230, 'dropE').setScale(0.5);
+        let p4 = new Dropzone(this, 430, 230, 'dropA').setScale(0.5);
+        let p5 = new Dropzone(this, 463, 230, 'dropM').setScale(0.5);
+
+        let let1 = new Letter(this, 440, 290, 'markD').setScale(0.6);
+        let let2 = new Letter(this, 480, 290, 'markR').setScale(0.6);
+        let let3 = new Letter(this, 320, 290, 'markE').setScale(0.6);
+        let let4 = new Letter(this, 400, 290, 'markA').setScale(0.6);
+        let let5 = new Letter(this, 360, 290, 'markM').setScale(0.6);
+        let1.letterDrop('dropD');
+        let2.letterDrop('dropR');
+        let3.letterDrop('dropE');
+        let4.letterDrop('dropA');
+        let5.letterDrop('dropM');
+     
 
         // make an array of components to be used in the container
-        let jcContents = [journal2, closeButton, turnRight, turnLeft, puzzleName, page1, page2, test1, testfinal];
+        let jcContents = [journal2, closeButton, turnRight, turnLeft, puzzleName, page1, page2, p1, p2, p3, p4, p5, let1, let2, let3, let4, let5];
 
         // make container
         let journalContainer = this.add.container(100, 10, jcContents);
-        journalContainer.setDepth(5+topCounter);   // sets to top of scene
+        journalContainer.setDepth(3);   // sets to top of scene
         journalContainer.setScale(1.5);
         journalContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, journal2.width, journal2.height), Phaser.Geom.Rectangle.Contains);
         this.input.setDraggable(journalContainer);

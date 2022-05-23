@@ -3,7 +3,7 @@ class Letter extends Phaser.GameObjects.Sprite {
         super(scene, x, y, texture, frame);
 
         scene.add.existing(this);
-        this.setDepth(4);
+        this.setDepth(100);
         this.setInteractive({
             useHandCursor: true,
             draggable: true
@@ -11,6 +11,7 @@ class Letter extends Phaser.GameObjects.Sprite {
         this.on('drag', function(pointer, dragX, dragY) {
             this.x = dragX;
             this.y = dragY;
+            this.setDepth(100);
         })
     }
     letterDrop(correctTarget) {
