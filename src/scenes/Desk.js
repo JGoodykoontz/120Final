@@ -36,42 +36,16 @@ class Desk extends Phaser.Scene {
         // *******************************
 
         // helpNote interactive settings
-        startnoteDesk.setInteractive({
-            draggable: true,
-            useHandCursor: true
-        });
+        this.makeInteractive(startnoteDesk, true, true);
 
         // Journal interactive settings
-        journal.setInteractive({
-            draggable: true,
-            useHandCursor: true
-        });
-        // enables dragging
-        this.input.on('drag', function (pointer, journal, dragX, dragY) {
-            journal.x = dragX;
-            journal.y = dragY;
-        });
+        this.makeInteractive(journal, true, true);
 
         // Notepad interactive settings
-        notepad.setInteractive({
-            draggable: true,
-            useHandCursor: true
-        });
-        // enables dragging
-        this.input.on('drag', function (pointer, notepad, dragX, dragY) {
-            notepad.x = dragX;
-            notepad.y = dragY;
-        });
+        this.makeInteractive(notepad, true, true);
 
         // Lamp interactive settings
-        lamp.setInteractive({
-            draggable: false,
-            useHandCursor: true
-        });
-        this.input.on('drag', function (pointer, lamp, dragX, dragY) {
-            lamp.x = dragX;
-            lamp.y = dragY;
-        });
+        this.makeInteractive(lamp, false, true);
 
 
         // *****************************************
@@ -166,6 +140,8 @@ class Desk extends Phaser.Scene {
         let page1 = this.add.text(20, 40, content1, journalConfig).setScale(0.5);
         let page2 = this.add.text(295, 40, content2, journalConfig).setScale(0.5);
 
+        let hint = this.add.text(305, 180, 'Drag the letters onto the alien script to translate', hintConfig).setScale(0.5);
+
         
         // Puzzle parts
         let p1 = new Dropzone(this, 340, 230, 'dropD').setScale(0.5);
@@ -187,7 +163,7 @@ class Desk extends Phaser.Scene {
 
 
         // make an array of components to be used in the container
-        let jcContents = [journal2, closeButton, turnRight, turnLeft, puzzleName, page1, page2, p1, p2, p3, p4, p5, let1, let2, let3, let4, let5];
+        let jcContents = [journal2, closeButton, turnRight, turnLeft, puzzleName, page1, page2, hint, p1, p2, p3, p4, p5, let1, let2, let3, let4, let5];
 
         // make container
         let journalContainer = this.add.container(100, 10, jcContents);
@@ -315,9 +291,21 @@ class Desk extends Phaser.Scene {
         if(Phaser.Input.Keyboard.JustDown(keyESC)) {
             this.scene.start('menuscene');
         }
+    }
 
-        // if(!this.let1 && !this.let2 && !this.let3 && !this.let4 && !this.let5) {
-        //     puzzle1 = true;
-        // }
+    makeInteractive(obj, drag, cursor) {
+        obj.setInteractive({
+            draggable: drag,
+            useHandCursor: cursor
+        });
+        if(drag) {
+            this.makeDrag(obj);
+        }
+    }
+    makeDrag(obj) {
+        this.input.on('drag', function (pointer, obj, dragX, dragY) {
+            obj.x = dragX;
+            obj.y = dragY;
+        });
     }
 }
