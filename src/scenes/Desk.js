@@ -36,42 +36,16 @@ class Desk extends Phaser.Scene {
         // *******************************
 
         // helpNote interactive settings
-        startnoteDesk.setInteractive({
-            draggable: true,
-            useHandCursor: true
-        });
+        this.makeInteractive(startnoteDesk, true, true);
 
         // Journal interactive settings
-        journal.setInteractive({
-            draggable: true,
-            useHandCursor: true
-        });
-        // enables dragging
-        this.input.on('drag', function (pointer, journal, dragX, dragY) {
-            journal.x = dragX;
-            journal.y = dragY;
-        });
-
+        this.makeInteractive(journal, true, true);
+        
         // Notepad interactive settings
-        notepad.setInteractive({
-            draggable: true,
-            useHandCursor: true
-        });
-        // enables dragging
-        this.input.on('drag', function (pointer, notepad, dragX, dragY) {
-            notepad.x = dragX;
-            notepad.y = dragY;
-        });
+        this.makeInteractive(notepad, true, true);
 
         // Lamp interactive settings
-        lamp.setInteractive({
-            draggable: false,
-            useHandCursor: true
-        });
-        this.input.on('drag', function (pointer, lamp, dragX, dragY) {
-            lamp.x = dragX;
-            lamp.y = dragY;
-        });
+        this.makeInteractive(lamp, false, true);
 
 
         // *****************************************
@@ -315,9 +289,21 @@ class Desk extends Phaser.Scene {
         if(Phaser.Input.Keyboard.JustDown(keyESC)) {
             this.scene.start('menuscene');
         }
+    }
 
-        // if(!this.let1 && !this.let2 && !this.let3 && !this.let4 && !this.let5) {
-        //     puzzle1 = true;
-        // }
+    makeInteractive(obj, drag, cursor) {
+        obj.setInteractive({
+            draggable: drag,
+            useHandCursor: cursor
+        });
+        if(drag) {
+            this.makeDrag(obj);
+        }
+    }
+    makeDrag(obj) {
+        this.input.on('drag', function (pointer, obj, dragX, dragY) {
+            obj.x = dragX;
+            obj.y = dragY;
+        });
     }
 }
