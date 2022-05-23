@@ -65,12 +65,9 @@ let cutsceneConfig = {
     }
 }
 
-let alienFontConfig = {
-    fontFamily: 'AlienScript',
-    fontSize: '20px',
-    color: '#6D2817',
+let hintConfig = {
+    fontFamily: 'Century Gothic',
+    fontSize: '16px',
+    color: '#000000',
     align: 'left',
-    wordWrap: {
-        width: 500
-    }
 }

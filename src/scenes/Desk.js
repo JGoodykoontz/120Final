@@ -40,7 +40,7 @@ class Desk extends Phaser.Scene {
 
         // Journal interactive settings
         this.makeInteractive(journal, true, true);
-        
+
         // Notepad interactive settings
         this.makeInteractive(notepad, true, true);
 
@@ -140,6 +140,8 @@ class Desk extends Phaser.Scene {
         let page1 = this.add.text(20, 40, content1, journalConfig).setScale(0.5);
         let page2 = this.add.text(295, 40, content2, journalConfig).setScale(0.5);
 
+        let hint = this.add.text(305, 180, 'Drag the letters onto the alien script to translate', hintConfig).setScale(0.5);
+
         
         // Puzzle parts
         let p1 = new Dropzone(this, 340, 230, 'dropD').setScale(0.5);
@@ -161,7 +163,7 @@ class Desk extends Phaser.Scene {
 
 
         // make an array of components to be used in the container
-        let jcContents = [journal2, closeButton, turnRight, turnLeft, puzzleName, page1, page2, p1, p2, p3, p4, p5, let1, let2, let3, let4, let5];
+        let jcContents = [journal2, closeButton, turnRight, turnLeft, puzzleName, page1, page2, hint, p1, p2, p3, p4, p5, let1, let2, let3, let4, let5];
 
         // make container
         let journalContainer = this.add.container(100, 10, jcContents);
