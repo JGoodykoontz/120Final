@@ -184,7 +184,7 @@ class Desk extends Phaser.Scene {
         let3.letterDrop('dropE');
         let4.letterDrop('dropA');
         let5.letterDrop('dropM');
-     
+
 
         // make an array of components to be used in the container
         let jcContents = [journal2, closeButton, turnRight, turnLeft, puzzleName, page1, page2, p1, p2, p3, p4, p5, let1, let2, let3, let4, let5];
@@ -214,20 +214,50 @@ class Desk extends Phaser.Scene {
 
         // Allows to turn pages
         turnRight.on('pointerup', () => {
+            if(puzzle1 == true) {
+                page1.setText(whichPuzzle.Page34.LeftSolved);
+                page2.setText(whichPuzzle.Page34.RightSolved);
+            }
+            else {
+                page1.setText(whichPuzzle.Page34.Left);
+                page2.setText(whichPuzzle.Page34.Right);
+            }
             puzzleName.setText(whichPuzzle.Page34.Title);
             page1.setText(whichPuzzle.Page34.Left);
             page2.setText(whichPuzzle.Page34.Right);
-            test1.setVisible(false);
-            testfinal.setVisible(false);
+            p1.setVisible(false);
+            p2.setVisible(false);
+            p3.setVisible(false);
+            p4.setVisible(false);
+            p5.setVisible(false);
+            let1.setVisible(false);
+            let2.setVisible(false);
+            let3.setVisible(false);
+            let4.setVisible(false);
+            let5.setVisible(false);
             turnRight.setVisible(false);
             turnLeft.setVisible(true);
         })
         turnLeft.on('pointerup', () => {
+            if(puzzle1 == true) {
+                page1.setText(whichPuzzle.Page12.LeftSolved);
+                page2.setText(whichPuzzle.Page12.RightSolved);
+            }
+            else {
+                page1.setText(whichPuzzle.Page12.Left);
+                page2.setText(whichPuzzle.Page12.Right);
+            }
             puzzleName.setText(whichPuzzle.Page12.Title);
-            page1.setText(whichPuzzle.Page12.Left);
-            page2.setText(whichPuzzle.Page12.Right);
-            test1.setVisible(true);
-            testfinal.setVisible(true);
+            p1.setVisible(true);
+            p2.setVisible(true);
+            p3.setVisible(true);
+            p4.setVisible(true);
+            p5.setVisible(true);
+            let1.setVisible(true);
+            let2.setVisible(true);
+            let3.setVisible(true);
+            let4.setVisible(true);
+            let5.setVisible(true);
             turnLeft.setVisible(false);
             turnRight.setVisible(true);
         })
@@ -285,9 +315,9 @@ class Desk extends Phaser.Scene {
         if(Phaser.Input.Keyboard.JustDown(keyESC)) {
             this.scene.start('menuscene');
         }
-    }
 
-    moveTop(target) {
-
+        // if(!this.let1 && !this.let2 && !this.let3 && !this.let4 && !this.let5) {
+        //     puzzle1 = true;
+        // }
     }
 }

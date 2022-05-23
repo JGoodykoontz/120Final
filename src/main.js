@@ -20,6 +20,7 @@ let whichPuzzle;
 let content1;
 let content2;
 let topCounter = 0; // counter for moving stuff to top of scene
+let puzzle1 = false;
 
 // cutscene variables
 let counter = 1;
