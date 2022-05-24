@@ -11,6 +11,11 @@ class Cutscene extends Phaser.Scene {
             scene2 = this.add.image(0, 0, 'CS1Part2').setOrigin(0, 0).setDepth(2).setInteractive();
             scene3 = this.add.image(0, 0, 'CS1Part3').setOrigin(0, 0).setDepth(1).setInteractive();
         }
+        if(level == 2) {
+            scene1 = this.add.image(0, 0, 'CS2Part1').setOrigin(0, 0).setDepth(3).setInteractive();
+            scene2 = this.add.image(0, 0, 'CS2Part2').setOrigin(0, 0).setDepth(2).setInteractive();
+            scene3 = this.add.image(0, 0, 'CS2Part3').setOrigin(0, 0).setDepth(1).setInteractive();
+        }
 
         // play the cutscene on first time loading
         if(initial) {
