@@ -28,23 +28,26 @@ class Preload extends Phaser.Scene {
 
         // Buttons
         this.load.image("playButton", 'playButton.png');
-        this.load.image("menuButton", 'menuButton.png');
         this.load.image("close", 'closeButton.png');
         this.load.image('right', 'pageRight.png');
         this.load.image('left', 'pageLeft.png');
 
         // Puzzle
-        this.load.image("dream", 'alienDREAM.png');
-        this.load.image("dropD", 'dropzoneD.png');
-        this.load.image("dropR", 'dropzoneR.png');
-        this.load.image("dropE", 'dropzoneE.png');
-        this.load.image("dropA", 'dropzoneA.png');
-        this.load.image("dropM", 'dropzoneM.png');
+        // this.load.image("drop", 'dropZone.png');
+        this.load.image("dropD", 'dropZone.png');
+        this.load.image("dropR", 'dropZone.png');
+        this.load.image("dropE", 'dropZone.png');
+        this.load.image("dropA", 'dropZone.png');
+        this.load.image("dropM", 'dropZone.png');
+        this.load.image("dropK", 'dropZone.png');
+        this.load.image("dropY", 'dropZone.png');
         this.load.image("markD", 'markerD.png');
         this.load.image("markR", 'markerR.png');
         this.load.image("markE", 'markerE.png');
         this.load.image("markA", 'markerA.png');
         this.load.image("markM", 'markerM.png');
+        this.load.image("markK", 'markerK.png');
+        this.load.image("markY", 'markerY.png');
 
         // Sounds
         this.load.audio("openTemp", 'Sounds/open.wav');

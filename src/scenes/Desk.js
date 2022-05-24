@@ -8,7 +8,7 @@ class Desk extends Phaser.Scene {
         this.cameras.main.fadeIn(1000, 0, 0, 0);
 
         // initialize keybind
-        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);    // used for pause menu
 
         // load journal.json cached data
         let data = this.cache.json.get('journalData');
@@ -76,13 +76,8 @@ class Desk extends Phaser.Scene {
             startnoteDesk.setVisible(true);
         })
 
-        // initial runs on first load
+        // initial runs on first load, loads the hint note at start
         if(initial) {
-            // use to set which puzzle and text to read from journal.json
-            whichPuzzle = data.Puzzle.One;      
-            content1 = whichPuzzle.Page12.Left;
-            content2 = whichPuzzle.Page12.Right;
-
             // on start show help note
             startnoteContainer.setVisible(true);
 
@@ -92,12 +87,14 @@ class Desk extends Phaser.Scene {
             startnoteDesk.setVisible(true);
         }
 
+        // ************************
+        // SETUP NOTEPAD CONTAINER
+        // ************************
         let notepad2 = this.add.sprite(0, 0, 'notepadOpen').setOrigin(0);
         let noteCloseButton = this.add.image(notepad2.width - 15, 50, 'close');
         noteCloseButton.setInteractive({ useHandCursor: true });
         let notepadContainer = this.add.container(500, 30, [notepad2, noteCloseButton]);
         notepadContainer.setDepth(5+topCounter);   // sets to top of scene
-        // notepadContainer.setScale(1.5);
         notepadContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, notepad2.width, notepad2.height), Phaser.Geom.Rectangle.Contains);
         this.input.setDraggable(notepadContainer);
         notepadContainer.on('drag', function(pointer, dragX, dragY) {
@@ -117,68 +114,33 @@ class Desk extends Phaser.Scene {
         notepadContainer.setVisible(false);
 
 
-        // Makes the openJournal container and sets it invisible
-        // loads in the opened journal
+        // ************************
+        // JOURNAL CONTAINER SETUP
+        // ************************
         let journal2 = this.add.sprite(0, 0, 'journalOpen').setOrigin(0);
-
         // finds the top right corner for the button position
         let jw = (journal2.width) - 15;         // journal width
         let jh = 15;                            // journal height
-
         // makes the close button and interactivity
         let closeButton = this.physics.add.sprite(jw, jh, 'close').setScale(0.8);
         closeButton.setInteractive( { useHandCursor: true } );
-        
         // makes the page turning buttons
         let turnRight = this.add.sprite(jw, journal2.height - 10, 'right').setScale(1.2);
         turnRight.setInteractive( { useHandCursor: true } );
         let turnLeft = this.add.sprite(15, journal2.height - 10, 'left').setScale(1.2);
         turnLeft.setInteractive( { useHandCursor: true } );
-
-        // Fill in journal contents from journal.json
-        let puzzleName = this.add.text(20, 10, whichPuzzle.Page12.Title, journalConfig).setScale(0.5);
-        let page1 = this.add.text(20, 40, content1, journalConfig).setScale(0.5);
-        let page2 = this.add.text(295, 40, content2, journalConfig).setScale(0.5);
-
-        let hint = this.add.text(305, 180, 'Drag the letters onto the alien script to translate', hintConfig).setScale(0.5);
-
-        
-        // Puzzle parts
-        let p1 = new Dropzone(this, 340, 230, 'dropD').setScale(0.5);
-        let p2 = new Dropzone(this, 370, 230, 'dropR').setScale(0.5);
-        let p3 = new Dropzone(this, 400, 230, 'dropE').setScale(0.5);
-        let p4 = new Dropzone(this, 430, 230, 'dropA').setScale(0.5);
-        let p5 = new Dropzone(this, 463, 230, 'dropM').setScale(0.5);
-
-        let let1 = new Letter(this, 440, 290, 'markD').setScale(0.6);
-        let let2 = new Letter(this, 480, 290, 'markR').setScale(0.6);
-        let let3 = new Letter(this, 320, 290, 'markE').setScale(0.6);
-        let let4 = new Letter(this, 400, 290, 'markA').setScale(0.6);
-        let let5 = new Letter(this, 360, 290, 'markM').setScale(0.6);
-        let1.letterDrop('dropD');
-        let2.letterDrop('dropR');
-        let3.letterDrop('dropE');
-        let4.letterDrop('dropA');
-        let5.letterDrop('dropM');
-
-
-        // make an array of components to be used in the container
-        let jcContents = [journal2, closeButton, turnRight, turnLeft, puzzleName, page1, page2, hint, p1, p2, p3, p4, p5, let1, let2, let3, let4, let5];
-
         // make container
-        let journalContainer = this.add.container(100, 10, jcContents);
+        let journalContainer = this.add.container(100, 10, []);
         journalContainer.setDepth(3);   // sets to top of scene
         journalContainer.setScale(1.5);
         journalContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, journal2.width, journal2.height), Phaser.Geom.Rectangle.Contains);
         this.input.setDraggable(journalContainer);
         turnLeft.setVisible(false);     // defaults to first page so can't turn left
-
         // allows the opened journal to be dragged
         journalContainer.on('drag', function(pointer, dragX, dragY) {
             this.x = dragX;
             this.y = dragY;
         })
-
         // closes the open journal by making invisible
         // this saves the current position and page when next opened
         closeButton.on('pointerup', () => {
@@ -187,6 +149,108 @@ class Desk extends Phaser.Scene {
             journalContainer.setVisible(false);
             journal.setVisible(true);
         })
+        journalContainer.on('pointerdown', () => {
+            journalContainer.setDepth(5+topCounter);
+            topCounter++;
+        })
+        journalContainer.setVisible(false); // initially invisible on scene start
+
+
+        // make puzzle1 components
+        // zone markers
+        p1z1 = new Dropzone(this, 310, 230, 'dropD').setScale(0.5).setVisible(false);
+        p1z2 = new Dropzone(this, 340, 230, 'dropD').setScale(0.5).setVisible(false);
+        p1z3 = new Dropzone(this, 370, 230, 'dropD').setScale(0.5).setVisible(false);
+        p1z4 = new Dropzone(this, 400, 230, 'dropD').setScale(0.5).setVisible(false);
+        p1z5 = new Dropzone(this, 430, 230, 'dropD').setScale(0.5).setVisible(false);
+        p1z6 = new Dropzone(this, 460, 230, 'dropD').setScale(0.5).setVisible(false);
+        p1z7 = new Dropzone(this, 490, 230, 'dropD').setScale(0.5).setVisible(false);
+        // letters
+        p1l1 = new Letter(this, 280, 290, 'markD').setScale(0.55).setVisible(false);
+        p1l2 = new Letter(this, 320, 290, 'markD').setScale(0.55).setVisible(false);
+        p1l3 = new Letter(this, 360, 290, 'markD').setScale(0.55).setVisible(false);
+        p1l4 = new Letter(this, 400, 290, 'markD').setScale(0.55).setVisible(false);
+        p1l5 = new Letter(this, 440, 290, 'markD').setScale(0.55).setVisible(false);
+        p1l6 = new Letter(this, 480, 290, 'markD').setScale(0.55).setVisible(false);
+        p1l7 = new Letter(this, 520, 290, 'markD').setScale(0.55).setVisible(false);
+
+        // make puzzle1 components
+        // zone markers
+        p2z1 = new Dropzone(this, 310, 230, 'dropD').setScale(0.5).setVisible(false);
+        p2z2 = new Dropzone(this, 340, 230, 'dropD').setScale(0.5).setVisible(false);
+        p2z3 = new Dropzone(this, 370, 230, 'dropD').setScale(0.5).setVisible(false);
+        p2z4 = new Dropzone(this, 400, 230, 'dropD').setScale(0.5).setVisible(false);
+        p2z5 = new Dropzone(this, 430, 230, 'dropD').setScale(0.5).setVisible(false);
+        p2z6 = new Dropzone(this, 460, 230, 'dropD').setScale(0.5).setVisible(false);
+        p2z7 = new Dropzone(this, 490, 230, 'dropD').setScale(0.5).setVisible(false);
+        // letters
+        p2l1 = new Letter(this, 280, 290, 'markD').setScale(0.55).setVisible(false);
+        p2l2 = new Letter(this, 320, 290, 'markD').setScale(0.55).setVisible(false);
+        p2l3 = new Letter(this, 360, 290, 'markD').setScale(0.55).setVisible(false);
+        p2l4 = new Letter(this, 400, 290, 'markD').setScale(0.55).setVisible(false);
+        p2l5 = new Letter(this, 440, 290, 'markD').setScale(0.55).setVisible(false);
+        p2l6 = new Letter(this, 480, 290, 'markD').setScale(0.55).setVisible(false);
+        p2l7 = new Letter(this, 520, 290, 'markD').setScale(0.55).setVisible(false);
+
+        if(level == 1) {
+            // use to set which puzzle and text to read from journal.json
+            whichPuzzle = data.Puzzle.One;   
+            whichPage = whichPuzzle.Page12;   
+            content1 = whichPage.Left;
+            content2 = whichPage.Right;
+            hint = this.add.text(305, 180, whichPage.Hint, hintConfig).setScale(0.5);
+            // Fill in journal contents from journal.json
+            puzzleName = this.add.text(20, 10, whichPuzzle.Page12.Title, journalConfig).setScale(0.5);
+            page1 = this.add.text(20, 40, content1, journalConfig).setScale(0.5);
+            page2 = this.add.text(295, 40, content2, journalConfig).setScale(0.5);
+
+            // Page12 puzzle
+            // zones
+            p1z2.setTexture('dropD').setVisible(true);
+            p1z3.setTexture('dropR').setVisible(true);
+            p1z4.setTexture('dropE').setVisible(true);
+            p1z5.setTexture('dropA').setVisible(true);
+            p1z6.setTexture('dropM').setVisible(true);
+            // letters
+            p1l2.setTexture('markE').setVisible(true);
+            p1l3.setTexture('markA').setVisible(true);
+            p1l4.setTexture('markM').setVisible(true);
+            p1l5.setTexture('markD').setVisible(true);
+            p1l6.setTexture('markR').setVisible(true);
+            // letter drop target
+            p1l2.letterDrop('dropE');
+            p1l3.letterDrop('dropA');
+            p1l4.letterDrop('dropM');
+            p1l5.letterDrop('dropD');
+            p1l6.letterDrop('dropR');
+            puzzleContents1 = [p1z2, p1z3, p1z4, p1z5, p1z6, p1l2, p1l3, p1l4, p1l5, p1l6]
+
+            // Page34 puzzle
+            // zones
+            p2z3.setTexture('dropK');
+            p2z4.setTexture('dropE');
+            p2z5.setTexture('dropY');
+            // letters
+            p2l3.setTexture('markY');
+            p2l4.setTexture('markK');
+            p2l5.setTexture('markE');
+            // letter drop target
+            p2l3.letterDrop('dropY');
+            p2l4.letterDrop('dropK');
+            p2l5.letterDrop('dropE');
+            puzzleContents2 = [p2z3, p2z4, p2z5, p2l3, p2l4, p2l5]
+
+            // jcContents.push(puzzleContents1);
+            // console.log(jcContents.length);
+            // jcContents.push(puzzleContents2);
+            // console.log(jcContents.length);
+        }
+        if(level == 2) {
+
+        }
+        if(level == 3) {
+
+        }
 
         // Allows to turn pages
         turnRight.on('pointerup', () => {
@@ -199,18 +263,7 @@ class Desk extends Phaser.Scene {
                 page2.setText(whichPuzzle.Page34.Right);
             }
             puzzleName.setText(whichPuzzle.Page34.Title);
-            page1.setText(whichPuzzle.Page34.Left);
-            page2.setText(whichPuzzle.Page34.Right);
-            p1.setVisible(false);
-            p2.setVisible(false);
-            p3.setVisible(false);
-            p4.setVisible(false);
-            p5.setVisible(false);
-            let1.setVisible(false);
-            let2.setVisible(false);
-            let3.setVisible(false);
-            let4.setVisible(false);
-            let5.setVisible(false);
+            hint.setText(whichPuzzle.Page34.Hint);
             turnRight.setVisible(false);
             turnLeft.setVisible(true);
         })
@@ -224,25 +277,29 @@ class Desk extends Phaser.Scene {
                 page2.setText(whichPuzzle.Page12.Right);
             }
             puzzleName.setText(whichPuzzle.Page12.Title);
-            p1.setVisible(true);
-            p2.setVisible(true);
-            p3.setVisible(true);
-            p4.setVisible(true);
-            p5.setVisible(true);
-            let1.setVisible(true);
-            let2.setVisible(true);
-            let3.setVisible(true);
-            let4.setVisible(true);
-            let5.setVisible(true);
+            hint.setText(whichPuzzle.Page12.Hint);
             turnLeft.setVisible(false);
             turnRight.setVisible(true);
         })
-        journalContainer.on('pointerdown', () => {
-            journalContainer.setDepth(5+topCounter);
-            topCounter++;
-        })
-        journalContainer.setVisible(false); // initially invisible on scene start
-
+        
+        jcContents = [journal2, closeButton, turnRight, turnLeft, puzzleName, page1, page2, hint];
+        jcContentsTemp = jcContents.slice();
+        for(let i = 0; i < jcContentsTemp.length; i++) {
+            journalContainer.addAt(jcContentsTemp, journalContainer.length+i);
+            // console.log(jcContents[i]);
+        }
+        // console.log(jcContentsTemp);
+        puzzleContents1Temp = puzzleContents1.slice();
+        for(let i = 0; i < puzzleContents1Temp.length; i++) {
+            journalContainer.addAt(puzzleContents1Temp, journalContainer.length+i);
+            // console.log(jcContents[i]);
+        }
+        // puzzleContents2Temp = puzzleContents2.slice();
+        // for(let i = 0; i < puzzleContents2Temp.length; i++) {
+        //     journalContainer.addAt(puzzleContents2Temp, journalContainer.length+i);
+        //     // console.log(jcContents[i]);
+        // }
+        
 
 
         // double click logic https://phaser.discourse.group/t/double-tap/3051

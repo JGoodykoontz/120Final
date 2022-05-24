@@ -8,7 +8,7 @@ let config = {
             debug: false
         }
     },
-    scene: [Preload, Menu, CutsceneOne, Desk],
+    scene: [Preload, Menu, Cutscene, Desk],
 }
 
 let game = new Phaser.Game(config);
@@ -17,14 +17,29 @@ let game = new Phaser.Game(config);
 let lightOn = true;
 let initial = true;
 let whichPuzzle;
+let whichPage;
 let content1;
 let content2;
 let topCounter = 0; // counter for moving stuff to top of scene
 let puzzle1 = false;
+let level = 1;
+let puzzleName, page1, page2;
+let p1z1, p1z2, p1z3, p1z4, p1z5, p1z6, p1z7, p2z1, p2z2, p2z3, p2z4, p2z5, p2z6, p2z7;
+let p1l1, p1l2, p1l3, p1l4, p1l5, p1l6, p1l7, p2l1, p2l2, p2l3, p2l4, p2l5, p2l6, p2l7;
+let hint;
+let puzzleContents1 = [];
+let puzzleContents1Temp = [];
+let puzzleContents2 = [];
+let puzzleContents2Temp = [];
+let jcContents = [];
+let jcContentsTemp = [];
 
 // cutscene variables
 let counter = 1;
 let complete = false;
+let scene1;
+let scene2;
+let scene3;
 
 // allocating keys
 // let keySPACE;
