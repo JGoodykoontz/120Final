@@ -320,6 +320,7 @@ class Desk extends Phaser.Scene {
                     this.sound.play("openTemp");
                 }
                 if(gameObject.texture.key == 'lamp') {
+                    this.sound.play("lampSfx");
                     if(lightOn) {
                         lightOn = false;
                         light.setIntensity(0);

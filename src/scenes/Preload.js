@@ -12,6 +12,7 @@ class Preload extends Phaser.Scene {
         // Background
         this.load.image("background", 'Background.png');
         this.load.image("clouds", 'clouds.png');
+        this.load.image("logo", 'calloftheDeep.png');
 
         // Cutscene
         this.load.image("CS1Part1", 'Artboard-1.png');
@@ -27,7 +28,7 @@ class Preload extends Phaser.Scene {
         this.load.image("notepadOpen", 'notepad-open.png');
 
         // Buttons
-        this.load.image("playButton", 'playButton.png');
+        this.load.image("playButton", 'button.png');
         this.load.image("close", 'closeButton.png');
         this.load.image('right', 'pageRight.png');
         this.load.image('left', 'pageLeft.png');
@@ -51,6 +52,7 @@ class Preload extends Phaser.Scene {
 
         // Sounds
         this.load.audio("openTemp", 'Sounds/open.wav');
+        this.load.audio("lampSfx", 'Sounds/Lamp_Click.wav');
     }
     update() {
         this.scene.start('menuscene');
