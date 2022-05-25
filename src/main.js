@@ -27,6 +27,8 @@ let puzzleName, page1, page2;
 let p1z1, p1z2, p1z3, p1z4, p1z5, p1z6, p1z7, p2z1, p2z2, p2z3, p2z4, p2z5, p2z6, p2z7;
 let p1l1, p1l2, p1l3, p1l4, p1l5, p1l6, p1l7, p2l1, p2l2, p2l3, p2l4, p2l5, p2l6, p2l7;
 let hint;
+let journalContainer;
+let p1container, p2container;
 let puzzleContents1 = [];
 let puzzleContents1Temp = [];
 let puzzleContents2 = [];

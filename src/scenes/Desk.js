@@ -130,7 +130,7 @@ class Desk extends Phaser.Scene {
         let turnLeft = this.add.sprite(15, journal2.height - 10, 'left').setScale(1.2);
         turnLeft.setInteractive( { useHandCursor: true } );
         // make container
-        let journalContainer = this.add.container(100, 10, []);
+        journalContainer = this.add.container(100, 10, []);
         journalContainer.setDepth(3);   // sets to top of scene
         journalContainer.setScale(1.5);
         journalContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, journal2.width, journal2.height), Phaser.Geom.Rectangle.Contains);
@@ -174,6 +174,9 @@ class Desk extends Phaser.Scene {
         p1l6 = new Letter(this, 480, 290, 'markD').setScale(0.55).setVisible(false);
         p1l7 = new Letter(this, 520, 290, 'markD').setScale(0.55).setVisible(false);
 
+        // puzzleContents1 = [p1z1, p1z2, p1z3, p1z4, p1z5, p1z6, p1z7, p1l1, p1l2, p1l3, p1l4, p1l5, p1l6, p1l7];
+        // let p1container = this.add.container(280, 230, puzzleContents1);
+
         // make puzzle1 components
         // zone markers
         p2z1 = new Dropzone(this, 310, 230, 'dropD').setScale(0.5).setVisible(false);
@@ -191,6 +194,9 @@ class Desk extends Phaser.Scene {
         p2l5 = new Letter(this, 440, 290, 'markD').setScale(0.55).setVisible(false);
         p2l6 = new Letter(this, 480, 290, 'markD').setScale(0.55).setVisible(false);
         p2l7 = new Letter(this, 520, 290, 'markD').setScale(0.55).setVisible(false);
+
+        // puzzleContents2 = [p2z1, p2z2, p2z3, p2z4, p2z5, p2z6, p2z7, p2l1, p2l2, p2l3, p2l4, p2l5, p2l6, p2l7];
+        // let p2container = this.add.container(280, 230, puzzleContents2);
 
         if(level == 1) {
             // use to set which puzzle and text to read from journal.json
@@ -224,21 +230,23 @@ class Desk extends Phaser.Scene {
             p1l5.letterDrop('dropD');
             p1l6.letterDrop('dropR');
             puzzleContents1 = [p1z2, p1z3, p1z4, p1z5, p1z6, p1l2, p1l3, p1l4, p1l5, p1l6]
+            p1container = this.add.container(0, 10, puzzleContents1);
 
             // Page34 puzzle
             // zones
-            p2z3.setTexture('dropK');
-            p2z4.setTexture('dropE');
-            p2z5.setTexture('dropY');
+            p2z3.setTexture('dropK').setVisible(true);
+            p2z4.setTexture('dropE').setVisible(true);
+            p2z5.setTexture('dropY').setVisible(true);
             // letters
-            p2l3.setTexture('markY');
-            p2l4.setTexture('markK');
-            p2l5.setTexture('markE');
+            p2l3.setTexture('markY').setVisible(true);
+            p2l4.setTexture('markK').setVisible(true);
+            p2l5.setTexture('markE').setVisible(true);
             // letter drop target
             p2l3.letterDrop('dropY');
             p2l4.letterDrop('dropK');
             p2l5.letterDrop('dropE');
             puzzleContents2 = [p2z3, p2z4, p2z5, p2l3, p2l4, p2l5]
+            p2container = this.add.container(0, 10, puzzleContents2);
 
             // jcContents.push(puzzleContents1);
             // console.log(jcContents.length);
@@ -310,6 +318,8 @@ class Desk extends Phaser.Scene {
             }
             puzzleName.setText(whichPuzzle.Page34.Title);
             hint.setText(whichPuzzle.Page34.Hint);
+            p1container.setVisible(false);
+            p2container.setVisible(true);
             turnRight.setVisible(false);
             turnLeft.setVisible(true);
         })
@@ -324,6 +334,8 @@ class Desk extends Phaser.Scene {
             }
             puzzleName.setText(whichPuzzle.Page12.Title);
             hint.setText(whichPuzzle.Page12.Hint);
+            p1container.setVisible(true);
+            p2container.setVisible(false);
             turnLeft.setVisible(false);
             turnRight.setVisible(true);
         })
@@ -334,17 +346,27 @@ class Desk extends Phaser.Scene {
             journalContainer.addAt(jcContentsTemp, journalContainer.length+i);
             // console.log(jcContents[i]);
         }
+        console.log(journalContainer.length);
+
+
+        journalContainer.add(p1container);
+        console.log(journalContainer.length);
+        journalContainer.add(p2container);
+        console.log(journalContainer.length);
+        p1container.setVisible(true);
+        p2container.setVisible(false);
+        // console.log(journalContainer.length);
         // console.log(jcContentsTemp);
-        puzzleContents1Temp = puzzleContents1.slice();
-        for(let i = 0; i < puzzleContents1Temp.length; i++) {
-            journalContainer.addAt(puzzleContents1Temp, journalContainer.length+i);
-            // console.log(jcContents[i]);
-        }
-        puzzleContents2Temp = puzzleContents2.slice();
-        for(let i = 0; i < puzzleContents2Temp.length; i++) {
-            journalContainer.addAt(puzzleContents2Temp, journalContainer.length+i);
-            // console.log(jcContents[i]);
-        }
+        // puzzleContents1Temp = puzzleContents1.slice();
+        // for(let i = 0; i < puzzleContents1Temp.length; i++) {
+        //     journalContainer.addAt(puzzleContents1Temp, journalContainer.length+i);
+        //     // console.log(jcContents[i]);
+        // }
+        // puzzleContents2Temp = puzzleContents2.slice();
+        // for(let i = 0; i < puzzleContents2Temp.length; i++) {
+        //     journalContainer.addAt(puzzleContents2Temp, journalContainer.length+i);
+        //     // console.log(jcContents[i]);
+        // }
         
 
 
@@ -411,5 +433,8 @@ class Desk extends Phaser.Scene {
             obj.x = dragX;
             obj.y = dragY;
         });
+    }
+    replacePuzzle(journal, puzzle1, puzzle2) {
+
     }
 }
