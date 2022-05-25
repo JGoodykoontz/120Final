@@ -145,6 +145,7 @@ class Desk extends Phaser.Scene {
         // this saves the current position and page when next opened
         closeButton.on('pointerup', () => {
             // console.log('close journal');
+            this.sound.play("closeSfx", {volume: 4 });
             journalContainer.setDepth(5);
             journalContainer.setVisible(false);
             journal.setVisible(true);
@@ -308,6 +309,7 @@ class Desk extends Phaser.Scene {
 
         // Allows to turn pages
         turnRight.on('pointerup', () => {
+            this.sound.play("turnSfx", {volume: 4 });
             if(puzzle1 == true) {
                 page1.setText(whichPuzzle.Page34.LeftSolved);
                 page2.setText(whichPuzzle.Page34.RightSolved);
@@ -324,6 +326,7 @@ class Desk extends Phaser.Scene {
             turnLeft.setVisible(true);
         })
         turnLeft.on('pointerup', () => {
+            this.sound.play("turnSfx", {volume: 4 });
             if(puzzle1 == true) {
                 page1.setText(whichPuzzle.Page12.LeftSolved);
                 page2.setText(whichPuzzle.Page12.RightSolved);
@@ -385,10 +388,10 @@ class Desk extends Phaser.Scene {
                     // console.log('open journal');
                     journalContainer.setVisible(true);
                     journal.setVisible(false);
-                    this.sound.play("openTemp");
+                    this.sound.play("openSfx", {volume: 4 });
                 }
                 if(gameObject.texture.key == 'lamp') {
-                    this.sound.play("lampSfx");
+                    this.sound.play("lampSfx", {volume: 2 });
                     if(lightOn) {
                         lightOn = false;
                         light.setIntensity(0);
