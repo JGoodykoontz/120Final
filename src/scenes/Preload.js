@@ -45,6 +45,16 @@ class Preload extends Phaser.Scene {
         this.load.image("dropM", 'dropZone.png');
         this.load.image("dropK", 'dropZone.png');
         this.load.image("dropY", 'dropZone.png');
+        this.load.image("dropI", 'dropZone.png');
+        this.load.image("dropN", 'dropZone.png');
+        this.load.image("dropG", 'dropZone.png');
+        this.load.image("dropT", 'dropZone.png');
+        this.load.image("dropW", 'dropZone.png');
+        this.load.image("dropC", 'dropZone.png');
+        this.load.image("dropO", 'dropZone.png');
+        this.load.image("dropL", 'dropZone.png');
+        this.load.image("dropF", 'dropZone.png');
+
         this.load.image("markD", 'markerD.png');
         this.load.image("markR", 'markerR.png');
         this.load.image("markE", 'markerE.png');
@@ -52,6 +62,15 @@ class Preload extends Phaser.Scene {
         this.load.image("markM", 'markerM.png');
         this.load.image("markK", 'markerK.png');
         this.load.image("markY", 'markerY.png');
+        this.load.image("markI", 'markerI.png');
+        this.load.image("markN", 'markerN.png');
+        this.load.image("markG", 'markerG.png');
+        this.load.image("markT", 'markerT.png');
+        this.load.image("markW", 'markerW.png');
+        this.load.image("markC", 'markerC.png');
+        this.load.image("markO", 'markerO.png');
+        this.load.image("markL", 'markerL.png');
+        this.load.image("markF", 'markerF.png');
 
         // Sounds
         this.load.audio("openSfx", 'Sounds/Open.wav');

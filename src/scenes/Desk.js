@@ -80,7 +80,6 @@ class Desk extends Phaser.Scene {
         if(initial) {
             // on start show help note
             startnoteContainer.setVisible(true);
-
             initial = false;    // end initial setup
         }
         else {
@@ -115,47 +114,8 @@ class Desk extends Phaser.Scene {
 
 
         // ************************
-        // JOURNAL CONTAINER SETUP
+        // SETUP PUZZLE PARAMETERS
         // ************************
-        let journal2 = this.add.sprite(0, 0, 'journalOpen').setOrigin(0);
-        // finds the top right corner for the button position
-        let jw = (journal2.width) - 15;         // journal width
-        let jh = 15;                            // journal height
-        // makes the close button and interactivity
-        let closeButton = this.physics.add.sprite(jw, jh, 'close').setScale(0.8);
-        closeButton.setInteractive( { useHandCursor: true } );
-        // makes the page turning buttons
-        let turnRight = this.add.sprite(jw, journal2.height - 10, 'right').setScale(1.2);
-        turnRight.setInteractive( { useHandCursor: true } );
-        let turnLeft = this.add.sprite(15, journal2.height - 10, 'left').setScale(1.2);
-        turnLeft.setInteractive( { useHandCursor: true } );
-        // make container
-        journalContainer = this.add.container(100, 10, []);
-        journalContainer.setDepth(3);   // sets to top of scene
-        journalContainer.setScale(1.5);
-        journalContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, journal2.width, journal2.height), Phaser.Geom.Rectangle.Contains);
-        this.input.setDraggable(journalContainer);
-        turnLeft.setVisible(false);     // defaults to first page so can't turn left
-        // allows the opened journal to be dragged
-        journalContainer.on('drag', function(pointer, dragX, dragY) {
-            this.x = dragX;
-            this.y = dragY;
-        })
-        // closes the open journal by making invisible
-        // this saves the current position and page when next opened
-        closeButton.on('pointerup', () => {
-            // console.log('close journal');
-            this.sound.play("closeSfx", {volume: 4 });
-            journalContainer.setDepth(5);
-            journalContainer.setVisible(false);
-            journal.setVisible(true);
-        })
-        journalContainer.on('pointerdown', () => {
-            journalContainer.setDepth(5+topCounter);
-            topCounter++;
-        })
-        journalContainer.setVisible(false); // initially invisible on scene start
-
 
         // make puzzle1 components
         // zone markers
@@ -175,9 +135,6 @@ class Desk extends Phaser.Scene {
         p1l6 = new Letter(this, 480, 290, 'markD').setScale(0.55).setVisible(false);
         p1l7 = new Letter(this, 520, 290, 'markD').setScale(0.55).setVisible(false);
 
-        // puzzleContents1 = [p1z1, p1z2, p1z3, p1z4, p1z5, p1z6, p1z7, p1l1, p1l2, p1l3, p1l4, p1l5, p1l6, p1l7];
-        // let p1container = this.add.container(280, 230, puzzleContents1);
-
         // make puzzle1 components
         // zone markers
         p2z1 = new Dropzone(this, 310, 230, 'dropD').setScale(0.5).setVisible(false);
@@ -196,9 +153,10 @@ class Desk extends Phaser.Scene {
         p2l6 = new Letter(this, 480, 290, 'markD').setScale(0.55).setVisible(false);
         p2l7 = new Letter(this, 520, 290, 'markD').setScale(0.55).setVisible(false);
 
-        // puzzleContents2 = [p2z1, p2z2, p2z3, p2z4, p2z5, p2z6, p2z7, p2l1, p2l2, p2l3, p2l4, p2l5, p2l6, p2l7];
-        // let p2container = this.add.container(280, 230, puzzleContents2);
 
+        // *******************************
+        // SETUP LEVELS/PUZZLE CONTAINERS
+        // *******************************
         if(level == 1) {
             // use to set which puzzle and text to read from journal.json
             whichPuzzle = data.Puzzle.One;   
@@ -248,14 +206,8 @@ class Desk extends Phaser.Scene {
             p2l5.letterDrop('dropE');
             puzzleContents2 = [p2z3, p2z4, p2z5, p2l3, p2l4, p2l5]
             p2container = this.add.container(0, 10, puzzleContents2);
-
-            // jcContents.push(puzzleContents1);
-            // console.log(jcContents.length);
-            // jcContents.push(puzzleContents2);
-            // console.log(jcContents.length);
         }
         if(level == 2) {
-            // JUST TESTING TO SEE IF IT WORKS (IT DOES)
             // use to set which puzzle and text to read from journal.json
             whichPuzzle = data.Puzzle.Two;   
             whichPage = whichPuzzle.Page12;   
@@ -269,55 +221,163 @@ class Desk extends Phaser.Scene {
 
             // Page12 puzzle
             // zones
-            p1z2.setTexture('dropD');
-            p1z3.setTexture('dropR');
-            p1z4.setTexture('dropE');
-            p1z5.setTexture('dropA');
-            p1z6.setTexture('dropM');
+            p1z2.setTexture('dropM').setVisible(true);
+            p1z3.setTexture('dropI').setVisible(true);
+            p1z4.setTexture('dropN').setVisible(true);
+            p1z5.setTexture('dropD').setVisible(true);
             // letters
-            p1l2.setTexture('markE');
-            p1l3.setTexture('markA');
-            p1l4.setTexture('markM');
-            p1l5.setTexture('markD');
-            p1l6.setTexture('markR');
+            p1l2.setTexture('markN').setVisible(true);
+            p1l3.setTexture('markM').setVisible(true);
+            p1l4.setTexture('markD').setVisible(true);
+            p1l5.setTexture('markI').setVisible(true);
             // letter drop target
-            p1l2.letterDrop('dropE');
-            p1l3.letterDrop('dropA');
-            p1l4.letterDrop('dropM');
-            p1l5.letterDrop('dropD');
-            p1l6.letterDrop('dropR');
-            puzzleContents1 = [p1z2, p1z3, p1z4, p1z5, p1z6, p1l2, p1l3, p1l4, p1l5, p1l6]
+            p1l2.letterDrop('dropN');
+            p1l3.letterDrop('dropM');
+            p1l4.letterDrop('dropD');
+            p1l5.letterDrop('dropI');
+            puzzleContents1 = [p1z2, p1z3, p1z4, p1z5, p1l2, p1l3, p1l4, p1l5];
 
             // Page34 puzzle
             // zones
-            p2z3.setTexture('dropK').setVisible(true);;
-            p2z4.setTexture('dropE').setVisible(true);;
-            p2z5.setTexture('dropY').setVisible(true);;
+            p2z1.setTexture('dropG').setVisible(true);
+            p2z2.setTexture('dropA').setVisible(true);
+            p2z3.setTexture('dropT').setVisible(true);
+            p2z4.setTexture('dropE').setVisible(true);
+            p2z5.setTexture('dropW').setVisible(true);
+            p2z6.setTexture('dropA').setVisible(true);
+            p2z7.setTexture('dropY').setVisible(true);
             // letters
-            p2l3.setTexture('markY').setVisible(true);;
-            p2l4.setTexture('markK').setVisible(true);;
-            p2l5.setTexture('markE').setVisible(true);;
+            p2l1.setTexture('markT').setVisible(true);
+            p2l2.setTexture('markG').setVisible(true);
+            p2l3.setTexture('markW').setVisible(true);
+            p2l4.setTexture('markA').setVisible(true);
+            p2l5.setTexture('markY').setVisible(true);
+            p2l6.setTexture('markE').setVisible(true);
+            p2l7.setTexture('markA').setVisible(true);
             // letter drop target
-            p2l3.letterDrop('dropY');
-            p2l4.letterDrop('dropK');
-            p2l5.letterDrop('dropE');
-            puzzleContents2 = [p2z3, p2z4, p2z5, p2l3, p2l4, p2l5]
+            p2l1.letterDrop('dropT');
+            p2l2.letterDrop('dropG');
+            p2l3.letterDrop('dropW');
+            p2l4.letterDrop('dropA');
+            p2l5.letterDrop('dropY');
+            p2l6.letterDrop('dropE');
+            p2l7.letterDrop('dropA');
+            puzzleContents2 = [p2z1, p2z2, p2z3, p2z4, p2z5, p2z6, p2z7, p2l1, p2l2, p2l3, p2l4, p2l5, p2l6, p2l7];
         }
         if(level == 3) {
-
+             // use to set which puzzle and text to read from journal.json
+             whichPuzzle = data.Puzzle.Three;   
+             whichPage = whichPuzzle.Page12;   
+             content1 = whichPage.Left;
+             content2 = whichPage.Right;
+             hint = this.add.text(305, 180, whichPage.Hint, hintConfig).setScale(0.5);
+             // Fill in journal contents from journal.json
+             puzzleName = this.add.text(20, 10, whichPuzzle.Page12.Title, journalConfig).setScale(0.5);
+             page1 = this.add.text(20, 40, content1, journalConfig).setScale(0.5);
+             page2 = this.add.text(295, 40, content2, journalConfig).setScale(0.5);
+ 
+             // Page12 puzzle
+             // zones
+             p1z1.setTexture('dropC').setVisible(true);
+             p1z2.setTexture('dropO').setVisible(true);
+             p1z3.setTexture('dropN').setVisible(true);
+             p1z4.setTexture('dropT').setVisible(true);
+             p1z5.setTexture('dropR').setVisible(true);
+             p1z6.setTexture('dropO').setVisible(true);
+             p1z7.setTexture('dropL').setVisible(true);
+             // letters
+             p1l1.setTexture('markN').setVisible(true);
+             p1l2.setTexture('markT').setVisible(true);
+             p1l3.setTexture('markC').setVisible(true);
+             p1l4.setTexture('markO').setVisible(true);
+             p1l5.setTexture('markL').setVisible(true);
+             p1l6.setTexture('markR').setVisible(true);
+             p1l7.setTexture('markO').setVisible(true);
+             // letter drop target
+             p1l1.letterDrop('dropN');
+             p1l2.letterDrop('dropT');
+             p1l3.letterDrop('dropC');
+             p1l4.letterDrop('dropO');
+             p1l5.letterDrop('dropL');
+             p1l6.letterDrop('dropR');
+             p1l7.letterDrop('dropO');
+             puzzleContents1 = [p1z1, p1z2, p1z3, p1z4, p1z5, p1z6, p1z7, p1l1, p1l2, p1l3, p1l4, p1l5, p1l6, p1l7];
+ 
+             // Page34 puzzle
+             // zones
+             p2z1.setTexture('dropF').setVisible(true);
+             p2z2.setTexture('dropR').setVisible(true);
+             p2z3.setTexture('dropE').setVisible(true);
+             p2z4.setTexture('dropE').setVisible(true);
+             p2z5.setTexture('dropD').setVisible(true);
+             p2z6.setTexture('dropO').setVisible(true);
+             p2z7.setTexture('dropM').setVisible(true);
+             // letters
+             p2l1.setTexture('markE').setVisible(true);
+             p2l2.setTexture('markD').setVisible(true);
+             p2l3.setTexture('markM').setVisible(true);
+             p2l4.setTexture('markF').setVisible(true);
+             p2l5.setTexture('markE').setVisible(true);
+             p2l6.setTexture('markR').setVisible(true);
+             p2l7.setTexture('markO').setVisible(true);
+             // letter drop target
+             p2l1.letterDrop('dropE');
+             p2l2.letterDrop('dropD');
+             p2l3.letterDrop('dropM');
+             p2l4.letterDrop('dropF');
+             p2l5.letterDrop('dropE');
+             p2l6.letterDrop('dropR');
+             p2l7.letterDrop('dropO');
+             puzzleContents2 = [p2z1, p2z2, p2z3, p2z4, p2z5, p2z6, p2z7, p2l1, p2l2, p2l3, p2l4, p2l5, p2l6, p2l7];
         }
 
-        // Allows to turn pages
+        // ************************
+        // JOURNAL CONTAINER SETUP
+        // ************************
+        let journal2 = this.add.sprite(0, 0, 'journalOpen').setOrigin(0);
+        // finds the top right corner for the button position
+        let jw = (journal2.width) - 15;         // journal width
+        let jh = 15;                            // journal height
+        // makes the close button and interactivity
+        let closeButton = this.physics.add.sprite(jw, jh, 'close').setScale(0.8);
+        closeButton.setInteractive( { useHandCursor: true } );
+        // makes the page turning buttons
+        let turnRight = this.add.sprite(jw, journal2.height - 10, 'right').setScale(1.2);
+        turnRight.setInteractive( { useHandCursor: true } );
+        let turnLeft = this.add.sprite(15, journal2.height - 10, 'left').setScale(1.2);
+        turnLeft.setInteractive( { useHandCursor: true } );
+        // make container
+        jcContents = [journal2, closeButton, turnRight, turnLeft, puzzleName, page1, page2, hint];
+        journalContainer = this.add.container(100, 10, jcContents);
+        journalContainer.setDepth(3);   // sets to top of scene
+        journalContainer.setScale(1.5);
+        journalContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, journal2.width, journal2.height), Phaser.Geom.Rectangle.Contains);
+        this.input.setDraggable(journalContainer);
+        turnLeft.setVisible(false);     // defaults to first page so can't turn left
+        // allows the opened journal to be dragged
+        journalContainer.on('drag', function(pointer, dragX, dragY) {
+            this.x = dragX;
+            this.y = dragY;
+        })
+        // closes the open journal by making invisible
+        // this saves the current position and page when next opened
+        closeButton.on('pointerup', () => {
+            // console.log('close journal');
+            this.sound.play("closeSfx", {volume: 4 });
+            journalContainer.setDepth(5);
+            journalContainer.setVisible(false);
+            journal.setVisible(true);
+        })
+        journalContainer.on('pointerdown', () => {
+            journalContainer.setDepth(5+topCounter);
+            topCounter++;
+        })
+
+        // Page Turning Logic
         turnRight.on('pointerup', () => {
             this.sound.play("turnSfx", {volume: 4 });
-            if(puzzle1 == true) {
-                page1.setText(whichPuzzle.Page34.LeftSolved);
-                page2.setText(whichPuzzle.Page34.RightSolved);
-            }
-            else {
-                page1.setText(whichPuzzle.Page34.Left);
-                page2.setText(whichPuzzle.Page34.Right);
-            }
+            page1.setText(whichPuzzle.Page34.Left);
+            page2.setText(whichPuzzle.Page34.Right);
             puzzleName.setText(whichPuzzle.Page34.Title);
             hint.setText(whichPuzzle.Page34.Hint);
             p1container.setVisible(false);
@@ -327,14 +387,8 @@ class Desk extends Phaser.Scene {
         })
         turnLeft.on('pointerup', () => {
             this.sound.play("turnSfx", {volume: 4 });
-            if(puzzle1 == true) {
-                page1.setText(whichPuzzle.Page12.LeftSolved);
-                page2.setText(whichPuzzle.Page12.RightSolved);
-            }
-            else {
-                page1.setText(whichPuzzle.Page12.Left);
-                page2.setText(whichPuzzle.Page12.Right);
-            }
+            page1.setText(whichPuzzle.Page12.Left);
+            page2.setText(whichPuzzle.Page12.Right);
             puzzleName.setText(whichPuzzle.Page12.Title);
             hint.setText(whichPuzzle.Page12.Hint);
             p1container.setVisible(true);
@@ -342,36 +396,16 @@ class Desk extends Phaser.Scene {
             turnLeft.setVisible(false);
             turnRight.setVisible(true);
         })
-        
+
+        // Add contents to Journal Container
         jcContents = [journal2, closeButton, turnRight, turnLeft, puzzleName, page1, page2, hint];
-        jcContentsTemp = jcContents.slice();
-        for(let i = 0; i < jcContentsTemp.length; i++) {
-            journalContainer.addAt(jcContentsTemp, journalContainer.length+i);
-            // console.log(jcContents[i]);
-        }
-        console.log(journalContainer.length);
-
-
         journalContainer.add(p1container);
-        console.log(journalContainer.length);
         journalContainer.add(p2container);
-        console.log(journalContainer.length);
         p1container.setVisible(true);
         p2container.setVisible(false);
-        // console.log(journalContainer.length);
-        // console.log(jcContentsTemp);
-        // puzzleContents1Temp = puzzleContents1.slice();
-        // for(let i = 0; i < puzzleContents1Temp.length; i++) {
-        //     journalContainer.addAt(puzzleContents1Temp, journalContainer.length+i);
-        //     // console.log(jcContents[i]);
-        // }
-        // puzzleContents2Temp = puzzleContents2.slice();
-        // for(let i = 0; i < puzzleContents2Temp.length; i++) {
-        //     journalContainer.addAt(puzzleContents2Temp, journalContainer.length+i);
-        //     // console.log(jcContents[i]);
-        // }
         
-
+        journalContainer.setVisible(false); // initially invisible on scene start
+    
 
         // double click logic https://phaser.discourse.group/t/double-tap/3051
         // modified with the TheyAreListening code example from class
@@ -436,8 +470,5 @@ class Desk extends Phaser.Scene {
             obj.x = dragX;
             obj.y = dragY;
         });
-    }
-    replacePuzzle(journal, puzzle1, puzzle2) {
-
     }
 }
