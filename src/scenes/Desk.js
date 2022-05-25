@@ -236,6 +236,7 @@ class Desk extends Phaser.Scene {
             p1l4.letterDrop('dropD');
             p1l5.letterDrop('dropI');
             puzzleContents1 = [p1z2, p1z3, p1z4, p1z5, p1l2, p1l3, p1l4, p1l5];
+            p1container = this.add.container(0, 10, puzzleContents1);
 
             // Page34 puzzle
             // zones
@@ -263,6 +264,7 @@ class Desk extends Phaser.Scene {
             p2l6.letterDrop('dropE');
             p2l7.letterDrop('dropA');
             puzzleContents2 = [p2z1, p2z2, p2z3, p2z4, p2z5, p2z6, p2z7, p2l1, p2l2, p2l3, p2l4, p2l5, p2l6, p2l7];
+            p2container = this.add.container(0, 10, puzzleContents2);
         }
         if(level == 3) {
              // use to set which puzzle and text to read from journal.json
@@ -302,6 +304,7 @@ class Desk extends Phaser.Scene {
              p1l6.letterDrop('dropR');
              p1l7.letterDrop('dropO');
              puzzleContents1 = [p1z1, p1z2, p1z3, p1z4, p1z5, p1z6, p1z7, p1l1, p1l2, p1l3, p1l4, p1l5, p1l6, p1l7];
+             p1container = this.add.container(0, 10, puzzleContents1);
  
              // Page34 puzzle
              // zones
@@ -329,6 +332,7 @@ class Desk extends Phaser.Scene {
              p2l6.letterDrop('dropR');
              p2l7.letterDrop('dropO');
              puzzleContents2 = [p2z1, p2z2, p2z3, p2z4, p2z5, p2z6, p2z7, p2l1, p2l2, p2l3, p2l4, p2l5, p2l6, p2l7];
+             p2container = this.add.container(0, 10, puzzleContents2);
         }
 
         // ************************
