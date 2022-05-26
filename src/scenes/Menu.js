@@ -58,13 +58,13 @@ class Menu extends Phaser.Scene {
         playButton.setInteractive({
             useHandCursor: true 
         })
-            .on('pointerover', () => playButton.setTint(0x5797D2) )
-            .on('pointerout', () => playButton.setTint(0xffffff) )
-            .on('pointerdown', () => playButton.setTint(0xff00ff) )
-            .on('pointerup', () => {
-                playButton.setTint(0xffffff);
-                this.cameras.main.fadeOut(1000, 0, 0, 0);
-            })
+        .on('pointerover', () => playButton.setTint(0x5797D2) )
+        .on('pointerout', () => playButton.setTint(0xffffff) )
+        .on('pointerdown', () => playButton.setTint(0xff00ff) )
+        .on('pointerup', () => {
+            playButton.setTint(0xffffff);
+            this.cameras.main.fadeOut(1000, 0, 0, 0);
+        })
 
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
             this.scene.start('cutscene');

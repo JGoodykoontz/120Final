@@ -18,8 +18,10 @@
             },
             "Page34": {
                 "Title": "Oct 8, 19xx",
-                "Left": "The nightmare has evolved further. There is now a dimly lit temple that seems to be the source of the whispering. When I venture inside, I am greeted by a statue of some creature. It has the head and torso of a man, yet in place of limbs are tentacles. The whispers start to grow louder and I can hear them mention a ch'nglui.",
-                "Right": "At the base of the statue is a large ch'nglui.  When I reach for it, the statue animates and grips me, a terrifying visage appears on its torso, and screams. What does this ch'nglui mean...",
+                "Left": "The nightmare has evolved further. There is now a dimly lit temple that seems to be the source of the whispering. When I venture inside, I am greeted by a statue of some creature. It has the head and torso of a man, yet in place of limbs are tentacles. The whispers start to grow louder and I can hear them mention a yke.",
+                "Right": "At the base of the statue is a large yke.  When I reach for it, the statue animates and grips me, a terrifying visage appears on its torso, and screams. What does this yke mean...",
+                "LeftSolved": "The nightmare has evolved further. There is now a dimly lit temple that seems to be the source of the whispering. When I venture inside, I am greeted by a statue of some creature. It has the head and torso of a man, yet in place of limbs are tentacles. The whispers start to grow louder and I can hear them mention a key.",
+                "RightSolved": "At the base of the statue is a large key.  When I reach for it, the statue animates and grips me, a terrifying visage appears on its torso, and screams. What does this key mean...",
                 "Word": "KEY",
                 "Turn": [ 
                     {
@@ -34,7 +36,7 @@
                 "Title": "Puzzle Two",
                 "Left": "PAGE 1 HERE puzzle 2",
                 "Right": "PAGE 2 HERE puzzle 2",
-                "Word": "",
+                "Word": "MIND",
                 "Turn": [ 
                     {
                         "Text": "Next",
@@ -46,7 +48,7 @@
                 "Title": "Puzzle Two",
                 "Left": "PAGE 3 HERE puzzle 2",
                 "Right": "PAGE 4 HERE puzzle 2",
-                "Word": "",
+                "Word": "GATEWAY",
                 "Turn": [ 
                     {
                         "Text": "Prev",
@@ -60,7 +62,7 @@
                 "Title": "Puzzle Three",
                 "Left": "PAGE 1 HERE 333333",
                 "Right": "PAGE 2 HERE 333333",
-                "Word": "",
+                "Word": "CONTROL",
                 "Turn": [ 
                     {
                         "Text": "Next",
@@ -72,7 +74,7 @@
                 "Title": "Puzzle Three",
                 "Left": "PAGE 3 HERE 333333",
                 "Right": "PAGE 4 HERE 333333",
-                "Word": "",
+                "Word": "FREEDOM",
                 "Turn": [ 
                     {
                         "Text": "Prev",

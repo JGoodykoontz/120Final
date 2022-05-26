@@ -21,7 +21,10 @@ let whichPage;
 let content1;
 let content2;
 let topCounter = 0; // counter for moving stuff to top of scene
-let puzzle1 = false;
+let p1Check = false;
+let p2Check = false;
+let lvlfinish = false;
+let p1, p2;
 let level = 1;
 let puzzleName, page1, page2;
 let p1z1, p1z2, p1z3, p1z4, p1z5, p1z6, p1z7, p2z1, p2z2, p2z3, p2z4, p2z5, p2z6, p2z7;
@@ -30,11 +33,9 @@ let hint;
 let journalContainer;
 let p1container, p2container;
 let puzzleContents1 = [];
-let puzzleContents1Temp = [];
 let puzzleContents2 = [];
-let puzzleContents2Temp = [];
 let jcContents = [];
-let jcContentsTemp = [];
+
 
 // cutscene variables
 let counter = 1;
