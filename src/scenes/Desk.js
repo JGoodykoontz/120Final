@@ -74,6 +74,7 @@ class Desk extends Phaser.Scene {
         startnoteClose.on('pointerup', () => {
             startnoteContainer.setVisible(false);
             startnoteDesk.setVisible(true);
+            this.sound.play("closeSfx", {volume: 4 });
         })
 
         // initial runs on first load, loads the hint note at start
@@ -92,7 +93,10 @@ class Desk extends Phaser.Scene {
         let notepad2 = this.add.sprite(0, 0, 'notepadOpen').setOrigin(0);
         let noteCloseButton = this.add.image(notepad2.width - 15, 50, 'close');
         noteCloseButton.setInteractive({ useHandCursor: true });
-        let notepadContainer = this.add.container(500, 30, [notepad2, noteCloseButton]);
+        let notepadText = this.add.text(80, 100, data.Puzzle.One.Page12.Word + " is the " + data.Puzzle.One.Page34.Word + "\n\n" +
+                                                data.Puzzle.Two.Page12.Word + " is the " + data.Puzzle.Two.Page34.Word + "\n\n" +
+                                                data.Puzzle.Three.Page12.Word + " or " + data.Puzzle.Three.Page34.Word, cutsceneConfig).setOrigin(0);
+        let notepadContainer = this.add.container(500, 30, [notepad2, noteCloseButton, notepadText]);
         notepadContainer.setDepth(5+topCounter);   // sets to top of scene
         notepadContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, notepad2.width, notepad2.height), Phaser.Geom.Rectangle.Contains);
         this.input.setDraggable(notepadContainer);
@@ -105,6 +109,7 @@ class Desk extends Phaser.Scene {
             notepadContainer.setDepth(5);
             notepadContainer.setVisible(false);
             notepad.setVisible(true);
+            this.sound.play("closeSfx", {volume: 4 });
         })
         notepadContainer.on('pointerdown', () => {
             notepadContainer.setDepth(5+topCounter);
@@ -158,6 +163,8 @@ class Desk extends Phaser.Scene {
         // SETUP LEVELS/PUZZLE CONTAINERS
         // *******************************
         if(level == 1) {
+            p1Check = false;
+            p2Check = false;
             // use to set which puzzle and text to read from journal.json
             whichPuzzle = data.Puzzle.One;   
             whichPage = whichPuzzle.Page12;   
@@ -189,6 +196,7 @@ class Desk extends Phaser.Scene {
             p1l5.letterDrop('dropD');
             p1l6.letterDrop('dropR');
             puzzleContents1 = [p1z2, p1z3, p1z4, p1z5, p1z6, p1l2, p1l3, p1l4, p1l5, p1l6]
+            p1 = [p1z2, p1z3, p1z4, p1z5, p1z6];
             p1container = this.add.container(0, 10, puzzleContents1);
 
             // Page34 puzzle
@@ -205,9 +213,12 @@ class Desk extends Phaser.Scene {
             p2l4.letterDrop('dropK');
             p2l5.letterDrop('dropE');
             puzzleContents2 = [p2z3, p2z4, p2z5, p2l3, p2l4, p2l5]
+            p2 = [p2z3, p2z4, p2z5];
             p2container = this.add.container(0, 10, puzzleContents2);
         }
         if(level == 2) {
+            p1Check = false;
+            p2Check = false;
             // use to set which puzzle and text to read from journal.json
             whichPuzzle = data.Puzzle.Two;   
             whichPage = whichPuzzle.Page12;   
@@ -236,6 +247,7 @@ class Desk extends Phaser.Scene {
             p1l4.letterDrop('dropD');
             p1l5.letterDrop('dropI');
             puzzleContents1 = [p1z2, p1z3, p1z4, p1z5, p1l2, p1l3, p1l4, p1l5];
+            p1 = [p1z2, p1z3, p1z4, p1z5];
             p1container = this.add.container(0, 10, puzzleContents1);
 
             // Page34 puzzle
@@ -264,9 +276,12 @@ class Desk extends Phaser.Scene {
             p2l6.letterDrop('dropE');
             p2l7.letterDrop('dropA');
             puzzleContents2 = [p2z1, p2z2, p2z3, p2z4, p2z5, p2z6, p2z7, p2l1, p2l2, p2l3, p2l4, p2l5, p2l6, p2l7];
+            p2 = [p2z1, p2z2, p2z3, p2z4, p2z5, p2z6, p2z7];
             p2container = this.add.container(0, 10, puzzleContents2);
         }
         if(level == 3) {
+            p1Check = false;
+            p2Check = false;
              // use to set which puzzle and text to read from journal.json
              whichPuzzle = data.Puzzle.Three;   
              whichPage = whichPuzzle.Page12;   
@@ -304,6 +319,7 @@ class Desk extends Phaser.Scene {
              p1l6.letterDrop('dropR');
              p1l7.letterDrop('dropO');
              puzzleContents1 = [p1z1, p1z2, p1z3, p1z4, p1z5, p1z6, p1z7, p1l1, p1l2, p1l3, p1l4, p1l5, p1l6, p1l7];
+             p1 = [p1z1, p1z2, p1z3, p1z4, p1z5, p1z6, p1z7];
              p1container = this.add.container(0, 10, puzzleContents1);
  
              // Page34 puzzle
@@ -332,6 +348,7 @@ class Desk extends Phaser.Scene {
              p2l6.letterDrop('dropR');
              p2l7.letterDrop('dropO');
              puzzleContents2 = [p2z1, p2z2, p2z3, p2z4, p2z5, p2z6, p2z7, p2l1, p2l2, p2l3, p2l4, p2l5, p2l6, p2l7];
+             p2 = [p2z1, p2z2, p2z3, p2z4, p2z5, p2z6, p2z7];
              p2container = this.add.container(0, 10, puzzleContents2);
         }
 
@@ -380,8 +397,14 @@ class Desk extends Phaser.Scene {
         // Page Turning Logic
         turnRight.on('pointerup', () => {
             this.sound.play("turnSfx", {volume: 4 });
-            page1.setText(whichPuzzle.Page34.Left);
-            page2.setText(whichPuzzle.Page34.Right);
+            if(p2Check == true) {
+                page1.setText(whichPuzzle.Page34.LeftSolved);
+                page2.setText(whichPuzzle.Page34.RightSolved);
+            }
+            else {
+                page1.setText(whichPuzzle.Page34.Left);
+                page2.setText(whichPuzzle.Page34.Right);
+            }
             puzzleName.setText(whichPuzzle.Page34.Title);
             hint.setText(whichPuzzle.Page34.Hint);
             p1container.setVisible(false);
@@ -391,8 +414,14 @@ class Desk extends Phaser.Scene {
         })
         turnLeft.on('pointerup', () => {
             this.sound.play("turnSfx", {volume: 4 });
-            page1.setText(whichPuzzle.Page12.Left);
-            page2.setText(whichPuzzle.Page12.Right);
+            if(p1Check == true) {
+                page1.setText(whichPuzzle.Page12.LeftSolved);
+                page2.setText(whichPuzzle.Page12.RightSolved);
+            }
+            else {
+                page1.setText(whichPuzzle.Page12.Left);
+                page2.setText(whichPuzzle.Page12.Right);
+            }
             puzzleName.setText(whichPuzzle.Page12.Title);
             hint.setText(whichPuzzle.Page12.Hint);
             p1container.setVisible(true);
@@ -442,15 +471,35 @@ class Desk extends Phaser.Scene {
                     }
                 }
                 if(gameObject.texture.key == 'helpNote') {
+                    this.sound.play("openSfx", {volume: 4 });
                     startnoteContainer.setVisible(true);
                     startnoteDesk.setVisible(false);
                 }
                 if(gameObject.texture.key == 'notepad') {
+                    this.sound.play("openSfx", {volume: 4 });
                     notepadContainer.setVisible(true);
                     notepad.setVisible(false);
                 }
             }
         });
+
+        let sleepButton = this.add.image(850, 550, 'playButton').setScale(0.2);
+        let sleepButtonText = this.add.text(850, 550, 'SLEEP', cutsceneConfig).setOrigin(0.5);
+        sleepButton.setInteractive({
+            useHandCursor: true 
+        })
+        .on('pointerover', () => sleepButton.setTint(0x5797D2) )
+        .on('pointerout', () => sleepButton.setTint(0xffffff) )
+        .on('pointerdown', () => sleepButton.setTint(0xff00ff) )
+        .on('pointerup', () => {
+            sleepButton.setTint(0xffffff);
+            level++;
+            this.cameras.main.fadeOut(1000, 0, 0, 0);
+        })
+
+        this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+            this.scene.start('cutscene');
+        })
     }
 
     update() {
@@ -458,6 +507,8 @@ class Desk extends Phaser.Scene {
         if(Phaser.Input.Keyboard.JustDown(keyESC)) {
             this.scene.start('menuscene');
         }
+        this.checkSolved(p1);
+        this.checkSolved(p2);
     }
 
     makeInteractive(obj, drag, cursor) {
@@ -474,5 +525,25 @@ class Desk extends Phaser.Scene {
             obj.x = dragX;
             obj.y = dragY;
         });
+    }
+    checkSolved(puzzle) {
+        for(let i = 0; i < puzzle.length; i++) {
+            if(puzzle[i].solved == true) {
+                continue;
+            }
+            else {
+                return false;
+            }
+        }
+        if(puzzle == p1) {
+            p1Check = true;
+            // page1.setText(whichPuzzle.Page12.LeftSolved);
+            // page2.setText(whichPuzzle.Page12.RightSolved);
+        }
+        if(puzzle == p2) {
+            p2Check = true;
+            // page1.setText(whichPuzzle.Page34.LeftSolved);
+            // page2.setText(whichPuzzle.Page34.RightSolved);
+        }
     }
 }
