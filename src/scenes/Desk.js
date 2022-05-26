@@ -74,6 +74,7 @@ class Desk extends Phaser.Scene {
         startnoteClose.on('pointerup', () => {
             startnoteContainer.setVisible(false);
             startnoteDesk.setVisible(true);
+            this.sound.play("closeSfx", {volume: 4 });
         })
 
         // initial runs on first load, loads the hint note at start
@@ -108,6 +109,7 @@ class Desk extends Phaser.Scene {
             notepadContainer.setDepth(5);
             notepadContainer.setVisible(false);
             notepad.setVisible(true);
+            this.sound.play("closeSfx", {volume: 4 });
         })
         notepadContainer.on('pointerdown', () => {
             notepadContainer.setDepth(5+topCounter);
@@ -469,10 +471,12 @@ class Desk extends Phaser.Scene {
                     }
                 }
                 if(gameObject.texture.key == 'helpNote') {
+                    this.sound.play("openSfx", {volume: 4 });
                     startnoteContainer.setVisible(true);
                     startnoteDesk.setVisible(false);
                 }
                 if(gameObject.texture.key == 'notepad') {
+                    this.sound.play("openSfx", {volume: 4 });
                     notepadContainer.setVisible(true);
                     notepad.setVisible(false);
                 }
