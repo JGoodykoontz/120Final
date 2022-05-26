@@ -92,7 +92,10 @@ class Desk extends Phaser.Scene {
         let notepad2 = this.add.sprite(0, 0, 'notepadOpen').setOrigin(0);
         let noteCloseButton = this.add.image(notepad2.width - 15, 50, 'close');
         noteCloseButton.setInteractive({ useHandCursor: true });
-        let notepadContainer = this.add.container(500, 30, [notepad2, noteCloseButton]);
+        let notepadText = this.add.text(80, 100, data.Puzzle.One.Page12.Word + " is the " + data.Puzzle.One.Page34.Word + "\n\n" +
+                                                data.Puzzle.Two.Page12.Word + " is the " + data.Puzzle.Two.Page34.Word + "\n\n" +
+                                                data.Puzzle.Three.Page12.Word + " or " + data.Puzzle.Three.Page34.Word, cutsceneConfig).setOrigin(0);
+        let notepadContainer = this.add.container(500, 30, [notepad2, noteCloseButton, notepadText]);
         notepadContainer.setDepth(5+topCounter);   // sets to top of scene
         notepadContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, notepad2.width, notepad2.height), Phaser.Geom.Rectangle.Contains);
         this.input.setDraggable(notepadContainer);
