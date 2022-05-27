@@ -494,7 +494,7 @@ class Desk extends Phaser.Scene {
     }
 
     update() {
-        this.clouds.tilePositionX -= 0.3;
+        this.clouds.tilePositionX -= 0.07;
         if(Phaser.Input.Keyboard.JustDown(keyESC)) {
             this.scene.start('menuscene');
         }
