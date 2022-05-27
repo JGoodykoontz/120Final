@@ -252,31 +252,22 @@ class Desk extends Phaser.Scene {
 
             // Page34 puzzle
             // zones
-            p2z1.setTexture('dropG').setVisible(true);
-            p2z2.setTexture('dropA').setVisible(true);
-            p2z3.setTexture('dropT').setVisible(true);
-            p2z4.setTexture('dropE').setVisible(true);
-            p2z5.setTexture('dropW').setVisible(true);
-            p2z6.setTexture('dropA').setVisible(true);
-            p2z7.setTexture('dropY').setVisible(true);
+            p2z2.setTexture('dropG').setVisible(true);
+            p2z3.setTexture('dropA').setVisible(true);
+            p2z4.setTexture('dropT').setVisible(true);
+            p2z5.setTexture('dropE').setVisible(true);
             // letters
-            p2l1.setTexture('markT').setVisible(true);
-            p2l2.setTexture('markG').setVisible(true);
-            p2l3.setTexture('markW').setVisible(true);
-            p2l4.setTexture('markA').setVisible(true);
-            p2l5.setTexture('markY').setVisible(true);
-            p2l6.setTexture('markE').setVisible(true);
-            p2l7.setTexture('markA').setVisible(true);
+            p2l2.setTexture('markT').setVisible(true);
+            p2l3.setTexture('markG').setVisible(true);
+            p2l4.setTexture('markE').setVisible(true);
+            p2l5.setTexture('markA').setVisible(true);
             // letter drop target
-            p2l1.letterDrop('dropT');
-            p2l2.letterDrop('dropG');
-            p2l3.letterDrop('dropW');
-            p2l4.letterDrop('dropA');
-            p2l5.letterDrop('dropY');
-            p2l6.letterDrop('dropE');
-            p2l7.letterDrop('dropA');
-            puzzleContents2 = [p2z1, p2z2, p2z3, p2z4, p2z5, p2z6, p2z7, p2l1, p2l2, p2l3, p2l4, p2l5, p2l6, p2l7];
-            p2 = [p2z1, p2z2, p2z3, p2z4, p2z5, p2z6, p2z7];
+            p2l2.letterDrop('dropT');
+            p2l3.letterDrop('dropG');
+            p2l4.letterDrop('dropE');
+            p2l5.letterDrop('dropA');
+            puzzleContents2 = [p2z2, p2z3, p2z4, p2z5, p2l2, p2l3, p2l4, p2l5];
+            p2 = [p2z2, p2z3, p2z4, p2z5];
             p2container = this.add.container(0, 10, puzzleContents2);
         }
         if(level == 3) {

@@ -33,9 +33,11 @@
         },
         "Two": {
             "Page12": {
-                "Title": "Puzzle Two",
-                "Left": "PAGE 1 HERE puzzle 2",
-                "Right": "PAGE 2 HERE puzzle 2",
+                "Title": "Oct 12, 19xx",
+                "Left": "Ever since waking from that horrible nightmare a few nights ago, my nmdi has been rather muddled.  It began as small inconsistencies in my memory such as waking up to muddy shoes, misplacing the keys to the basement.  Now it has progressed to hours and sometimes entire days missing from my nmdi.",
+                "Right": "I'm worried that I will lose control of my nmdi entirely.  I wonder if this is all connected to the statue of the creature of the temple in my dream...",
+                "LeftSolved": "Ever since waking from that horrible nightmare a few nights ago, my mind has been rather muddled.  It began as small inconsistencies in my memory such as waking up to muddy shoes, misplacing the keys to the basement.  Now it has progressed to hours and sometimes entire days missing from my mind.",
+                "RightSolved": "I'm worried that I will lose control of my mind entirely.  I wonder if this is all connected to the statue of the creature of the temple in my dream...",
                 "Word": "MIND",
                 "Turn": [ 
                     {
@@ -45,10 +47,12 @@
                 ]
             },
             "Page34": {
-                "Title": "Puzzle Two",
-                "Left": "PAGE 3 HERE puzzle 2",
-                "Right": "PAGE 4 HERE puzzle 2",
-                "Word": "GATEWAY",
+                "Title": "Oct 1x, 19xx",
+                "Left": "I am unsure of what day it is anymore.  The gaps in my memory have grown, and the moments I do remember are plagued with whispers and the dream. I can make out the whispers repeating 'open the tgea' endlessly.",
+                "Right": "What is this tgea? I'm think the answer lies within the dream, but I'm afraid to progress it further at the cost of my sanity...",
+                "LeftSolved": "I am unsure of what day it is anymore.  The gaps in my memory have grown, and the moments I do remember are plagued with whispers and the dream. I can make out the whispers repeating 'open the gate' endlessly.",
+                "RightSolved": "What is this gate? I'm think the answer lies within the dream, but I'm afraid to progress it further at the cost of my sanity...",
+                "Word": "GATE",
                 "Turn": [ 
                     {
                         "Text": "Prev",
