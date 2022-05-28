@@ -8,7 +8,7 @@ let config = {
             debug: false
         }
     },
-    scene: [Preload, Menu, Cutscene, Desk],
+    scene: [Preload, Menu, Cutscene, Desk, End],
 }
 
 let game = new Phaser.Game(config);

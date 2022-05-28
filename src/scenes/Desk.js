@@ -489,7 +489,12 @@ class Desk extends Phaser.Scene {
         })
 
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-            this.scene.start('cutscene');
+            if(level == 4) {
+                this.scene.start('endscene');
+            }
+            else {
+                this.scene.start('cutscene');
+            }
         })
     }
 

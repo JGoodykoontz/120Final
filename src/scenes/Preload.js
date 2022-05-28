@@ -21,6 +21,11 @@ class Preload extends Phaser.Scene {
         this.load.image("CS2Part1", 'Artboard 4.png');
         this.load.image("CS2Part2", 'Artboard 5.png');
         this.load.image("CS2Part3", 'Artboard 6.png');
+        this.load.image("EndPart1", 'End12-1.png');
+        this.load.image("EndControl1", 'End1-2.png');
+        this.load.image("EndControl2", 'End1-3.png');
+        this.load.image("EndFree1", 'End1-3.png');
+        this.load.image("EndFree2", 'End2-2.png');
         
         // Interactive
         this.load.image("lamp", 'oilLamp.png');
