@@ -82,6 +82,7 @@ class Preload extends Phaser.Scene {
         this.load.audio("lampSfx", 'Sounds/Lamp_Click.wav');
         this.load.audio("closeSfx", 'Sounds/Close.wav');
         this.load.audio("turnSfx", 'Sounds/Page Flip.wav');
+        this.load.audio("tapSfx", 'Sounds/Tapping.wav');
     }
     update() {
         this.scene.start('menuscene');

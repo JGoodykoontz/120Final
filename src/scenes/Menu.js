@@ -4,6 +4,7 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
+        this.cameras.main.fadeIn(1000, 0, 0, 0);
         let bg = this.add.image(0, 0, 'background').setOrigin(0).setDepth(-1).setPipeline('Light2D');
         // bg.scaleX = 1.39;
         this.clouds = this.add.tileSprite(605, 0, 360, 240, 'clouds').setOrigin(0, 0).setDepth(-2);
@@ -63,6 +64,7 @@ class Menu extends Phaser.Scene {
         .on('pointerdown', () => playButton.setTint(0xff00ff) )
         .on('pointerup', () => {
             playButton.setTint(0xffffff);
+            this.sound.play("lampSfx", {volume: 1});
             this.cameras.main.fadeOut(1000, 0, 0, 0);
         })
 

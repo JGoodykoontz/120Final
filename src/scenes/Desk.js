@@ -74,7 +74,7 @@ class Desk extends Phaser.Scene {
         startnoteClose.on('pointerup', () => {
             startnoteContainer.setVisible(false);
             startnoteDesk.setVisible(true);
-            this.sound.play("closeSfx", {volume: 4 });
+            this.sound.play("closeSfx", {volume: 2 });
         })
 
         // initial runs on first load, loads the hint note at start
@@ -109,7 +109,7 @@ class Desk extends Phaser.Scene {
             notepadContainer.setDepth(5);
             notepadContainer.setVisible(false);
             notepad.setVisible(true);
-            this.sound.play("closeSfx", {volume: 4 });
+            this.sound.play("closeSfx", {volume: 3 });
         })
         notepadContainer.on('pointerdown', () => {
             notepadContainer.setDepth(5+topCounter);
@@ -462,12 +462,12 @@ class Desk extends Phaser.Scene {
                     }
                 }
                 if(gameObject.texture.key == 'helpNote') {
-                    this.sound.play("openSfx", {volume: 4 });
+                    this.sound.play("openSfx", {volume: 2 });
                     startnoteContainer.setVisible(true);
                     startnoteDesk.setVisible(false);
                 }
                 if(gameObject.texture.key == 'notepad') {
-                    this.sound.play("openSfx", {volume: 4 });
+                    this.sound.play("openSfx", {volume: 3 });
                     notepadContainer.setVisible(true);
                     notepad.setVisible(false);
                 }
@@ -485,6 +485,7 @@ class Desk extends Phaser.Scene {
         .on('pointerup', () => {
             sleepButton.setTint(0xffffff);
             level++;
+            this.sound.play("lampSfx", {volume: 1});
             this.cameras.main.fadeOut(1000, 0, 0, 0);
         })
 
@@ -533,13 +534,9 @@ class Desk extends Phaser.Scene {
         }
         if(puzzle == p1) {
             p1Check = true;
-            // page1.setText(whichPuzzle.Page12.LeftSolved);
-            // page2.setText(whichPuzzle.Page12.RightSolved);
         }
         if(puzzle == p2) {
             p2Check = true;
-            // page1.setText(whichPuzzle.Page34.LeftSolved);
-            // page2.setText(whichPuzzle.Page34.RightSolved);
         }
     }
 }

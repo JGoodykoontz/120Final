@@ -69,6 +69,7 @@ class End extends Phaser.Scene {
         .on('pointerup', () => {
             controlButton.setTint(0xffffff);
             level = 6;  // control ending
+            this.sound.play("lampSfx", {volume: 1});
             this.cameras.main.fadeOut(1000, 0, 0, 0);
         })
         freedomButton.setInteractive({
@@ -80,6 +81,7 @@ class End extends Phaser.Scene {
         .on('pointerup', () => {
             level = 7;  // freedom ending
             freedomButton.setTint(0xffffff);
+            this.sound.play("lampSfx", {volume: 1});
             this.cameras.main.fadeOut(1000, 0, 0, 0);
         })
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {

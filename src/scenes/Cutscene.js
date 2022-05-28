@@ -50,6 +50,7 @@ class Cutscene extends Phaser.Scene {
         })
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
             if(level == 6 || level == 7) {
+                level = 1;
                 scene3.destroy();
                 this.scene.start('menuscene');
             }
@@ -58,12 +59,5 @@ class Cutscene extends Phaser.Scene {
                 this.scene.start('deskscene');
             }
         })
-        // otherwise skip straight to desk
-        // if(!initial) {
-        //     this.cameras.main.fadeOut(10, 0, 0, 0);
-        //     this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-        //         this.scene.start('deskscene');
-        //     })
-        // }
     }
 }
