@@ -63,9 +63,11 @@
         },
         "Three": {
             "Page12": {
-                "Title": "Puzzle Three",
-                "Left": "PAGE 1 HERE 333333",
-                "Right": "PAGE 2 HERE 333333",
+                "Title": "Oct ...",
+                "Left": "I found the gate.  In the temple in my dreams exists a large decorated door with an ornate lock matching the key at the statue. The whispers are coming from behind it, bidding me to open it. I fear I am losing more ntcolro with each passing day.",
+                "Right": "I spend more time in the dream than I do awake. I lack the strength to wake up.  I lack ntcolro.",
+                "LeftSolved": "I found the gate.  In the temple in my dreams exists a large decorated door with an ornate lock matching the key at the statue. The whispers are coming from behind it, bidding me to open it. I fear I am losing more control with each passing day.",
+                "RightSolved": "I spend more time in the dream than I do awake. I lack the strength to wake up.  I lack control.",
                 "Word": "CONTROL",
                 "Turn": [ 
                     {
@@ -75,9 +77,11 @@
                 ]
             },
             "Page34": {
-                "Title": "Puzzle Three",
-                "Left": "PAGE 3 HERE 333333",
-                "Right": "PAGE 4 HERE 333333",
+                "Title": "...",
+                "Left": "The creature bids for edmfero. I hear it always, bashing on that door. Bashing in my head.  It desires edmfero. I must answer the master's call...",
+                "Right": "Will freeing the creature grant me edmfero from it's torment, or edmfero to torment me evermore?  I will find out tonight.",
+                "LeftSolved": "The creature bids for freedom. I hear it always, bashing on that door. Bashing in my head.  It desires freedom. I must answer the master's call...",
+                "RightSolved": "Will freeing the creature grant me freedom from it's torment, or freedom to torment me evermore?  I will find out tonight.",
                 "Word": "FREEDOM",
                 "Turn": [ 
                     {
