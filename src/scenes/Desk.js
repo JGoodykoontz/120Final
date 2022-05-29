@@ -28,7 +28,7 @@ class Desk extends Phaser.Scene {
         // enables dynamic lighting within the scene and on setPipeline("Light2D") objects
         let light = this.lights.addLight(500, 200, 5000, '0xFFFCBB').setIntensity(1.7); // makes a light
         this.lights.enable();                       // allows for dynamic lighting in the scene
-        this.lights.setAmbientColor('0xA3A3A3');    // sets the scene's overall light (0x000000) == black/darkness
+        // this.lights.setAmbientColor('0xA3A3A3');    // sets the scene's overall light (0x000000) == black/darkness
 
 
         // *******************************
@@ -163,6 +163,7 @@ class Desk extends Phaser.Scene {
         // SETUP LEVELS/PUZZLE CONTAINERS
         // *******************************
         if(level == 1) {
+            this.lights.setAmbientColor('0xA3A3A3');    // sets the scene's overall light (0x000000) == black/darkness
             p1Check = false;
             p2Check = false;
             // use to set which puzzle and text to read from journal.json
@@ -217,6 +218,7 @@ class Desk extends Phaser.Scene {
             p2container = this.add.container(0, 10, puzzleContents2);
         }
         if(level == 2) {
+            this.lights.setAmbientColor('0x595C7A');    // sets the scene's overall light (0x000000) == black/darkness
             p1Check = false;
             p2Check = false;
             // use to set which puzzle and text to read from journal.json
@@ -271,6 +273,7 @@ class Desk extends Phaser.Scene {
             p2container = this.add.container(0, 10, puzzleContents2);
         }
         if(level == 3) {
+            this.lights.setAmbientColor('0x1C204A');    // sets the scene's overall light (0x000000) == black/darkness
             p1Check = false;
             p2Check = false;
              // use to set which puzzle and text to read from journal.json
@@ -476,17 +479,38 @@ class Desk extends Phaser.Scene {
 
         let sleepButton = this.add.image(850, 550, 'playButton').setScale(0.2);
         let sleepButtonText = this.add.text(850, 550, 'SLEEP', cutsceneConfig).setOrigin(0.5);
+        sleepButton.setTint(0x5797D2);
         sleepButton.setInteractive({
             useHandCursor: true 
         })
-        .on('pointerover', () => sleepButton.setTint(0x5797D2) )
-        .on('pointerout', () => sleepButton.setTint(0xffffff) )
-        .on('pointerdown', () => sleepButton.setTint(0xff00ff) )
+        .on('pointerover', () => {
+            if(p1Check && p2Check) {
+                sleepButton.setTint(0x5797D2)
+            }
+        })
+        .on('pointerout', () => {
+            if(p1Check && p2Check) {
+                sleepButton.setTint(0xffffff)
+            }
+            else {
+                sleepButton.setTint(0x5797D2)
+            }
+        })
+        .on('pointerdown', () => {
+            if(p1Check && p2Check) {
+                sleepButton.setTint(0xff00ff)
+            }
+            else {
+                sleepButton.setTint(0x5797D2)
+            }
+        })
         .on('pointerup', () => {
-            sleepButton.setTint(0xffffff);
-            level++;
-            this.sound.play("lampSfx", {volume: 1});
-            this.cameras.main.fadeOut(1000, 0, 0, 0);
+            if(p1Check && p2Check) {
+                sleepButton.setTint(0xffffff);
+                level++;
+                this.sound.play("lampSfx", {volume: 1});
+                this.cameras.main.fadeOut(1000, 0, 0, 0);
+            }
         })
 
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
@@ -506,6 +530,9 @@ class Desk extends Phaser.Scene {
         }
         this.checkSolved(p1);
         this.checkSolved(p2);
+        if(p1Check && p2Check) {
+            this.sleepButton.clearTint();
+        }
     }
 
     makeInteractive(obj, drag, cursor) {

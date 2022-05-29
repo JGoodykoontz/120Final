@@ -71,7 +71,7 @@ class Preload extends Phaser.Scene {
         this.load.image("markN", 'markerN.png');
         this.load.image("markG", 'markerG.png');
         this.load.image("markT", 'markerT.png');
-        this.load.image("markW", 'markerW.png');
+        // this.load.image("markW", 'markerW.png');
         this.load.image("markC", 'markerC.png');
         this.load.image("markO", 'markerO.png');
         this.load.image("markL", 'markerL.png');
