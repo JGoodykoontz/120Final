@@ -490,7 +490,7 @@ class Desk extends Phaser.Scene {
         })
         .on('pointerout', () => {
             if(p1Check && p2Check) {
-                sleepButton.setTint(0xffffff)
+                sleepButton.clearTint();
             }
             else {
                 sleepButton.setTint(0x5797D2)
@@ -506,7 +506,7 @@ class Desk extends Phaser.Scene {
         })
         .on('pointerup', () => {
             if(p1Check && p2Check) {
-                sleepButton.setTint(0xffffff);
+                sleepButton.clearTint();
                 level++;
                 this.sound.play("lampSfx", {volume: 1});
                 this.cameras.main.fadeOut(1000, 0, 0, 0);
@@ -530,9 +530,6 @@ class Desk extends Phaser.Scene {
         }
         this.checkSolved(p1);
         this.checkSolved(p2);
-        if(p1Check && p2Check) {
-            this.sleepButton.clearTint();
-        }
     }
 
     makeInteractive(obj, drag, cursor) {
