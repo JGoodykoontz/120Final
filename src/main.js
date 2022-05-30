@@ -23,7 +23,6 @@ let content2;
 let topCounter = 0; // counter for moving stuff to top of scene
 let p1Check = false;
 let p2Check = false;
-let lvlfinish = false;
 let p1, p2;
 let level = 1;
 let puzzleName, page1, page2;

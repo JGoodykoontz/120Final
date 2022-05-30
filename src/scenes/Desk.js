@@ -21,7 +21,7 @@ class Desk extends Phaser.Scene {
         // add scene elements
         let lamp = this.physics.add.sprite(460, 135, 'lamp').setOrigin(0, 0).setScale(0.12).setDepth(-2).setPipeline('Light2D');
         let journal = this.add.sprite(125, 350, 'journal').setOrigin(0, 0).setPipeline('Light2D');
-        let startnoteDesk = this.add.image(50, 325, 'helpNote').setVisible(false);
+        let startnoteDesk = this.add.image(50, 325, 'helpNote').setPipeline('Light2D').setVisible(false);
         journal.visible = true;
         let notepad = this.add.sprite(500, 360, 'notepad').setOrigin(0, 0).setPipeline('Light2D');
 
@@ -382,6 +382,9 @@ class Desk extends Phaser.Scene {
             journalContainer.setDepth(5);
             journalContainer.setVisible(false);
             journal.setVisible(true);
+            if(p1Check && p2Check) {
+                sleepButton.clearTint();
+            }
         })
         journalContainer.on('pointerdown', () => {
             journalContainer.setDepth(5+topCounter);

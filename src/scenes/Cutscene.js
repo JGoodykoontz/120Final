@@ -18,7 +18,7 @@ class Cutscene extends Phaser.Scene {
         }
         if(level == 3) {
             scene1 = this.add.image(0, 0, 'CS2Part1').setOrigin(0, 0).setDepth(3).setInteractive();
-            scene2 = this.add.image(0, 0, 'CS2Part2').setOrigin(0, 0).setDepth(2).setInteractive();
+            scene2 = this.add.image(0, 0, 'CS3Part2').setOrigin(0, 0).setDepth(2).setInteractive();
             scene3 = this.add.image(0, 0, 'CS2Part3').setOrigin(0, 0).setDepth(1).setInteractive();
         }
         // control ending
