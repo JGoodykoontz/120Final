@@ -13,12 +13,14 @@ class Letter extends Phaser.GameObjects.Sprite {
             this.y = dragY;
             this.setDepth(100);
         })
+        this.drop = scene.sound.add("tapSfx");
     }
     letterDrop(correctTarget) {
         this.on('drop', (pointer, target) => {
-            console.log(`Dropped '${this.texture.key}' on '${target.texture.key}'`);
+            // console.log(`Dropped '${this.texture.key}' on '${target.texture.key}'`);
             if(target.texture.key === correctTarget) {
                 this.destroy();
+                this.drop.play();
                 target.zoneComplete(this.texture);
             }
         })

@@ -23,6 +23,9 @@ let content2;
 let topCounter = 0; // counter for moving stuff to top of scene
 let p1Check = false;
 let p2Check = false;
+let sound1 = true, sound2 = true, sound3 = true;
+let note1, note2;
+let noteComplete1, noteComplete2, noteComplete3;
 let p1, p2;
 let level = 1;
 let puzzleName, page1, page2;

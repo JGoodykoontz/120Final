@@ -48,76 +48,6 @@ class Desk extends Phaser.Scene {
         this.makeInteractive(lamp, false, true);
 
 
-        // *****************************************
-        // make HOW TO PLAY pop-up note at beginning
-        // *****************************************
-        let startnote = this.add.rectangle(0, 0, 350, 150, 0xd6ccc1).setOrigin(0);
-        let startnoteText = this.add.text(175, 75, "HOW TO PLAY\n\n" +
-            "DRAG and DOUBLE CLICK on objects to interact with them\n" +
-            "Press ESC to open the menu", menuConfig).setOrigin(0.5);
-        let startnoteClose = this.add.sprite(startnote.width - 25, 10, 'close').setOrigin(0);
-        startnoteClose.setInteractive({ useHandCursor: true });
-
-        // make note into container
-        let startnoteContainer = this.add.container(325, 175, [startnote, startnoteText, startnoteClose]);
-        startnoteContainer.setDepth(5);
-        startnoteContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, startnote.width, startnote.height), Phaser.Geom.Rectangle.Contains);
-        this.input.setDraggable(startnoteContainer);
-        startnoteContainer.setVisible(false);
-        // allow the start note to be dragged
-        startnoteContainer.on('drag', function(pointer, dragX, dragY) {
-            this.x = dragX;
-            this.y = dragY;
-        })
-
-        // allow note to close
-        startnoteClose.on('pointerup', () => {
-            startnoteContainer.setVisible(false);
-            startnoteDesk.setVisible(true);
-            this.sound.play("closeSfx", {volume: 2 });
-        })
-
-        // initial runs on first load, loads the hint note at start
-        if(initial) {
-            // on start show help note
-            startnoteContainer.setVisible(true);
-            initial = false;    // end initial setup
-        }
-        else {
-            startnoteDesk.setVisible(true);
-        }
-
-        // ************************
-        // SETUP NOTEPAD CONTAINER
-        // ************************
-        let notepad2 = this.add.sprite(0, 0, 'notepadOpen').setOrigin(0);
-        let noteCloseButton = this.add.image(notepad2.width - 15, 50, 'close');
-        noteCloseButton.setInteractive({ useHandCursor: true });
-        let notepadText = this.add.text(80, 100, data.Puzzle.One.Page12.Word + " is the " + data.Puzzle.One.Page34.Word + "\n\n" +
-                                                data.Puzzle.Two.Page12.Word + " is the " + data.Puzzle.Two.Page34.Word + "\n\n" +
-                                                data.Puzzle.Three.Page12.Word + " or " + data.Puzzle.Three.Page34.Word, cutsceneConfig).setOrigin(0);
-        let notepadContainer = this.add.container(500, 30, [notepad2, noteCloseButton, notepadText]);
-        notepadContainer.setDepth(5+topCounter);   // sets to top of scene
-        notepadContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, notepad2.width, notepad2.height), Phaser.Geom.Rectangle.Contains);
-        this.input.setDraggable(notepadContainer);
-        notepadContainer.on('drag', function(pointer, dragX, dragY) {
-            this.x = dragX;
-            this.y = dragY;
-        })
-        noteCloseButton.on('pointerup', () => {
-            // console.log('close journal');
-            notepadContainer.setDepth(5);
-            notepadContainer.setVisible(false);
-            notepad.setVisible(true);
-            this.sound.play("closeSfx", {volume: 3 });
-        })
-        notepadContainer.on('pointerdown', () => {
-            notepadContainer.setDepth(5+topCounter);
-            topCounter++;
-        })
-        notepadContainer.setVisible(false);
-
-
         // ************************
         // SETUP PUZZLE PARAMETERS
         // ************************
@@ -159,11 +89,16 @@ class Desk extends Phaser.Scene {
         p2l7 = new Letter(this, 520, 290, 'markD').setScale(0.55).setVisible(false);
 
 
+        noteComplete1 = this.add.text(80, 100, "", cutsceneConfig).setOrigin(0).setVisible(false);
+        noteComplete2 = this.add.text(80, 200, "", cutsceneConfig).setOrigin(0).setVisible(false);
+        noteComplete3 = this.add.text(80, 300, "", cutsceneConfig).setOrigin(0).setVisible(false);
         // *******************************
         // SETUP LEVELS/PUZZLE CONTAINERS
         // *******************************
         if(level == 1) {
             this.lights.setAmbientColor('0xA3A3A3');    // sets the scene's overall light (0x000000) == black/darkness
+            sound1 = true;
+            sound2 = true;
             p1Check = false;
             p2Check = false;
             // use to set which puzzle and text to read from journal.json
@@ -219,6 +154,9 @@ class Desk extends Phaser.Scene {
         }
         if(level == 2) {
             this.lights.setAmbientColor('0x595C7A');    // sets the scene's overall light (0x000000) == black/darkness
+            noteComplete1.setVisible(true);
+            sound1 = true;
+            sound2 = true;
             p1Check = false;
             p2Check = false;
             // use to set which puzzle and text to read from journal.json
@@ -274,6 +212,10 @@ class Desk extends Phaser.Scene {
         }
         if(level == 3) {
             this.lights.setAmbientColor('0x1C204A');    // sets the scene's overall light (0x000000) == black/darkness
+            noteComplete1.setVisible(true);
+            noteComplete2.setVisible(true);
+            sound1 = true;
+            sound2 = true;
             p1Check = false;
             p2Check = false;
              // use to set which puzzle and text to read from journal.json
@@ -346,6 +288,78 @@ class Desk extends Phaser.Scene {
              p2container = this.add.container(0, 10, puzzleContents2);
         }
 
+        // *****************************************
+        // make HOW TO PLAY pop-up note at beginning
+        // *****************************************
+        let startnote = this.add.rectangle(0, 0, 350, 150, 0xd6ccc1).setOrigin(0);
+        let startnoteText = this.add.text(175, 75, "HOW TO PLAY\n\n" +
+            "DRAG and DOUBLE CLICK on objects to interact with them\n" +
+            "Press ESC to open the menu", menuConfig).setOrigin(0.5);
+        let startnoteClose = this.add.sprite(startnote.width - 25, 10, 'close').setOrigin(0);
+        startnoteClose.setInteractive({ useHandCursor: true });
+
+        // make note into container
+        let startnoteContainer = this.add.container(325, 175, [startnote, startnoteText, startnoteClose]);
+        startnoteContainer.setDepth(5);
+        startnoteContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, startnote.width, startnote.height), Phaser.Geom.Rectangle.Contains);
+        this.input.setDraggable(startnoteContainer);
+        startnoteContainer.setVisible(false);
+        // allow the start note to be dragged
+        startnoteContainer.on('drag', function(pointer, dragX, dragY) {
+            this.x = dragX;
+            this.y = dragY;
+        })
+
+        // allow note to close
+        startnoteClose.on('pointerup', () => {
+            startnoteContainer.setVisible(false);
+            startnoteDesk.setVisible(true);
+            this.sound.play("closeSfx", {volume: 2 });
+        })
+
+        // initial runs on first load, loads the hint note at start
+        if(initial) {
+            // on start show help note
+            startnoteContainer.setVisible(true);
+            initial = false;    // end initial setup
+        }
+        else {
+            startnoteDesk.setVisible(true);
+        }
+
+        // ************************
+        // SETUP NOTEPAD CONTAINER
+        // ************************
+        let notepad2 = this.add.sprite(0, 0, 'notepadOpen').setOrigin(0);
+        let noteCloseButton = this.add.image(notepad2.width - 15, 50, 'close');
+        noteCloseButton.setInteractive({ useHandCursor: true });
+        note1 = this.add.text(180, 395, "- " + whichPuzzle.Page12.Word, menuConfig).setVisible(false);
+        note2 = this.add.text(180, 415, "- " + whichPuzzle.Page34.Word, menuConfig).setVisible(false);
+        noteComplete1.setText(data.Puzzle.One.Page12.Word + " is the " + data.Puzzle.One.Page34.Word);
+        noteComplete2.setText(data.Puzzle.Two.Page12.Word + " is the " + data.Puzzle.Two.Page34.Word);
+        noteComplete3.setText(data.Puzzle.Three.Page12.Word + " or " + data.Puzzle.Three.Page34.Word);
+        let notepadContainer = this.add.container(500, 30, [notepad2, noteCloseButton, noteComplete1, noteComplete2, noteComplete3, note1, note2]);
+        notepadContainer.setDepth(5+topCounter);   // sets to top of scene
+        notepadContainer.setInteractive(new Phaser.Geom.Rectangle(0, 0, notepad2.width, notepad2.height), Phaser.Geom.Rectangle.Contains);
+        this.input.setDraggable(notepadContainer);
+        notepadContainer.on('drag', function(pointer, dragX, dragY) {
+            this.x = dragX;
+            this.y = dragY;
+        })
+        noteCloseButton.on('pointerup', () => {
+            // console.log('close journal');
+            notepadContainer.setDepth(5);
+            notepadContainer.setVisible(false);
+            notepad.setVisible(true);
+            this.sound.play("closeSfx", {volume: 3 });
+        })
+        notepadContainer.on('pointerdown', () => {
+            notepadContainer.setDepth(5+topCounter);
+            topCounter++;
+        })
+        notepadContainer.setVisible(false);
+
+
         // ************************
         // JOURNAL CONTAINER SETUP
         // ************************
@@ -382,8 +396,25 @@ class Desk extends Phaser.Scene {
             journalContainer.setDepth(5);
             journalContainer.setVisible(false);
             journal.setVisible(true);
+            if(p1Check) {
+                note1.setVisible(true);
+            }
+            if(p2Check) {
+                note2.setVisible(true);
+            }
             if(p1Check && p2Check) {
                 sleepButton.clearTint();
+                // note1.setVisible(false);
+                // note2.setVisible(false);
+                if(level == 1) {
+                    noteComplete1.setVisible(true);
+                }
+                if(level == 2) {
+                    noteComplete2.setVisible(true);
+                }
+                if(level == 3) {
+                    noteComplete3.setVisible(true);
+                }
             }
         })
         journalContainer.on('pointerdown', () => {
@@ -447,7 +478,7 @@ class Desk extends Phaser.Scene {
             let clickDelay = this.time.now - lastTime;
             lastTime = this.time.now;
             if(clickDelay < 350) {
-                console.log(`Pointer double clicked on '${gameObject.texture.key}'`);
+                // console.log(`Pointer double clicked on '${gameObject.texture.key}'`);
                 if(gameObject.texture.key == 'journal') {
                     // console.log('open journal');
                     journalContainer.setVisible(true);
@@ -459,12 +490,12 @@ class Desk extends Phaser.Scene {
                     if(lightOn) {
                         lightOn = false;
                         light.setIntensity(0);
-                        console.log('light off');
+                        // console.log('light off');
                     }
                     else {
                         lightOn = true;
                         light.setIntensity(1.7);
-                        console.log('light on');
+                        // console.log('light on');
                     }
                 }
                 if(gameObject.texture.key == 'helpNote') {
@@ -561,9 +592,17 @@ class Desk extends Phaser.Scene {
         }
         if(puzzle == p1) {
             p1Check = true;
+            if(sound1) {
+                sound1 = false;
+                this.sound.play("writeSfx", {volume: 0.5});
+            }
         }
         if(puzzle == p2) {
             p2Check = true;
+            if(sound2) {
+                sound2 = false;
+                this.sound.play("writeSfx", {volume: 0.5});
+            }
         }
     }
 }
