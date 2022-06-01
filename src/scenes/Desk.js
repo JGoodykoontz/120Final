@@ -314,7 +314,7 @@ class Desk extends Phaser.Scene {
         startnoteClose.on('pointerup', () => {
             startnoteContainer.setVisible(false);
             startnoteDesk.setVisible(true);
-            this.sound.play("closeSfx", {volume: 2 });
+            this.sound.play("closeSfx", {volume: 0.5 });
         })
 
         // initial runs on first load, loads the hint note at start
@@ -351,7 +351,7 @@ class Desk extends Phaser.Scene {
             notepadContainer.setDepth(5);
             notepadContainer.setVisible(false);
             notepad.setVisible(true);
-            this.sound.play("closeSfx", {volume: 3 });
+            this.sound.play("closeSfx", {volume: 1 });
         })
         notepadContainer.on('pointerdown', () => {
             notepadContainer.setDepth(5+topCounter);
@@ -499,12 +499,12 @@ class Desk extends Phaser.Scene {
                     }
                 }
                 if(gameObject.texture.key == 'helpNote') {
-                    this.sound.play("openSfx", {volume: 2 });
+                    this.sound.play("openSfx", {volume: 0.5 });
                     startnoteContainer.setVisible(true);
                     startnoteDesk.setVisible(false);
                 }
                 if(gameObject.texture.key == 'notepad') {
-                    this.sound.play("openSfx", {volume: 3 });
+                    this.sound.play("openSfx", {volume: 1 });
                     notepadContainer.setVisible(true);
                     notepad.setVisible(false);
                 }
@@ -594,14 +594,14 @@ class Desk extends Phaser.Scene {
             p1Check = true;
             if(sound1) {
                 sound1 = false;
-                this.sound.play("writeSfx", {volume: 0.5});
+                this.sound.play("writeSfx", {volume: 0.2});
             }
         }
         if(puzzle == p2) {
             p2Check = true;
             if(sound2) {
                 sound2 = false;
-                this.sound.play("writeSfx", {volume: 0.5});
+                this.sound.play("writeSfx", {volume: 0.2});
             }
         }
     }
