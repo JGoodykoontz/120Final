@@ -52,6 +52,9 @@ class Menu extends Phaser.Scene {
         this.lights.enable();   // allows for dynamic lighting in the scene
         this.lights.setAmbientColor('0x661313');    // sets the scene's overall light (0x000000) == black/darkness
 
+        // init level to always be 1
+        level = 1;
+
         let logo = this.add.image(500, 200, 'logo').setScale(0.4);
         let playButton = this.add.image(500, 400, 'playButton').setScale(0.3);
         let playButtonText = this.add.text(500, 400, 'PLAY', cutsceneConfig).setOrigin(0.5).setScale(1.2);

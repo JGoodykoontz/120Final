@@ -6,8 +6,7 @@ class End extends Phaser.Scene {
         // fades in the scene from black
         this.cameras.main.fadeIn(1000, 0, 0, 0);
 
-        // initialize keybind
-        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);    // used for pause menu
+        this.scene.launch('ui');
 
         // add the background elements
         let bg = this.add.image(0, 0, 'background').setOrigin(0, 0).setPipeline('Light2D');   // setPipeline allows dynamic lighting

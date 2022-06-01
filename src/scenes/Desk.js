@@ -7,9 +7,6 @@ class Desk extends Phaser.Scene {
         // fades in the scene from black
         this.cameras.main.fadeIn(1000, 0, 0, 0);
 
-        // initialize keybind
-        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);    // used for pause menu
-
         // load journal.json cached data
         let data = this.cache.json.get('journalData');
 
@@ -547,8 +544,13 @@ class Desk extends Phaser.Scene {
             }
         })
 
+        this.scene.launch('ui');
+
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-            if(level == 4) {
+            if(level == 0) {
+                this.scene.start('menuscene');
+            }
+            else if(level == 4) {
                 this.scene.start('endscene');
             }
             else {
@@ -559,51 +561,51 @@ class Desk extends Phaser.Scene {
 
     update() {
         this.clouds.tilePositionX -= 0.07;
-        if(Phaser.Input.Keyboard.JustDown(keyESC)) {
-            // this.scene.start('menuscene');
-            this.pauseMenu();
+        if(level == 0) {
+            this.cameras.main.fadeOut(1000, 0, 0, 0);
+            this.scene.start('menuscene');
         }
         this.checkSolved(p1);
         this.checkSolved(p2);
     }
     pauseMenu() {
-        // transparent dark veil
-        this.veil = this.add.graphics({ x: 0, y: 0});
-        this.veil.fillStyle('0x000000', 0.3);
-        this.veil.fillRect(0, 0, game.config.width, game.config.height);
-        this.veil.setDepth(100);
-        this.veil.setScrollFactor(0);
+        // // transparent dark veil
+        // this.veil = this.add.graphics({ x: 0, y: 0});
+        // this.veil.fillStyle('0x000000', 0.3);
+        // this.veil.fillRect(0, 0, game.config.width, game.config.height);
+        // this.veil.setDepth(100);
+        // this.veil.setScrollFactor(0);
 
-        // pause text
-        let pauseText = this.add.text(game.config.width/2, 100, 'PAUSED').setDepth(101).setOrigin(0.5);
-        let playButton = this.add.image(game.config.width/2, game.config.height/2 - 32, 'playButton').setScale(0.3).setDepth(101);
-        let playButtonText = this.add.text(game.config.width/2, game.config.height/2 - 32, 'RESUME', cutsceneConfig).setOrigin(0.5).setScale(1.2).setDepth(101);
+        // // pause text
+        // let pauseText = this.add.text(game.config.width/2, 100, 'PAUSED').setDepth(101).setOrigin(0.5);
+        // let playButton = this.add.image(game.config.width/2, game.config.height/2 - 32, 'playButton').setScale(0.3).setDepth(101);
+        // let playButtonText = this.add.text(game.config.width/2, game.config.height/2 - 32, 'RESUME', cutsceneConfig).setOrigin(0.5).setScale(1.2).setDepth(101);
 
-        let menuButton = this.add.image(game.config.width/2, game.config.height/2 + 100, 'playButton').setScale(0.3).setDepth(101);
-        let menuButtonText = this.add.text(game.config.width/2, game.config.height/2 + 100, 'MENU', cutsceneConfig).setOrigin(0.5).setScale(1.2).setDepth(101);
+        // let menuButton = this.add.image(game.config.width/2, game.config.height/2 + 100, 'playButton').setScale(0.3).setDepth(101);
+        // let menuButtonText = this.add.text(game.config.width/2, game.config.height/2 + 100, 'MENU', cutsceneConfig).setOrigin(0.5).setScale(1.2).setDepth(101);
 
-        playButton.setInteractive({
-            useHandCursor: true 
-        })
-        .on('pointerover', () => playButton.setTint(0x5797D2) )
-        .on('pointerout', () => playButton.setTint(0xffffff) )
-        .on('pointerdown', () => playButton.setTint(0xff00ff) )
-        .on('pointerup', () => {
-            playButton.setTint(0xffffff);
-            this.sound.play("lampSfx", {volume: 1});
-            this.cameras.main.fadeOut(1000, 0, 0, 0);
-        })
-        menuButton.setInteractive({
-            useHandCursor: true 
-        })
-        .on('pointerover', () => menuButton.setTint(0x5797D2) )
-        .on('pointerout', () => menuButton.setTint(0xffffff) )
-        .on('pointerdown', () => menuButton.setTint(0xff00ff) )
-        .on('pointerup', () => {
-            menuButton.setTint(0xffffff);
-            this.sound.play("lampSfx", {volume: 1});
-            this.cameras.main.fadeOut(1000, 0, 0, 0);
-        })
+        // playButton.setInteractive({
+        //     useHandCursor: true 
+        // })
+        // .on('pointerover', () => playButton.setTint(0x5797D2) )
+        // .on('pointerout', () => playButton.setTint(0xffffff) )
+        // .on('pointerdown', () => playButton.setTint(0xff00ff) )
+        // .on('pointerup', () => {
+        //     playButton.setTint(0xffffff);
+        //     this.sound.play("lampSfx", {volume: 1});
+        //     this.cameras.main.fadeOut(1000, 0, 0, 0);
+        // })
+        // menuButton.setInteractive({
+        //     useHandCursor: true 
+        // })
+        // .on('pointerover', () => menuButton.setTint(0x5797D2) )
+        // .on('pointerout', () => menuButton.setTint(0xffffff) )
+        // .on('pointerdown', () => menuButton.setTint(0xff00ff) )
+        // .on('pointerup', () => {
+        //     menuButton.setTint(0xffffff);
+        //     this.sound.play("lampSfx", {volume: 1});
+        //     this.cameras.main.fadeOut(1000, 0, 0, 0);
+        // })
     }
 
     makeInteractive(obj, drag, cursor) {

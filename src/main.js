@@ -8,7 +8,7 @@ let config = {
             debug: false
         }
     },
-    scene: [Preload, Menu, Cutscene, Desk, End],
+    scene: [Preload, Menu, Cutscene, Desk, End, UIScene],
 }
 
 let game = new Phaser.Game(config);
@@ -46,9 +46,8 @@ let scene1;
 let scene2;
 let scene3;
 
-// allocating keys
-// let keySPACE;
-let keyESC;
+// pause menu check
+let isPaused = false;
 
 let journalConfig = {
     // fontFamily: 'Bahnschrift Light',
