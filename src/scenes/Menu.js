@@ -55,9 +55,25 @@ class Menu extends Phaser.Scene {
         // init level to always be 1
         level = 1;
 
+        let startContainer = this.add.container(0, 0);
+
         let logo = this.add.image(500, 200, 'logo').setScale(0.4);
-        let playButton = this.add.image(500, 400, 'playButton').setScale(0.3);
-        let playButtonText = this.add.text(500, 400, 'PLAY', cutsceneConfig).setOrigin(0.5).setScale(1.2);
+        let playButton = this.add.image(500, 400, 'playButton').setScale(0.2);
+        let playButtonText = this.add.text(500, 400, 'PLAY', cutsceneConfig).setOrigin(0.5);
+
+        let levelButton = this.add.image(500, 500, 'playButton').setScale(0.2);
+        let levelButtonText = this.add.text(500, 500, 'LEVEL SELECT', cutsceneConfig).setOrigin(0.5).setScale(0.9);
+
+        let levelContainer = this.add.container(0, -600);
+
+        let lvl1Button = this.add.image(500, 200, 'playButton').setScale(0.2);
+        let lvl1ButtonText = this.add.text(500, 200, 'LEVEL 1', cutsceneConfig).setOrigin(0.5);
+        let lvl2Button = this.add.image(500, 300, 'playButton').setScale(0.2);
+        let lvl2ButtonText = this.add.text(500, 300, 'LEVEL 2', cutsceneConfig).setOrigin(0.5);
+        let lvl3Button = this.add.image(500, 400, 'playButton').setScale(0.2);
+        let lvl3ButtonText = this.add.text(500, 400, 'LEVEL 3', cutsceneConfig).setOrigin(0.5);
+        let backButton = this.add.image(500, 500, 'playButton').setScale(0.2);
+        let backButtonText = this.add.text(500, 500, 'BACK', cutsceneConfig).setOrigin(0.5);
 
         playButton.setInteractive({
             useHandCursor: true 
@@ -70,6 +86,108 @@ class Menu extends Phaser.Scene {
             this.sound.play("lampSfx", {volume: 1});
             this.cameras.main.fadeOut(1000, 0, 0, 0);
         })
+
+        levelButton.setInteractive({
+            useHandCursor: true 
+        })
+        .on('pointerover', () => levelButton.setTint(0x5797D2) )
+        .on('pointerout', () => levelButton.setTint(0xffffff) )
+        .on('pointerdown', () => levelButton.setTint(0xff00ff) )
+        .on('pointerup', () => {
+            levelButton.setTint(0xffffff);
+            this.sound.play("lampSfx", {volume: 1});
+
+            // hide other menu and open level menu
+            this.tweens.add({
+                targets: startContainer,
+                y: -600,
+                duration: 300,
+                ease: 'Sine.InOut'
+            })
+            this.tweens.add({
+                targets: levelContainer,
+                y: 0,
+                duration: 300,
+                ease: 'Sine.InOut'
+            })
+
+        })
+
+        lvl1Button.setInteractive({
+            useHandCursor: true 
+        })
+        .on('pointerover', () => lvl1Button.setTint(0x5797D2) )
+        .on('pointerout', () => lvl1Button.setTint(0xffffff) )
+        .on('pointerdown', () => lvl1Button.setTint(0xff00ff) )
+        .on('pointerup', () => {
+            lvl1Button.setTint(0xffffff);
+            this.sound.play("lampSfx", {volume: 1});
+            level = 1;
+            this.cameras.main.fadeOut(1000, 0, 0, 0);
+        })
+        lvl2Button.setInteractive({
+            useHandCursor: true 
+        })
+        .on('pointerover', () => lvl2Button.setTint(0x5797D2) )
+        .on('pointerout', () => lvl2Button.setTint(0xffffff) )
+        .on('pointerdown', () => lvl2Button.setTint(0xff00ff) )
+        .on('pointerup', () => {
+            lvl2Button.setTint(0xffffff);
+            this.sound.play("lampSfx", {volume: 1});
+            level = 2;
+            this.cameras.main.fadeOut(1000, 0, 0, 0);
+        })
+        lvl3Button.setInteractive({
+            useHandCursor: true 
+        })
+        .on('pointerover', () => lvl3Button.setTint(0x5797D2) )
+        .on('pointerout', () => lvl3Button.setTint(0xffffff) )
+        .on('pointerdown', () => lvl3Button.setTint(0xff00ff) )
+        .on('pointerup', () => {
+            lvl3Button.setTint(0xffffff);
+            this.sound.play("lampSfx", {volume: 1});
+            level = 3;
+            this.cameras.main.fadeOut(1000, 0, 0, 0);
+        })
+        backButton.setInteractive({
+            useHandCursor: true 
+        })
+        .on('pointerover', () => backButton.setTint(0x5797D2) )
+        .on('pointerout', () => backButton.setTint(0xffffff) )
+        .on('pointerdown', () => backButton.setTint(0xff00ff) )
+        .on('pointerup', () => {
+            backButton.setTint(0xffffff);
+            this.sound.play("lampSfx", {volume: 1});
+
+            // toggle back to main menu
+            this.tweens.add({
+                targets: startContainer,
+                y: 0,
+                duration: 300,
+                ease: 'Sine.InOut'
+            })
+            this.tweens.add({
+                targets: levelContainer,
+                y: -600,
+                duration: 300,
+                ease: 'Sine.InOut'
+            })
+        })
+
+        startContainer.add(logo);
+        startContainer.add(playButton);
+        startContainer.add(playButtonText);
+        startContainer.add(levelButton);
+        startContainer.add(levelButtonText);
+
+        levelContainer.add(lvl1Button);
+        levelContainer.add(lvl1ButtonText);
+        levelContainer.add(lvl2Button);
+        levelContainer.add(lvl2ButtonText);
+        levelContainer.add(lvl3Button);
+        levelContainer.add(lvl3ButtonText);
+        levelContainer.add(backButton);
+        levelContainer.add(backButtonText);
 
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
             this.scene.start('cutscene');

@@ -98,10 +98,5 @@ class UIScene extends Phaser.Scene {
                     this.scene.resume('deskscene');
                 }
             })
-        // this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-        //     if(level == 0) {
-        //         this.scene.start('menuscene');
-        //     }
-        // })
     }
 }
