@@ -1,9 +1,11 @@
 class UIScene extends Phaser.Scene {
     constructor() {
         super('ui');
-        // this.opened = false;
     }
     create() {
+        // *****************************************************************
+        // Made with the help of https://www.youtube.com/watch?v=G3GrBuTFJbI
+        // *****************************************************************
         let settingsButton = this.add.image(10, 10, 'close');
 
         let container = this.add.container(game.config.width/2, -300).setDepth(1000);
