@@ -60,7 +60,10 @@ class UIScene extends Phaser.Scene {
                 isPaused = false;
                 level = 0;
                 this.scene.resume('deskscene');
-                this.scene.stop('ui');
+                this.cameras.main.fadeOut(250, 0, 0, 0);
+                this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                    this.scene.stop('ui');
+                })
             })
 
         settingsButton.setInteractive() 

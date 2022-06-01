@@ -290,8 +290,8 @@ class Desk extends Phaser.Scene {
         // *****************************************
         let startnote = this.add.rectangle(0, 0, 350, 150, 0xd6ccc1).setOrigin(0);
         let startnoteText = this.add.text(175, 75, "HOW TO PLAY\n\n" +
-            "DRAG and DOUBLE CLICK on objects to interact with them\n" +
-            "Press ESC to open the menu", menuConfig).setOrigin(0.5);
+            "Drag and Double CLick on objects to interact with them\n" +
+            "Click on the cog in the top left for the Pause Menu", menuConfig).setOrigin(0.5);
         let startnoteClose = this.add.sprite(startnote.width - 25, 10, 'close').setOrigin(0);
         startnoteClose.setInteractive({ useHandCursor: true });
 
