@@ -6,7 +6,7 @@ class UIScene extends Phaser.Scene {
         // *****************************************************************
         // Made with the help of https://www.youtube.com/watch?v=G3GrBuTFJbI
         // *****************************************************************
-        let settingsButton = this.add.image(30, 30, 'pauseButton').setScale(0.15);
+        let settingsButton = this.add.image(game.config.width - 30, 30, 'pauseButton').setScale(0.1);
 
         let container = this.add.container(game.config.width/2, -300).setDepth(1000);
         let resumeButton = this.add.image(0, 0, 'playButton').setScale(0.2);
