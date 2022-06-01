@@ -30,7 +30,7 @@ class Preload extends Phaser.Scene {
         
         // Interactive
         this.load.image("lamp", 'oilLamp.png');
-        this.load.image("helpNote", 'helpNote.png');
+        this.load.image("helpNote", 'helpButton.png');
         this.load.image("journal", 'book-closed.png');
         this.load.image("journalOpen", 'book-open.png');
         this.load.image("notepad", 'notepad-closed.png');
@@ -41,6 +41,7 @@ class Preload extends Phaser.Scene {
         this.load.image("close", 'closeButton.png');
         this.load.image('right', 'pageRight.png');
         this.load.image('left', 'pageLeft.png');
+        this.load.image("pauseButton", 'pauseButton.png');
 
         // Puzzle
         // this.load.image("drop", 'dropZone.png');
