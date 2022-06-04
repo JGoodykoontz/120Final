@@ -10,16 +10,19 @@ class Cutscene extends Phaser.Scene {
             scene1 = this.add.image(0, 0, 'CS1Part1').setOrigin(0, 0).setDepth(3).setInteractive();
             scene2 = this.add.image(0, 0, 'CS1Part2').setOrigin(0, 0).setDepth(2).setInteractive();
             scene3 = this.add.image(0, 0, 'CS1Part3').setOrigin(0, 0).setDepth(1).setInteractive();
+            sceneSfx = this.sound.add("whisper1Sfx", {volume: 0});
         }
         if(level == 2) {
             scene1 = this.add.image(0, 0, 'CS2Part1').setOrigin(0, 0).setDepth(3).setInteractive();
             scene2 = this.add.image(0, 0, 'CS2Part2').setOrigin(0, 0).setDepth(2).setInteractive();
             scene3 = this.add.image(0, 0, 'CS2Part3').setOrigin(0, 0).setDepth(1).setInteractive();
+            sceneSfx = this.sound.add("whisper1Sfx");
         }
         if(level == 3) {
             scene1 = this.add.image(0, 0, 'CS2Part1').setOrigin(0, 0).setDepth(3).setInteractive();
             scene2 = this.add.image(0, 0, 'CS3Part2').setOrigin(0, 0).setDepth(2).setInteractive();
             scene3 = this.add.image(0, 0, 'CS2Part3').setOrigin(0, 0).setDepth(1).setInteractive();
+            sceneSfx = this.sound.add("whisper2Sfx");
         }
         // control ending
         if(level == 6) {
@@ -39,6 +42,13 @@ class Cutscene extends Phaser.Scene {
 
         scene1.on('pointerup', () => {
             scene1.destroy();
+            sceneSfx.play();
+            this.tweens.add({
+                targets: sceneSfx,
+                volume: 0,
+                ease: 'Linear',
+                duration: 4000
+            });
             counter++;
         })
         scene2.on('pointerup', () => {

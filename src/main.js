@@ -45,6 +45,7 @@ let complete = false;
 let scene1;
 let scene2;
 let scene3;
+let sceneSfx;
 
 // pause menu check
 let isPaused = false;

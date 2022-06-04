@@ -597,14 +597,14 @@ class Desk extends Phaser.Scene {
             p1Check = true;
             if(sound1) {
                 sound1 = false;
-                this.sound.play("writeSfx", {volume: 0.2});
+                this.sound.play("writeSfx", {volume: 1.5});
             }
         }
         if(puzzle == p2) {
             p2Check = true;
             if(sound2) {
                 sound2 = false;
-                this.sound.play("writeSfx", {volume: 0.2});
+                this.sound.play("writeSfx", {volume: 1.5});
             }
         }
     }
