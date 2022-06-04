@@ -7,6 +7,15 @@ class Desk extends Phaser.Scene {
         // fades in the scene from black
         this.cameras.main.fadeIn(1000, 0, 0, 0);
 
+        // init bgm
+        let bgm = this.sound.add('bgSfx', {
+            mute: false,
+            volume: 0.3,
+            rate: 1,
+            loop: true
+        });
+        bgm.play();
+
         // load journal.json cached data
         let data = this.cache.json.get('journalData');
 
@@ -540,7 +549,15 @@ class Desk extends Phaser.Scene {
                 sleepButton.clearTint();
                 level++;
                 this.sound.play("lampSfx", {volume: 1});
-                this.cameras.main.fadeOut(1000, 0, 0, 0);
+
+                this.tweens.add({
+                    targets: bgm,
+                    volume: 0,
+                    ease: 'Linear',
+                    duration: 2000
+                });
+
+                this.cameras.main.fadeOut(2000, 0, 0, 0);
             }
         })
 

@@ -10,6 +10,16 @@ class Menu extends Phaser.Scene {
         this.clouds = this.add.tileSprite(605, 0, 360, 240, 'clouds').setOrigin(0, 0).setDepth(-2);
         this.clouds.scaleX = 1.1;
 
+        // init sounds
+        let bgm = this.sound.add('bgSfx', {
+            mute: false,
+            volume: 0.3,
+            rate: 1,
+            loop: true
+        });
+        bgm.play();
+        let confirmSfx = this.sound.add("confirmSfx", {volume: 0.5});
+
         // let lamp = this.add.sprite(400, 135, 'lamp').setOrigin(0, 0).setScale(0.13).setPipeline('Light2D');
         let journal = this.add.sprite(175, 350, 'journal').setOrigin(0, 0).setPipeline('Light2D');
         let notepad = this.add.sprite(600, 380, 'notepad').setOrigin(0, 0).setPipeline('Light2D');
@@ -83,8 +93,14 @@ class Menu extends Phaser.Scene {
         .on('pointerdown', () => playButton.setTint(0xff00ff) )
         .on('pointerup', () => {
             playButton.setTint(0xffffff);
-            this.sound.play("lampSfx", {volume: 1});
-            this.cameras.main.fadeOut(1000, 0, 0, 0);
+            confirmSfx.play();
+            this.tweens.add({
+                targets: [confirmSfx, bgm],
+                volume: 0,
+                ease: 'Linear',
+                duration: 2000
+            });
+            this.cameras.main.fadeOut(2000, 0, 0, 0);
         })
 
         levelButton.setInteractive({
@@ -121,9 +137,15 @@ class Menu extends Phaser.Scene {
         .on('pointerdown', () => lvl1Button.setTint(0xff00ff) )
         .on('pointerup', () => {
             lvl1Button.setTint(0xffffff);
-            this.sound.play("lampSfx", {volume: 1});
+            confirmSfx.play();
+            this.tweens.add({
+                targets: [confirmSfx, bgm],
+                volume: 0,
+                ease: 'Linear',
+                duration: 2000
+            });
             level = 1;
-            this.cameras.main.fadeOut(1000, 0, 0, 0);
+            this.cameras.main.fadeOut(2000, 0, 0, 0);
         })
         lvl2Button.setInteractive({
             useHandCursor: true 
@@ -133,9 +155,15 @@ class Menu extends Phaser.Scene {
         .on('pointerdown', () => lvl2Button.setTint(0xff00ff) )
         .on('pointerup', () => {
             lvl2Button.setTint(0xffffff);
-            this.sound.play("lampSfx", {volume: 1});
+            confirmSfx.play();
+            this.tweens.add({
+                targets: [confirmSfx, bgm],
+                volume: 0,
+                ease: 'Linear',
+                duration: 2000
+            });
             level = 2;
-            this.cameras.main.fadeOut(1000, 0, 0, 0);
+            this.cameras.main.fadeOut(2000, 0, 0, 0);
         })
         lvl3Button.setInteractive({
             useHandCursor: true 
@@ -145,9 +173,15 @@ class Menu extends Phaser.Scene {
         .on('pointerdown', () => lvl3Button.setTint(0xff00ff) )
         .on('pointerup', () => {
             lvl3Button.setTint(0xffffff);
-            this.sound.play("lampSfx", {volume: 1});
+            confirmSfx.play();
+            this.tweens.add({
+                targets: [confirmSfx, bgm],
+                volume: 0,
+                ease: 'Linear',
+                duration: 2000
+            });
             level = 3;
-            this.cameras.main.fadeOut(1000, 0, 0, 0);
+            this.cameras.main.fadeOut(2000, 0, 0, 0);
         })
         backButton.setInteractive({
             useHandCursor: true 
