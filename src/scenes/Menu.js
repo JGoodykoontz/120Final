@@ -65,16 +65,43 @@ class Menu extends Phaser.Scene {
         // init level to always be 1
         level = 1;
 
+        // setup menu containers
         let startContainer = this.add.container(0, 0);
-
-        let logo = this.add.image(500, 200, 'logo').setScale(0.4);
-        let playButton = this.add.image(500, 400, 'playButton').setScale(0.2);
-        let playButtonText = this.add.text(500, 400, 'PLAY', cutsceneConfig).setOrigin(0.5);
-
-        let levelButton = this.add.image(500, 500, 'playButton').setScale(0.2);
-        let levelButtonText = this.add.text(500, 500, 'LEVEL SELECT', cutsceneConfig).setOrigin(0.5).setScale(0.9);
-
         let levelContainer = this.add.container(0, -600);
+        let creditContainer = this.add.container(0, -600);
+
+        let logo = this.add.image(500, 150, 'logo').setScale(0.4);
+        let logo2 = this.add.image(500, 150, 'logo').setScale(0.4);
+        let playButton = this.add.image(500, 350, 'playButton').setScale(0.2);
+        let playButtonText = this.add.text(500, 350, 'PLAY', cutsceneConfig).setOrigin(0.5);
+
+        let levelButton = this.add.image(500, 450, 'playButton').setScale(0.2);
+        let levelButtonText = this.add.text(500, 450, 'LEVEL SELECT', cutsceneConfig).setOrigin(0.5).setScale(0.9);
+
+        let creditButton = this.add.image(500, 550, 'playButton').setScale(0.2);
+        let creditButtonText = this.add.text(500, 550, 'CREDITS', cutsceneConfig).setOrigin(0.5);
+
+        let creditConfig = {
+            fontFamily: 'Century Gothic',
+            fontSize: '30px',
+            bold: true,
+            // backgroundColor: '#504e31',
+            color: '#FFFFFF',
+            align: 'left',
+            wordWrap: {
+                width: 300
+            },
+            padding: {
+                top: 5,
+                bottom: 5,
+                left: 5,
+                right: 5,
+            }
+        }
+        // let cpanel = this.add.image(500, 370, 'playButton').setScale(0.8);
+        let c1 = this.add.text(200, 370, 'Programming\n\n - Jonathan Lewis\n', creditConfig).setOrigin(0.5);
+        let c2 = this.add.text(500, 370, 'Art\n\n - Jacquelyn Goodykoontz', creditConfig).setOrigin(0.5);
+        let c3 = this.add.text(800, 370, 'Sounds\n\n - Lucas Moore\n- Jonathan Lewis', creditConfig).setOrigin(0.5);
 
         let lvl1Button = this.add.image(500, 200, 'playButton').setScale(0.2);
         let lvl1ButtonText = this.add.text(500, 200, 'LEVEL 1', cutsceneConfig).setOrigin(0.5);
@@ -84,6 +111,8 @@ class Menu extends Phaser.Scene {
         let lvl3ButtonText = this.add.text(500, 400, 'LEVEL 3', cutsceneConfig).setOrigin(0.5);
         let backButton = this.add.image(500, 500, 'playButton').setScale(0.2);
         let backButtonText = this.add.text(500, 500, 'BACK', cutsceneConfig).setOrigin(0.5);
+        let backButton2 = this.add.image(500, 500, 'playButton').setScale(0.2);
+        let backButtonText2 = this.add.text(500, 500, 'BACK', cutsceneConfig).setOrigin(0.5);
 
         playButton.setInteractive({
             useHandCursor: true 
@@ -122,6 +151,32 @@ class Menu extends Phaser.Scene {
             })
             this.tweens.add({
                 targets: levelContainer,
+                y: 0,
+                duration: 300,
+                ease: 'Sine.InOut'
+            })
+
+        })
+
+        creditButton.setInteractive({
+            useHandCursor: true 
+        })
+        .on('pointerover', () => creditButton.setTint(0x5797D2) )
+        .on('pointerout', () => creditButton.setTint(0xffffff) )
+        .on('pointerdown', () => creditButton.setTint(0xff00ff) )
+        .on('pointerup', () => {
+            creditButton.setTint(0xffffff);
+            this.sound.play("lampSfx", {volume: 1});
+
+            // hide other menu and open level menu
+            this.tweens.add({
+                targets: startContainer,
+                y: -600,
+                duration: 300,
+                ease: 'Sine.InOut'
+            })
+            this.tweens.add({
+                targets: creditContainer,
                 y: 0,
                 duration: 300,
                 ease: 'Sine.InOut'
@@ -207,12 +262,38 @@ class Menu extends Phaser.Scene {
                 ease: 'Sine.InOut'
             })
         })
+        backButton2.setInteractive({
+            useHandCursor: true 
+        })
+        .on('pointerover', () => backButton2.setTint(0x5797D2) )
+        .on('pointerout', () => backButton2.setTint(0xffffff) )
+        .on('pointerdown', () => backButton2.setTint(0xff00ff) )
+        .on('pointerup', () => {
+            backButton2.setTint(0xffffff);
+            this.sound.play("lampSfx", {volume: 1});
+
+            // toggle back to main menu
+            this.tweens.add({
+                targets: startContainer,
+                y: 0,
+                duration: 300,
+                ease: 'Sine.InOut'
+            })
+            this.tweens.add({
+                targets: creditContainer,
+                y: -600,
+                duration: 300,
+                ease: 'Sine.InOut'
+            })
+        })
 
         startContainer.add(logo);
         startContainer.add(playButton);
         startContainer.add(playButtonText);
         startContainer.add(levelButton);
         startContainer.add(levelButtonText);
+        startContainer.add(creditButton);
+        startContainer.add(creditButtonText);
 
         levelContainer.add(lvl1Button);
         levelContainer.add(lvl1ButtonText);
@@ -222,6 +303,14 @@ class Menu extends Phaser.Scene {
         levelContainer.add(lvl3ButtonText);
         levelContainer.add(backButton);
         levelContainer.add(backButtonText);
+
+        creditContainer.add(logo2);
+        // creditContainer.add(cpanel);
+        creditContainer.add(c1);
+        creditContainer.add(c2);
+        creditContainer.add(c3);
+        creditContainer.add(backButton2);
+        creditContainer.add(backButtonText2);
 
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
             this.scene.start('cutscene');
